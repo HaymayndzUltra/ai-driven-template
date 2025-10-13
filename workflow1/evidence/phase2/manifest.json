@@ -1,0 +1,68 @@
+[
+  {
+    "checksum": "c534463ddd570ec6ce252fb9ff4e6255c65a2dea9ba14b2f3b77b57868420598",
+    "file": "evidence/phase2/outputs/demo/architecture/Architecture.md",
+    "phase": "phase2",
+    "project": "demo"
+  },
+  {
+    "checksum": "1c9402a5dec1058e2fc23514cfee26211b36394e75364f85ac5e8227c782f73f",
+    "file": "evidence/phase2/outputs/demo/architecture/C4/context.mmd",
+    "phase": "phase2",
+    "project": "demo"
+  },
+  {
+    "checksum": "6bc46d7a10786780610873e20451b6b09540a4025e9b75a1fb485dd819dcd97c",
+    "file": "evidence/phase2/outputs/demo/architecture/C4/container.mmd",
+    "phase": "phase2",
+    "project": "demo"
+  },
+  {
+    "checksum": "c732570181780d8a004a760fa187171b9c91a22bb084cce40307665b5efb3954",
+    "file": "evidence/phase2/outputs/demo/architecture/ADR-template.md",
+    "phase": "phase2",
+    "project": "demo"
+  },
+  {
+    "checksum": "30d0a9f980a4bc5bc4e130698e1a099161e410748e21221b0c56fc3343688cc0",
+    "file": "evidence/phase2/outputs/demo/architecture/Env_Strategy.md",
+    "phase": "phase2",
+    "project": "demo"
+  },
+  {
+    "checksum": "2e4eea80f4924fb34d32bff1c63d6194dde528494652bc3c88d6cadf9d3db6fb",
+    "file": "evidence/phase2/outputs/demo/architecture/Repo_Policy.md",
+    "phase": "phase2",
+    "project": "demo"
+  },
+  {
+    "checksum": "04cfb2e5bd6e9704393d7f3cffda32af0ce7103571eab0643055f2fa249a404b",
+    "file": "evidence/phase2/outputs/demo/architecture/Coding_Standards.md",
+    "phase": "phase2",
+    "project": "demo"
+  },
+  {
+    "checksum": "c8e9d6b1d6ca1f50415943256ae7ad894cdfa7546f33201d3fe1300384b7fa1f",
+    "file": "evidence/phase2/outputs/demo/contracts/Product_Backlog.csv",
+    "phase": "phase2",
+    "project": "demo"
+  },
+  {
+    "checksum": "e4be7034c00102147bc19c46cdcc65ba3b22fb81c7430b22020f10c4254f20e5",
+    "file": "evidence/phase2/outputs/demo/contracts/Sprint0_Plan.md",
+    "phase": "phase2",
+    "project": "demo"
+  },
+  {
+    "checksum": "0bfe05f455515e6d3021a93d16482ac276e4a68efde2565302802b7df899295c",
+    "file": "evidence/phase2/outputs/demo/contracts/OpenAPI_README.md",
+    "phase": "phase2",
+    "project": "demo"
+  },
+  {
+    "checksum": "d2104d005fef4989fc3d339e60760838cb6640ebfd6b2f1c0e406e7ec6ab2be0",
+    "file": "evidence/phase2/outputs/demo/contracts/openapi/api.yaml",
+    "phase": "phase2",
+    "project": "demo"
+  }
+]

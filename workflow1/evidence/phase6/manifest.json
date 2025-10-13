@@ -1,0 +1,14 @@
+[
+  {
+    "checksum": "6b2feae3b596c8329de6170e35611c9d7de359d68e41f22526056635d163a474",
+    "file": "evidence/phase6/outputs/demo/operations/slo_status.json",
+    "phase": "phase6",
+    "project": "demo"
+  },
+  {
+    "checksum": "0a9746548f49c0bf542ba3e41b2d82b0132118fe55cd51408ad3ab361773344f",
+    "file": "evidence/phase6/outputs/demo/operations/retro_schedule.json",
+    "phase": "phase6",
+    "project": "demo"
+  }
+]

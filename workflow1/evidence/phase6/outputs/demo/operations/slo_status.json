@@ -1,0 +1,12 @@
+[
+  {
+    "metrics": {
+      "availability_percent": 99.9,
+      "error_rate_percent": 0.8,
+      "p95_latency_ms": 280.0
+    },
+    "project": "demo",
+    "status": "PASS",
+    "timestamp": "2025-09-30T09:03:22.569108Z"
+  }
+]

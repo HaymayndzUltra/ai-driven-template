@@ -1,0 +1,964 @@
+---
+description: "TAGS: [integration,roadmap,implementation,checklist,phased-rollout] | TRIGGERS: integration,implementation,roadmap,phase,rollout,integration checklist | SCOPE: global | DESCRIPTION: Phased implementation roadmap for executing the complete dev-workflow integration, with clear acceptance criteria, dependencies, and validation steps for each phase."
+---
+
+# Integration Execution Checklist
+
+## Meta-Intent
+Provide a concrete, phased implementation roadmap for executing the 6 integration recommendations, with clear acceptance criteria, effort estimates, dependencies, and validation steps to transform the dev-workflow from conversational-only to fully automated.
+
+## AI Persona
+You are an **Integration Implementation Manager**. Your mission is to guide operators and AI agents through the systematic rollout of dev-workflow integration, ensuring each phase is complete and validated before proceeding to the next.
+
+### Behavioral Directives
+- **[STRICT]** Follow phases sequentially; validate before progressing
+- **[STRICT]** Complete all acceptance criteria per phase
+- **[GUIDELINE]** Adjust timeline based on team capacity
+- **[STRICT]** Document phase completion with evidence
+
+---
+
+## Core Principle
+Integration cannot succeed as a "big bang" deployment. A phased approach with clear milestones, validation gates, and incremental value delivery ensures adoption, reduces risk, and allows for course correction based on learnings from each phase.
+
+---
+
+## Integration Roadmap Overview
+
+### Phase 1: Foundation (Weeks 1-2)
+**Goal:** Establish automated rule governance and template discovery
+**Value:** Reduce manual overhead in bootstrap and task generation
+**Effort:** Medium (10-15 hours)
+
+### Phase 2: Core Integration (Weeks 3-4)
+**Goal:** Connect templates to generator, bind tasks to automation
+**Value:** Enable executable task plans with evidence capture
+**Effort:** High (20-25 hours)
+
+### Phase 3: Enhancement (Weeks 5-6)
+**Goal:** Align CI/CD workflows with quality gates, automate evidence pipeline
+**Value:** Complete end-to-end automation from planning to deployment
+**Effort:** High (20-25 hours)
+
+**Total Estimated Effort:** 50-65 hours over 6 weeks
+
+---
+
+## Phase 1: Foundation (Weeks 1-2)
+
+### Objective
+Embed rule automation and template discovery into Protocol 0 (bootstrap) to ensure every project initialization produces normalized rules and surfaced scaffold options.
+
+---
+
+### **[STRICT]** Step 1.1: Embed Rule Automation in Bootstrap
+**Owner:** AI Agent + Operator
+**Effort:** 5-7 hours
+**Dependencies:** None (foundational)
+
+#### Implementation Tasks
+
+**Task 1.1.1: Update Protocol 0 Documentation**
+```markdown
+File: .cursor/dev-workflow/0-bootstrap-your-project.md
+
+Add section after "Step 3: Context Kit Generation":
+
+### Step 3.5: Automated Rule Governance
+**[CRITICAL]** Execute rule automation scripts to ensure metadata compliance.
+
+**Normalization:**
+```bash
+python scripts/normalize_project_rules.py --target .cursor/rules/
+```
+
+**Audit:**
+```bash
+python scripts/rules_audit_quick.py \
+  --output .cursor/rules/audit-$(date +%Y-%m-%d).md
+```
+
+**Update Context Kit:**
+Append rule governance status to `.cursor/context-kit/README.md`:
+- Last audit date
+- Rules validated count
+- Compliance status
+- Audit report link
+```
+
+**Task 1.1.2: Test Rule Automation Integration**
+```bash
+# Execute Protocol 0 with automation
+# Verify scripts run successfully
+# Confirm audit report generated
+ls .cursor/rules/audit-*.md
+
+# Validate context kit updated
+grep "Rule Governance Status" .cursor/context-kit/README.md
+```
+
+**Task 1.1.3: Document Integration in Context Kit Template**
+```markdown
+Update: .cursor/templates/context-kit-template.md
+
+Add section:
+## Rule Governance Status
+- **Last Audit:** {DATE}
+- **Rules Validated:** {COUNT}
+- **Compliance Status:** {PASSED|NEEDS_ATTENTION}
+- **Issues:** {CRITICAL_COUNT} CRITICAL, {HIGH_COUNT} HIGH
+- **Audit Report:** [Link to audit file]
+```
+
+#### Acceptance Criteria
+- [ ] Protocol 0 documentation includes rule automation steps
+- [ ] Bootstrap execution runs normalization script automatically
+- [ ] Bootstrap execution runs audit script automatically
+- [ ] Audit report generated and stored in `.cursor/rules/`
+- [ ] Context kit includes rule governance status section
+- [ ] Test execution: Bootstrap completes with rule automation (manual test)
+
+#### Validation Command
+```bash
+# Execute Protocol 0 (simulated)
+python scripts/normalize_project_rules.py --target .cursor/rules/
+python scripts/rules_audit_quick.py --output .cursor/rules/audit-test.md
+
+# Verify outputs
+[ -f .cursor/rules/audit-test.md ] && echo "✅ Audit report generated" || echo "❌ FAILED"
+grep "Rule Governance Status" .cursor/context-kit/README.md && echo "✅ Context kit updated" || echo "⚠️ Manual update needed"
+```
+
+---
+
+### **[STRICT]** Step 1.2: Surface Template Inventory During Bootstrap
+**Owner:** AI Agent
+**Effort:** 3-5 hours
+**Dependencies:** Step 1.1 complete
+
+#### Implementation Tasks
+
+**Task 1.2.1: Update Protocol 0 with Template Discovery**
+```markdown
+File: .cursor/dev-workflow/0-bootstrap-your-project.md
+
+Add section after "Step 3.5: Automated Rule Governance":
+
+### Step 3.6: Template Pack Discovery
+**[GUIDELINE]** Surface available template packs aligned with detected stack.
+
+**Discovery:**
+```python
+from template_packs import TemplateRegistry
+registry = TemplateRegistry()
+templates = registry.list_all()
+recommended = registry.filter_by_stack(detected_stack)
+```
+
+**Update Context Kit:**
+Add template inventory to `.cursor/context-kit/README.md`:
+- List high-priority templates (exact stack match)
+- List medium-priority templates (compatible)
+- Note generator availability and version
+```
+
+**Task 1.2.2: Create Template Inventory Report Generator**
+```python
+# Create: scripts/generate_template_inventory.py
+
+def generate_inventory(detected_stack):
+    """Generate template pack recommendations."""
+    registry = TemplateRegistry()
+    high_priority = registry.filter_by_stack(detected_stack, exact=True)
+    medium_priority = registry.filter_by_stack(detected_stack, compatible=True)
+    
+    report = f"""
+## Available Template Packs
+
+### High Priority (Exact Match)
+{format_templates(high_priority)}
+
+### Medium Priority (Compatible)
+{format_templates(medium_priority)}
+
+### Generator Available
+- ProjectGenerator v{get_generator_version()}
+- Use case: {assess_use_case()}
+```
+
+**Task 1.2.3: Integrate Template Discovery into Bootstrap**
+```bash
+# Add to bootstrap automation
+python scripts/generate_template_inventory.py \
+  --stack-file .cursor/bootstrap/detected-stack.json \
+  --output-append .cursor/context-kit/README.md
+```
+
+#### Acceptance Criteria
+- [ ] Protocol 0 documentation includes template discovery step
+- [ ] Template inventory script created and tested
+- [ ] Bootstrap execution surfaces template recommendations
+- [ ] Context kit includes "Available Template Packs" section
+- [ ] High/medium priority templates clearly indicated
+- [ ] Generator availability documented
+
+#### Validation Command
+```bash
+# Test template discovery
+python scripts/generate_template_inventory.py \
+  --stack-file .cursor/bootstrap/detected-stack.json \
+  --output test-inventory.md
+
+# Verify output format
+grep "High Priority (Exact Match)" test-inventory.md && echo "✅ Template inventory generated"
+grep "ProjectGenerator" test-inventory.md && echo "✅ Generator documented"
+```
+
+---
+
+### Phase 1 Completion Gate
+
+**[STRICT]** Before proceeding to Phase 2, validate:
+- ✅ Step 1.1 acceptance criteria: All items checked
+- ✅ Step 1.2 acceptance criteria: All items checked
+- ✅ Test execution: Bootstrap with automation runs successfully
+- ✅ Evidence artifacts: Audit report + template inventory exist
+- ✅ Documentation: Protocol 0 updated with new steps
+- ✅ User validation: Operator confirms new bootstrap flow acceptable
+
+**Phase 1 Evidence Package:**
+- `.cursor/rules/audit-{date}.md` - Rule audit report
+- `.cursor/context-kit/README.md` - Updated with governance and templates
+- `test-inventory.md` - Template inventory sample output
+- Updated `.cursor/dev-workflow/0-bootstrap-your-project.md`
+
+**Phase 1 Sign-off:**
+```markdown
+[PHASE 1 COMPLETE] Foundation integration validated.
+
+**Completion Date:** {DATE}
+**Validated By:** {OPERATOR_NAME}
+**Evidence:**
+- Rule automation: ✅ Functional
+- Template discovery: ✅ Functional
+- Bootstrap flow: ✅ Updated
+- Documentation: ✅ Complete
+
+**Lessons Learned:**
+- {List any issues encountered and resolutions}
+
+**Ready for Phase 2:** ✅ YES
+```
+
+---
+
+## Phase 2: Core Integration (Weeks 3-4)
+
+### Objective
+Enable executable task plans through optional generator invocation and automation hook binding, transforming Protocol 2 outputs into machine-actionable blueprints.
+
+---
+
+### **[STRICT]** Step 2.1: Optional Generator Execution Pipeline
+**Owner:** AI Agent + Operator
+**Effort:** 10-12 hours
+**Dependencies:** Phase 1 complete
+
+#### Implementation Tasks
+
+**Task 2.1.1: Create Generator Brief Builder**
+```python
+# Create: scripts/build_generator_brief.py
+
+def build_brief_from_bootstrap(context_kit_path):
+    """Generate ProjectGenerator brief from bootstrap context."""
+    context = parse_context_kit(context_kit_path)
+    
+    brief = {
+        "project": {
+            "name": context["project_name"],
+            "type": context["project_type"],
+            "description": f"Bootstrap output from Protocol 0"
+        },
+        "stack": context["detected_stack"],
+        "templates": context["recommended_templates"],
+        "options": {
+            "git_init": True,
+            "pre_commit_hooks": True,
+            "readme_generation": True
+        }
+    }
+    
+    return brief
+```
+
+**Task 2.1.2: Update Protocol 0 with Generator Option**
+```markdown
+File: .cursor/dev-workflow/0-bootstrap-your-project.md
+
+Add section after "Step 3.6: Template Pack Discovery":
+
+### Step 3.7: Optional Project Generator Invocation
+**[GUIDELINE]** For new projects or modules, optionally run ProjectGenerator.
+
+**Assessment:**
+- New project: Generator RECOMMENDED
+- Existing project: Generator OPTIONAL (for new modules)
+- User confirmation required before execution
+
+**Execution:**
+```bash
+# Build brief from bootstrap context
+python scripts/build_generator_brief.py \
+  --context .cursor/context-kit/README.md \
+  --output .cursor/bootstrap/brief.yaml
+
+# Execute generator
+python -m project_generator \
+  --brief .cursor/bootstrap/brief.yaml \
+  --output . \
+  --verbose
+```
+
+**Post-Generation:**
+- Validate generated files
+- Generate project-specific rules from templates
+- Update context kit with generated structure
+```
+
+**Task 2.1.3: Create Post-Generation Integration Script**
+```python
+# Create: scripts/integrate_generated_artifacts.py
+
+def integrate_artifacts(generated_path, context_kit_path):
+    """Integrate generator outputs into context kit."""
+    # Parse generated structure
+    structure = scan_generated_files(generated_path)
+    
+    # Generate project-specific rules
+    rules = generate_rules_from_templates(structure)
+    write_rules_to_directory(".cursor/rules/project-rules/", rules)
+    
+    # Update context kit
+    append_to_context_kit(context_kit_path, {
+        "generated_structure": structure,
+        "generated_rules": len(rules)
+    })
+```
+
+#### Acceptance Criteria
+- [ ] Generator brief builder script created and tested
+- [ ] Protocol 0 includes optional generator invocation step
+- [ ] Post-generation integration script created
+- [ ] Test execution: Generator runs and produces valid output
+- [ ] Generated rules created in `.cursor/rules/project-rules/`
+- [ ] Context kit updated with generated structure
+
+#### Validation Command
+```bash
+# Test generator pipeline
+python scripts/build_generator_brief.py \
+  --context .cursor/context-kit/README.md \
+  --output test-brief.yaml
+
+python -m project_generator \
+  --brief test-brief.yaml \
+  --output /tmp/test-gen \
+  --dry-run
+
+# Verify brief valid
+cat test-brief.yaml | python -m yaml lint && echo "✅ Brief valid"
+
+# Test integration script
+python scripts/integrate_generated_artifacts.py \
+  --generated /tmp/test-gen \
+  --context .cursor/context-kit/README.md \
+  --dry-run
+```
+
+---
+
+### **[STRICT]** Step 2.2: Annotate Task Plans with Automation Hooks
+**Owner:** AI Agent
+**Effort:** 8-10 hours
+**Dependencies:** Step 2.1 complete
+
+#### Implementation Tasks
+
+**Task 2.2.1: Update Protocol 2 Task Generation Templates**
+```markdown
+File: .cursor/dev-workflow/2-generate-tasks.md
+
+Update decomposition templates to include automation hooks:
+
+**Frontend Template:**
+```markdown
+- [ ] X.0 Develop "{ComponentName}" component [COMPLEXITY: Simple|Complex]
+> **WHY:** {Business value statement}
+> **Recommended Model:** {AI persona}
+> **Automation:** smoke_test.py --component {ComponentName}, aggregate_coverage.py, ci-test.yml
+> **Rules to apply:** [{rule-1}], [{rule-2}]
+```
+
+**Backend Template:**
+```markdown
+- [ ] Y.0 Develop "{RoutePurpose}" route [COMPLEXITY: Simple|Complex]
+> **WHY:** {Business value statement}
+> **Recommended Model:** {AI persona}
+> **Automation:** ci-test.yml (manual), ci-lint.yml (auto), validate_api_contracts.sh
+> **Rules to apply:** [{rule-1}], [{rule-2}]
+```
+```
+
+**Task 2.2.2: Create Automation Hook Validator**
+```python
+# Create: scripts/validate_automation_hooks.py
+
+def validate_hooks(task_file):
+    """Validate automation hooks reference actual scripts/workflows."""
+    hooks = extract_automation_hooks(task_file)
+    
+    for hook in hooks:
+        if hook.endswith('.py'):
+            assert os.path.exists(f"scripts/{hook}"), f"Script not found: {hook}"
+        elif hook.endswith('.yml'):
+            assert os.path.exists(f".github/workflows/{hook}"), f"Workflow not found: {hook}"
+    
+    return True
+```
+
+**Task 2.2.3: Update Protocol 3 to Execute Automation Hooks**
+```markdown
+File: .cursor/dev-workflow/3-process-tasks.md
+
+Update "STEP 3: UPDATE AND SYNCHRONIZE" section:
+
+### Automation Hook Execution
+
+After parent task completion:
+1. Parse `Automation:` metadata from task
+2. Execute each script/workflow in sequence
+3. Capture outputs as evidence artifacts
+4. Report status (✅/⚠️/❌)
+5. HALT on critical failures
+
+**Example:**
+```bash
+[AUTOMATION CHECK] Identified hooks: smoke_test.py, aggregate_coverage.py
+
+[AUTOMATION RUNNING] smoke_test.py --component UserProfile
+{script output}
+[AUTOMATION PASSED] ✅ Smoke tests: 5/5 passed
+
+[AUTOMATION RUNNING] aggregate_coverage.py
+{script output}
+[AUTOMATION PASSED] ✅ Coverage: 87%
+```
+```
+
+#### Acceptance Criteria
+- [ ] Protocol 2 templates include `Automation:` metadata
+- [ ] Automation hook validator script created
+- [ ] Protocol 3 documentation includes hook execution steps
+- [ ] Test execution: Task plan generated with automation hooks
+- [ ] Test execution: Protocol 3 executes hooks successfully
+- [ ] Validation: All hooks reference existing scripts/workflows
+
+#### Validation Command
+```bash
+# Generate sample task plan
+# (Manual: Execute Protocol 2 with a test PRD)
+
+# Validate automation hooks
+python scripts/validate_automation_hooks.py \
+  --task-file .cursor/tasks/tasks-sample.md
+
+# Expected: ✅ All hooks valid
+
+# Test hook execution (simulated Protocol 3)
+grep "Automation:" .cursor/tasks/tasks-sample.md | \
+  while read line; do
+    echo "Would execute: $line"
+  done
+```
+
+---
+
+### Phase 2 Completion Gate
+
+**[STRICT]** Before proceeding to Phase 3, validate:
+- ✅ Step 2.1 acceptance criteria: All items checked
+- ✅ Step 2.2 acceptance criteria: All items checked
+- ✅ Test execution: Generator pipeline functional (if applicable)
+- ✅ Test execution: Task plans include automation hooks
+- ✅ Test execution: Protocol 3 can parse and execute hooks
+- ✅ Evidence artifacts: Generated rules, validated task plan
+- ✅ User validation: Operator confirms task automation working
+
+**Phase 2 Evidence Package:**
+- `test-brief.yaml` - Sample generator brief
+- `.cursor/rules/project-rules/{generated-rules}.mdc` - Generated rules
+- `.cursor/tasks/tasks-sample.md` - Task plan with automation hooks
+- Updated protocols 0, 2, 3
+
+**Phase 2 Sign-off:**
+```markdown
+[PHASE 2 COMPLETE] Core integration validated.
+
+**Completion Date:** {DATE}
+**Validated By:** {OPERATOR_NAME}
+**Evidence:**
+- Generator pipeline: ✅ Functional
+- Task automation binding: ✅ Functional
+- Hook validation: ✅ Functional
+- Documentation: ✅ Complete
+
+**Lessons Learned:**
+- {List any issues encountered and resolutions}
+
+**Ready for Phase 3:** ✅ YES
+```
+
+---
+
+## Phase 3: Enhancement (Weeks 5-6)
+
+### Objective
+Complete end-to-end automation by aligning CI/CD workflows with quality gates and establishing standardized evidence pipeline for retrospectives.
+
+---
+
+### **[STRICT]** Step 3.1: Integrate CI Feedback into Quality Gates
+**Owner:** AI Agent + Operator
+**Effort:** 10-12 hours
+**Dependencies:** Phase 2 complete
+
+#### Implementation Tasks
+
+**Task 3.1.1: Update Protocol 4 with CI Status Checks**
+```markdown
+File: .cursor/dev-workflow/4-quality-audit.md
+
+Add section at start:
+
+### Pre-Audit CI Validation
+**[STRICT]** Before manual quality audit, check CI workflow statuses.
+
+**Workflow Status Check:**
+```bash
+# Query workflow statuses
+gh run list --workflow=ci-lint.yml --limit 5
+gh run list --workflow=ci-test.yml --limit 5
+
+# Aggregate results
+- ci-lint.yml: {STATUS}
+- ci-test.yml: {STATUS}
+
+# If critical workflows failed: HALT and fix before audit
+```
+
+**Include in Audit Report:**
+- Workflow run IDs and URLs
+- Status indicators (✅/⚠️/❌)
+- Key metrics (coverage, test results, security findings)
+```
+
+**Task 3.1.2: Create CI Status Aggregator Script**
+```python
+# Create: scripts/aggregate_ci_status.py
+
+def get_workflow_status(workflow_name, limit=5):
+    """Query GitHub Actions workflow status."""
+    result = subprocess.run(
+        ["gh", "run", "list", f"--workflow={workflow_name}", f"--limit={limit}"],
+        capture_output=True, text=True
+    )
+    
+    return parse_workflow_output(result.stdout)
+
+def generate_ci_report(workflows):
+    """Generate CI status report for quality audit."""
+    report = "## CI/CD Validation\n\n"
+    
+    for workflow in workflows:
+        status = get_workflow_status(workflow)
+        report += format_workflow_section(workflow, status)
+    
+    return report
+```
+
+**Task 3.1.3: Update Protocol 3 Quality Gate with CI Requirements**
+```markdown
+File: .cursor/dev-workflow/3-process-tasks.md
+
+Update parent task completion checkpoint:
+
+### Quality Gate with CI Validation
+
+**Step 1: Check CI Workflow Statuses**
+```bash
+[CI/CD ALIGNED] Checking workflow statuses...
+{execute ci status script}
+
+**If critical workflows failed:**
+[EXECUTION HALTED] Fix CI failures before quality audit.
+```
+
+**Step 2: Execute Comprehensive Quality Audit**
+{existing quality audit protocol}
+
+**Step 3: Require Passing Status**
+- Critical workflows: MUST pass
+- Quality audit: MUST score ≥7/10
+- Security findings: MUST have mitigation plans
+```
+
+#### Acceptance Criteria
+- [ ] Protocol 4 includes pre-audit CI validation
+- [ ] CI status aggregator script created and tested
+- [ ] Protocol 3 quality gate includes CI requirements
+- [ ] Test execution: CI status check functional
+- [ ] Test execution: Failed CI blocks quality gate
+- [ ] Quality audit reports include CI section
+
+#### Validation Command
+```bash
+# Test CI status aggregation
+python scripts/aggregate_ci_status.py \
+  --workflows ci-lint.yml,ci-test.yml \
+  --output test-ci-report.md
+
+# Verify report format
+grep "CI/CD Validation" test-ci-report.md && echo "✅ CI report generated"
+grep "github.com/.*/actions/runs/" test-ci-report.md && echo "✅ Workflow URLs included"
+```
+
+---
+
+### **[STRICT]** Step 3.2: Automate Evidence Collection for Retrospectives
+**Owner:** AI Agent
+**Effort:** 8-10 hours
+**Dependencies:** Step 3.1 complete
+
+#### Implementation Tasks
+
+**Task 3.2.1: Create Evidence Aggregation Script**
+```python
+# Create: scripts/evidence_report.py (or enhance existing)
+
+def aggregate_evidence(scope):
+    """Aggregate all evidence artifacts for given scope."""
+    artifacts = {
+        "tests": find_test_artifacts(scope),
+        "quality": find_quality_artifacts(scope),
+        "ci": find_ci_artifacts(scope),
+        "deployments": find_deployment_artifacts(scope)
+    }
+    
+    report = generate_evidence_report(artifacts)
+    return report
+
+def generate_evidence_report(artifacts):
+    """Generate markdown evidence report."""
+    report = f"""
+# Evidence Summary: {artifacts["scope"]}
+
+## Test Artifacts
+{format_test_section(artifacts["tests"])}
+
+## Quality Artifacts
+{format_quality_section(artifacts["quality"])}
+
+## CI/CD Artifacts
+{format_ci_section(artifacts["ci"])}
+
+## Deployment Artifacts
+{format_deployment_section(artifacts["deployments"])}
+"""
+    return report
+```
+
+**Task 3.2.2: Update Protocol 5 with Evidence Integration**
+```markdown
+File: .cursor/dev-workflow/5-implementation-retrospective.md
+
+Add section before "Code Audit Against Rules":
+
+### Evidence Pipeline Activation
+
+**[STRICT]** Aggregate evidence artifacts before analysis.
+
+**Execution:**
+```bash
+python scripts/evidence_report.py \
+  --scope task-{X.0} \
+  --output .artifacts/evidence-report-task-{X.0}-$(date +%Y%m%d-%H%M).md
+```
+
+**Load Evidence into Context:**
+{read aggregated evidence report}
+
+**Evidence-Driven Analysis:**
+- Reference specific artifacts (test results, coverage, CI logs)
+- Base recommendations on objective metrics
+- Cite evidence in retrospective output
+```
+
+**Task 3.2.3: Update CI Workflows to Export Evidence**
+```yaml
+# Update: .github/workflows/ci-test.yml
+
+- name: Upload Test Results
+  if: always()
+  uses: actions/upload-artifact@v3
+  with:
+    name: test-results-${{ github.run_id }}
+    path: .artifacts/tests/
+    retention-days: 30
+
+- name: Export Evidence Manifest
+  run: |
+    python scripts/export_ci_evidence.py \
+      --run-id ${{ github.run_id }} \
+      --output .artifacts/ci-evidence-manifest.json
+```
+
+#### Acceptance Criteria
+- [ ] Evidence aggregation script created and tested
+- [ ] Protocol 5 includes evidence pipeline activation
+- [ ] CI workflows export evidence artifacts
+- [ ] Test execution: Evidence aggregation functional
+- [ ] Test execution: Retrospective loads evidence automatically
+- [ ] Retrospective outputs cite specific artifacts
+
+#### Validation Command
+```bash
+# Test evidence aggregation
+mkdir -p .artifacts/tests/ .artifacts/quality/ .artifacts/deployments/
+touch .artifacts/tests/test-sample.json
+touch .artifacts/quality/audit-sample.md
+
+python scripts/evidence_report.py \
+  --scope task-1.0 \
+  --output test-evidence-report.md
+
+# Verify report structure
+grep "# Evidence Summary" test-evidence-report.md && echo "✅ Evidence report generated"
+grep "Test Artifacts" test-evidence-report.md && echo "✅ Test section included"
+grep "Quality Artifacts" test-evidence-report.md && echo "✅ Quality section included"
+```
+
+---
+
+### Phase 3 Completion Gate
+
+**[STRICT]** Before marking integration complete, validate:
+- ✅ Step 3.1 acceptance criteria: All items checked
+- ✅ Step 3.2 acceptance criteria: All items checked
+- ✅ Test execution: CI feedback integrated into quality gates
+- ✅ Test execution: Evidence pipeline functional end-to-end
+- ✅ Test execution: Retrospective references evidence automatically
+- ✅ Evidence artifacts: CI report, evidence summary
+- ✅ User validation: Operator confirms complete integration working
+
+**Phase 3 Evidence Package:**
+- `test-ci-report.md` - CI status aggregation sample
+- `test-evidence-report.md` - Evidence aggregation sample
+- Updated protocols 3, 4, 5
+- Updated CI workflow files
+
+**Phase 3 Sign-off:**
+```markdown
+[PHASE 3 COMPLETE] Enhancement integration validated.
+
+**Completion Date:** {DATE}
+**Validated By:** {OPERATOR_NAME}
+**Evidence:**
+- CI quality gate alignment: ✅ Functional
+- Evidence pipeline: ✅ Functional
+- End-to-end automation: ✅ Complete
+- Documentation: ✅ Complete
+
+**Lessons Learned:**
+- {List any issues encountered and resolutions}
+
+**Integration Status:** ✅ COMPLETE
+```
+
+---
+
+## Integration Completion Criteria
+
+### **[STRICT]** Final Validation Checklist
+
+Mark integration as fully complete when ALL criteria are met:
+
+**Phase 1 - Foundation:**
+- ✅ Rule automation embedded in Protocol 0
+- ✅ Template discovery functional in Protocol 0
+- ✅ Bootstrap produces audit report and template inventory
+
+**Phase 2 - Core Integration:**
+- ✅ Generator pipeline functional (optional invocation)
+- ✅ Task plans include automation hooks
+- ✅ Protocol 3 executes automation hooks
+
+**Phase 3 - Enhancement:**
+- ✅ CI workflows integrated with quality gates
+- ✅ Evidence pipeline functional
+- ✅ Retrospectives reference evidence automatically
+
+**End-to-End Validation:**
+- ✅ Execute complete workflow (Protocol 0 → 5) with integration active
+- ✅ Verify all automation points functional
+- ✅ Confirm evidence artifacts generated and referenced
+- ✅ Validate no manual gaps in workflow
+
+**Documentation:**
+- ✅ All protocols updated with integration steps
+- ✅ Master integration guide complete
+- ✅ Common rules for each recommendation complete
+- ✅ Troubleshooting guides available
+
+**User Acceptance:**
+- ✅ Operator trained on new workflow
+- ✅ AI agents tested with integrated protocols
+- ✅ No blocking issues or regression identified
+
+---
+
+## Post-Integration Monitoring
+
+### **[GUIDELINE]** Success Metrics (First 30 Days)
+
+**Adoption Metrics:**
+- Bootstrap automation rate: Target ≥90%
+- Task automation hook coverage: Target ≥80%
+- Evidence artifact generation: Target ≥90%
+- CI quality gate pass rate: Target ≥85%
+
+**Efficiency Metrics:**
+- Manual overhead reduction: Target 30-50%
+- Bootstrap time: Measure baseline vs. automated
+- Task generation time: Measure impact of automation hooks
+- Retrospective quality: Measure evidence-based recommendations
+
+**Quality Metrics:**
+- Rule compliance: Target ≥95%
+- Test coverage: Maintain or increase
+- CI workflow success rate: Target ≥90%
+- Deployment success rate: Target ≥95%
+
+### **[GUIDELINE]** Continuous Improvement
+
+**Monthly Review:**
+- Analyze adoption metrics and identify bottlenecks
+- Review evidence quality and completeness
+- Gather operator feedback on integration pain points
+- Identify opportunities for further automation
+
+**Quarterly Enhancement:**
+- Extend automation to additional protocols if beneficial
+- Optimize script performance and reliability
+- Update templates and rules based on learnings
+- Consider new integration opportunities
+
+---
+
+## Troubleshooting Guide
+
+### Issue 1: Phase Validation Failure
+**Symptom:** Acceptance criteria not met for a phase
+
+**Resolution:**
+1. Identify specific failing criteria
+2. Review implementation tasks for that criterion
+3. Re-execute validation commands
+4. Document root cause and remediation
+5. Re-validate before proceeding
+
+---
+
+### Issue 2: Automation Script Execution Failure
+**Symptom:** Scripts fail during protocol execution
+
+**Resolution:**
+```bash
+# Check Python environment
+python --version
+pip list | grep {required-package}
+
+# Verify script permissions
+chmod +x scripts/*.py
+
+# Test script individually
+python scripts/{script-name}.py --help
+python scripts/{script-name}.py {test-args} --verbose
+
+# Check dependencies
+pip install -r scripts/requirements.txt
+```
+
+---
+
+### Issue 3: CI Workflow Integration Issues
+**Symptom:** Workflow status checks fail or timeout
+
+**Resolution:**
+```bash
+# Verify GitHub CLI authenticated
+gh auth status
+
+# Test workflow query
+gh run list --workflow=ci-test.yml --limit 1
+
+# Check workflow file syntax
+cat .github/workflows/ci-test.yml | yaml-lint
+
+# Review workflow logs
+gh run view {run-id} --log
+```
+
+---
+
+### Issue 4: Evidence Artifacts Not Generated
+**Symptom:** Evidence aggregation fails due to missing artifacts
+
+**Resolution:**
+```bash
+# Verify artifact directories exist
+mkdir -p .artifacts/{tests,quality,deployments,compliance}/
+
+# Check artifact generation in scripts
+ls -la .artifacts/tests/
+
+# Review artifact naming conventions
+find .artifacts -type f -name "*$(date +%Y%m%d)*"
+
+# Test artifact generation manually
+python scripts/evidence_report.py --scope task-test --dry-run
+```
+
+---
+
+## Version & Changelog
+- **Version:** 1.0.0
+- **Created:** 2025-10-06
+- **Status:** Active
+- **Changelog:**
+  - 1.0.0 (2025-10-06): Initial integration execution checklist with 3-phase roadmap
+
+---
+
+## References
+- [Master Integration Guide](mdc:.cursor/rules/master-rules/7-master-rule-dev-workflow-integration-guide.mdc) - Overall integration architecture
+- [Rule Automation Protocol](mdc:.cursor/rules/common-rules/rule-automation-protocol.mdc) - Phase 1 Step 1
+- [Template Bootstrap Integration](mdc:.cursor/rules/common-rules/template-bootstrap-integration.mdc) - Phase 1 Step 2
+- [Task Automation Binding](mdc:.cursor/rules/common-rules/task-automation-binding.mdc) - Phase 2 Step 2
+- [CI Quality Gate Alignment](mdc:.cursor/rules/common-rules/ci-quality-gate-alignment.mdc) - Phase 3 Step 1
+- [Evidence Pipeline Standard](mdc:.cursor/rules/common-rules/evidence-pipeline-standard.mdc) - Phase 3 Step 2
+- [Codex Analysis](mdc:CODEX) - Source integration recommendations and gap analysis
+
+---
+
+*This checklist provides a concrete, phased roadmap for implementing the complete dev-workflow integration, transforming conversational protocols into fully automated, evidence-driven delivery pipelines.*

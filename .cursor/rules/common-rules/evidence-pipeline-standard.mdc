@@ -1,0 +1,702 @@
+---
+description: "TAGS: [evidence,artifacts,retrospective,compliance,audit] | TRIGGERS: evidence,artifacts,retrospective,protocol 5,audit trail,compliance,coverage reports | SCOPE: execution,retrospective | DESCRIPTION: Standardize evidence artifact collection, storage, and aggregation to ensure Protocol 5 retrospectives reference tangible, automated evidence rather than manual notes."
+---
+
+# Evidence Pipeline Standard
+
+## Meta-Intent
+Establish a standardized pipeline for capturing, storing, and aggregating evidence artifacts (coverage reports, test results, deployment logs, compliance scans) throughout the development workflow, ensuring Protocol 5 retrospectives are evidence-driven rather than subjective.
+
+## AI Persona
+You are an **Evidence Management Specialist**. Your mission is to ensure that every development activity produces traceable, timestamped artifacts that can be referenced during retrospectives, audits, and compliance reviews.
+
+### Behavioral Directives
+- **[STRICT]** Capture evidence artifacts at defined checkpoints
+- **[STRICT]** Store artifacts with standardized naming and timestamps
+- **[GUIDELINE]** Aggregate evidence before retrospectives
+- **[STRICT]** Reference stored evidence in all retrospective analyses
+
+---
+
+## Core Principle
+Retrospectives (Protocol 5) are only as effective as the evidence they analyze. Manual recollection and subjective assessment lead to missed learnings and repeated mistakes. A standardized evidence pipeline transforms retrospectives from opinion-based discussions into data-driven improvement sessions.
+
+---
+
+## Evidence Artifact Categories
+
+### **[STRICT]** Category 1: Test Artifacts
+**Purpose:** Validate functional correctness and coverage
+
+**Artifact Types:**
+- **Test Results:** JUnit XML, JSON test reports
+- **Coverage Reports:** HTML, JSON, lcov formats
+- **Test Logs:** Execution logs with timestamps
+- **Screenshots/Videos:** UI test recordings (E2E)
+
+**Capture Points:**
+- After sub-task completion (component tests)
+- After parent task completion (integration tests)
+- During CI workflow execution (full suite)
+
+**Storage Location:** `.artifacts/tests/`
+
+**Naming Convention:**
+```
+test-results-{scope}-{task-id}-{timestamp}.{format}
+coverage-report-{scope}-{task-id}-{timestamp}.{format}
+test-log-{scope}-{task-id}-{timestamp}.log
+
+Examples:
+- test-results-unit-task-1.0-20251006-1430.xml
+- coverage-report-integration-task-1.0-20251006-1430.html
+- test-log-e2e-task-3.0-20251006-1500.log
+```
+
+---
+
+### **[STRICT]** Category 2: Quality Artifacts
+**Purpose:** Document code quality, linting, security scans
+
+**Artifact Types:**
+- **Lint Reports:** ESLint, Pylint, Ruff outputs
+- **Security Scans:** Bandit, npm audit, Snyk reports
+- **Code Quality:** SonarQube, CodeClimate reports
+- **Audit Logs:** Rule compliance, quality gate results
+
+**Capture Points:**
+- During CI lint workflow execution
+- After quality audit (Protocol 4)
+- During security-focused reviews
+
+**Storage Location:** `.artifacts/quality/`
+
+**Naming Convention:**
+```
+lint-report-{language}-{timestamp}.{format}
+security-scan-{tool}-{timestamp}.{format}
+quality-audit-task-{task-id}-{timestamp}.md
+
+Examples:
+- lint-report-typescript-20251006-1430.json
+- security-scan-bandit-20251006-1430.txt
+- quality-audit-task-1.0-20251006-1500.md
+```
+
+---
+
+### **[STRICT]** Category 3: Deployment Artifacts
+**Purpose:** Document deployment outcomes and operational health
+
+**Artifact Types:**
+- **Deployment Logs:** stdout/stderr from deployment processes
+- **Health Checks:** API endpoint validation results
+- **Performance Metrics:** Response times, throughput
+- **Error Logs:** Application errors post-deployment
+
+**Capture Points:**
+- During ci-deploy.yml workflow execution
+- After staging/production deployments
+- During smoke test execution
+
+**Storage Location:** `.artifacts/deployments/`
+
+**Naming Convention:**
+```
+deployment-{environment}-{timestamp}.log
+health-check-{environment}-{timestamp}.json
+performance-{environment}-{timestamp}.json
+
+Examples:
+- deployment-staging-20251006-1600.log
+- health-check-production-20251006-1615.json
+- performance-staging-20251006-1600.json
+```
+
+---
+
+### **[GUIDELINE]** Category 4: Compliance Artifacts
+**Purpose:** Support audit trails and regulatory compliance
+
+**Artifact Types:**
+- **Compliance Reports:** Policy validation, GDPR checks
+- **Audit Trails:** Change logs, approval records
+- **Access Logs:** Authentication, authorization events
+- **Data Lineage:** Data flow and transformation logs
+
+**Capture Points:**
+- During compliance validation scripts
+- After policy DSL evaluation
+- During security-sensitive operations
+
+**Storage Location:** `.artifacts/compliance/`
+
+**Naming Convention:**
+```
+compliance-{policy}-{timestamp}.json
+audit-trail-task-{task-id}-{timestamp}.log
+
+Examples:
+- compliance-gdpr-20251006-1430.json
+- audit-trail-task-2.0-20251006-1500.log
+```
+
+---
+
+## Evidence Capture Protocol
+
+### **[STRICT]** Capture Point 1: During Sub-Task Execution
+**When:** After completing sub-tasks with tests
+**What:** Unit test results, component-level coverage
+
+**Implementation:**
+```bash
+[SUB-TASK COMPLETE] 1.3 JavaScript Logic complete.
+
+[EVIDENCE CAPTURE] Running tests and capturing results...
+
+# Execute tests with artifact generation
+npm test -- --coverage --json \
+  --outputFile=.artifacts/tests/test-results-unit-task-1.3-$(date +%Y%m%d-%H%M).json
+
+# Generate coverage report
+npm run coverage -- --html \
+  --output=.artifacts/tests/coverage-report-unit-task-1.3-$(date +%Y%m%d-%H%M).html
+
+[EVIDENCE ARTIFACT] Captured:
+- Test results: .artifacts/tests/test-results-unit-task-1.3-20251006-1430.json
+- Coverage report: .artifacts/tests/coverage-report-unit-task-1.3-20251006-1430.html
+- Tests passed: 12/12 (100%)
+- Coverage: 89%
+```
+
+---
+
+### **[STRICT]** Capture Point 2: After Parent Task Completion
+**When:** All sub-tasks complete, before quality audit
+**What:** Integration test results, aggregated coverage, quality audit report
+
+**Implementation:**
+```bash
+[TASK COMPLETE] All sub-tasks for parent task 1.0 complete.
+
+[EVIDENCE CAPTURE] Aggregating test artifacts...
+
+# Aggregate coverage from sub-tasks
+python scripts/aggregate_coverage.py \
+  --input ".artifacts/tests/coverage-*-task-1.*" \
+  --output ".artifacts/tests/coverage-aggregated-task-1.0-$(date +%Y%m%d-%H%M).html"
+
+[EVIDENCE ARTIFACT] Aggregated:
+- Coverage report: .artifacts/tests/coverage-aggregated-task-1.0-20251006-1500.html
+- Combined coverage: 87% (from 3 sub-task reports)
+
+[QUALITY GATE] Running comprehensive quality audit...
+
+# Quality audit generates its own artifact
+[EVIDENCE ARTIFACT] Quality audit report:
+- Location: .artifacts/quality/quality-audit-task-1.0-20251006-1505.md
+- Score: 9/10
+- Issues: 0 CRITICAL, 0 HIGH, 2 MEDIUM
+```
+
+---
+
+### **[STRICT]** Capture Point 3: During CI Workflow Execution
+**When:** CI workflows run (lint, test, deploy)
+**What:** Workflow outputs, artifacts uploaded to GitHub Actions
+
+**Implementation:**
+```yaml
+# In .github/workflows/ci-test.yml
+- name: Upload Test Results
+  if: always()
+  uses: actions/upload-artifact@v3
+  with:
+    name: test-results-${{ github.run_id }}
+    path: |
+      .artifacts/tests/test-results-*.json
+      .artifacts/tests/coverage-*.html
+    retention-days: 30
+
+- name: Upload Coverage Reports
+  uses: actions/upload-artifact@v3
+  with:
+    name: coverage-report-${{ github.run_id }}
+    path: .artifacts/tests/coverage-*.html
+    retention-days: 30
+```
+
+**Protocol 3/4 Integration:**
+```markdown
+[CI/CD ALIGNED] Workflow ci-test.yml complete (Run #1235)
+
+[EVIDENCE ARTIFACT] CI artifacts uploaded:
+- Artifact name: test-results-1235
+- Contents: 3 test result files, 2 coverage reports
+- Retention: 30 days
+- Download URL: https://github.com/.../actions/runs/1235/artifacts/456
+
+[EVIDENCE REFERENCE] Artifacts available for retrospective analysis.
+```
+
+---
+
+### **[GUIDELINE]** Capture Point 4: During Deployment
+**When:** Staging or production deployment completes
+**What:** Deployment logs, health checks, performance metrics
+
+**Implementation:**
+```bash
+[DEPLOYMENT] Deploying to staging...
+
+# Capture deployment log
+cf deploy --environment staging 2>&1 | tee .artifacts/deployments/deployment-staging-$(date +%Y%m%d-%H%M).log
+
+# Run health checks
+curl -s https://staging.example.com/health | \
+  jq '.' > .artifacts/deployments/health-check-staging-$(date +%Y%m%d-%H%M).json
+
+# Capture performance metrics
+ab -n 100 -c 10 https://staging.example.com/api/profile | \
+  tee .artifacts/deployments/performance-staging-$(date +%Y%m%d-%H%M).log
+
+[EVIDENCE ARTIFACT] Deployment evidence captured:
+- Deployment log: .artifacts/deployments/deployment-staging-20251006-1600.log
+- Health check: .artifacts/deployments/health-check-staging-20251006-1600.json (✅ All endpoints healthy)
+- Performance: .artifacts/deployments/performance-staging-20251006-1600.log (Avg: 180ms)
+```
+
+---
+
+## Evidence Aggregation Protocol
+
+### **[STRICT]** Pre-Retrospective Aggregation
+**When:** Before starting Protocol 5 (retrospective)
+**Why:** Provide comprehensive evidence summary for analysis
+**How:** Execute evidence aggregation scripts
+
+**Implementation:**
+
+**Step 1: Aggregate Evidence Report**
+```bash
+[PROTOCOL 5] Starting retrospective for parent task 1.0
+
+[EVIDENCE PIPELINE] Aggregating evidence artifacts...
+
+# Run evidence aggregation script
+python scripts/evidence_report.py \
+  --scope task-1.0 \
+  --output .artifacts/evidence-report-task-1.0-$(date +%Y%m%d-%H%M).md
+
+[EVIDENCE ARTIFACT] Aggregated report generated:
+- Location: .artifacts/evidence-report-task-1.0-20251006-1700.md
+- Artifacts aggregated: 12
+  - Test results: 4
+  - Coverage reports: 3
+  - Quality audits: 1
+  - CI workflow logs: 2
+  - Deployment logs: 2
+```
+
+**Step 2: Load Evidence into Retrospective Context**
+```markdown
+[CONTEXT LOADED] Evidence report for retrospective analysis.
+
+# Evidence Summary: Parent Task 1.0
+
+**Generated:** 2025-10-06 17:00
+**Scope:** Parent task 1.0 (Develop UserProfile Component)
+**Artifacts:** 12 total
+
+---
+
+## Test Artifacts
+
+**Unit Tests:**
+- Sub-task 1.3: 12/12 passed (100%), Coverage: 89%
+- Sub-task 1.5: 8/8 passed (100%), Coverage: 92%
+- Aggregated: 20/20 passed (100%), Combined coverage: 87%
+
+**Integration Tests:**
+- API integration: 6/6 passed (100%)
+- Database integration: 4/4 passed (100%)
+
+**E2E Tests:**
+- User journey: 3/3 passed (100%)
+- Error scenarios: 2/2 passed (100%)
+
+**Coverage Analysis:**
+- Target: 80%
+- Achieved: 87% ✅
+- Uncovered lines: 13 (mostly error handling edge cases)
+
+---
+
+## Quality Artifacts
+
+**Quality Audit (2025-10-06 15:05):**
+- Score: 9/10
+- Critical issues: 0
+- High issues: 0
+- Medium issues: 2 (README examples missing, console.log in dev code)
+
+**Lint Results:**
+- ESLint: 0 errors, 2 warnings (console.log statements)
+- TypeScript: No type errors
+- Security scan: 0 critical, 1 medium (acceptable - documented)
+
+---
+
+## CI/CD Artifacts
+
+**ci-test.yml (Run #1235):**
+- Status: ✅ PASSED
+- Tests: 42/42 passed (100%)
+- Coverage: 87%
+- Artifacts: test-results-1235, coverage-report-1235
+
+**ci-lint.yml (Run #1234):**
+- Status: ✅ PASSED
+- ESLint: 2 warnings (documented)
+- Security: 1 medium finding (acceptable)
+
+---
+
+## Deployment Artifacts
+
+**Staging Deployment (2025-10-06 16:00):**
+- Status: ✅ SUCCESS
+- Health checks: All endpoints responding (✅)
+- Performance: Avg response time 180ms (target: <500ms ✅)
+- Errors: 0 in first 1-hour observation window
+
+---
+
+## Compliance Artifacts
+- None required for this task (no sensitive data handling)
+
+---
+
+[RETROSPECTIVE READY] Complete evidence available for analysis.
+```
+
+---
+
+## Evidence Storage Structure
+
+### **[STRICT]** Directory Layout
+```
+.artifacts/
+├── tests/
+│   ├── test-results-unit-task-1.3-20251006-1430.json
+│   ├── coverage-report-unit-task-1.3-20251006-1430.html
+│   ├── test-results-unit-task-1.5-20251006-1445.json
+│   ├── coverage-aggregated-task-1.0-20251006-1500.html
+│   └── test-log-e2e-task-3.0-20251006-1530.log
+├── quality/
+│   ├── lint-report-typescript-20251006-1430.json
+│   ├── security-scan-bandit-20251006-1430.txt
+│   └── quality-audit-task-1.0-20251006-1505.md
+├── deployments/
+│   ├── deployment-staging-20251006-1600.log
+│   ├── health-check-staging-20251006-1600.json
+│   └── performance-staging-20251006-1600.log
+├── compliance/
+│   └── (compliance artifacts if applicable)
+└── evidence-report-task-1.0-20251006-1700.md
+```
+
+### **[STRICT]** Artifact Retention Policy
+- **Local artifacts:** Retained for 30 days (automated cleanup)
+- **CI artifacts:** Retained per GitHub Actions retention (default: 30 days)
+- **Critical artifacts:** Archive to long-term storage (S3, R2) for compliance
+- **Evidence reports:** Retained permanently with task artifacts
+
+---
+
+## Communication Directives
+
+### **[STRICT]** Evidence Status Prefixes
+- `[EVIDENCE CAPTURE]` - Capturing artifact
+- `[EVIDENCE ARTIFACT]` - Artifact stored successfully
+- `[EVIDENCE PIPELINE]` - Running aggregation
+- `[EVIDENCE REPORT]` - Aggregated report generated
+- `[EVIDENCE LOADED]` - Evidence loaded into context
+
+### **[GUIDELINE]** Evidence Artifact Report Format
+```markdown
+[EVIDENCE ARTIFACT] {Artifact category}: {Artifact name}
+- Type: {Test Result | Coverage | Quality | Deployment | Compliance}
+- Location: {file path}
+- Timestamp: {ISO-8601}
+- Key Metrics:
+  - {Metric 1}: {Value}
+  - {Metric 2}: {Value}
+- Status: {✅ | ⚠️ | ❌}
+- Available for: {Retrospective | Audit | Compliance}
+```
+
+---
+
+## Examples
+
+### ✅ Correct: Evidence Capture During Execution
+```markdown
+[SUB-TASK COMPLETE] 1.5 Component Tests complete.
+
+[EVIDENCE CAPTURE] Running tests with artifact generation...
+
+# Execute tests
+npm test -- UserProfile.test.ts --coverage --json
+
+[EVIDENCE ARTIFACT] Test Results: test-results-unit-task-1.5-20251006-1445.json
+- Type: Test Result
+- Location: .artifacts/tests/test-results-unit-task-1.5-20251006-1445.json
+- Timestamp: 2025-10-06T14:45:00Z
+- Key Metrics:
+  - Tests passed: 8/8 (100%)
+  - Duration: 2.3s
+  - Coverage: 92%
+- Status: ✅ PASSED
+- Available for: Retrospective analysis
+
+[EVIDENCE ARTIFACT] Coverage Report: coverage-report-unit-task-1.5-20251006-1445.html
+- Type: Coverage Report
+- Location: .artifacts/tests/coverage-report-unit-task-1.5-20251006-1445.html
+- Timestamp: 2025-10-06T14:45:00Z
+- Key Metrics:
+  - Coverage: 92% (target: 80% ✅)
+  - Uncovered lines: 4
+- Status: ✅ PASSED
+- Available for: Quality audit, retrospective
+
+[CHECKPOINT] Sub-task complete with evidence artifacts captured.
+```
+
+### ❌ Anti-Pattern: Execution Without Evidence Capture
+```markdown
+[SUB-TASK COMPLETE] 1.5 Component Tests complete.
+
+Tests passed successfully. Moving to next sub-task.
+
+(No artifacts captured, no evidence stored, no metrics preserved -
+retrospective will have no data to analyze)
+```
+
+---
+
+### ✅ Correct: Retrospective with Evidence Analysis
+```markdown
+[PROTOCOL 5] Implementation Retrospective: Parent Task 1.0
+
+[EVIDENCE PIPELINE] Aggregating artifacts for analysis...
+
+[EVIDENCE ARTIFACT] Aggregated Report: evidence-report-task-1.0-20251006-1700.md
+- Artifacts aggregated: 12
+- Test results: 4 files
+- Coverage reports: 3 files
+- Quality audits: 1 file
+- CI logs: 2 files
+- Deployment logs: 2 files
+
+[EVIDENCE LOADED] Evidence summary for retrospective context.
+
+---
+
+## Test Effectiveness Analysis (Evidence-Based)
+
+**Data Source:** `.artifacts/tests/` (4 test result files, 3 coverage reports)
+
+**Coverage Progression:**
+- Sub-task 1.3: 89% (initial implementation)
+- Sub-task 1.5: 92% (after test expansion)
+- Final aggregated: 87% (target: 80% ✅)
+
+**Test Execution Metrics:**
+- Total tests: 20 unit, 10 integration, 5 E2E = 35 total
+- Pass rate: 35/35 (100%)
+- Average execution time: 4.2s
+- Flaky tests: 0 (excellent stability)
+
+**Coverage Gaps (Evidence-Based):**
+- Uncovered lines: 13 total
+- Location: Error handling edge cases (3), loading state transitions (5), network retry logic (5)
+- Risk assessment: LOW (edge cases, not critical paths)
+
+---
+
+## Quality Validation Analysis (Evidence-Based)
+
+**Data Source:** `.artifacts/quality/quality-audit-task-1.0-20251006-1505.md`
+
+**Quality Score Breakdown:**
+- Code structure: 10/10 (DDD compliance ✅)
+- Error handling: 9/10 (missing edge case tests)
+- Documentation: 8/10 (README missing usage examples)
+- Testing: 9/10 (excellent coverage, stable)
+- Overall: 9/10
+
+**Lint/Security Findings:**
+- ESLint warnings: 2 (console.log in development code - acceptable)
+- Security: 1 medium (Stripe publishable key - acceptable per Stripe docs)
+- TypeScript: 0 errors
+
+---
+
+## CI/CD Performance Analysis (Evidence-Based)
+
+**Data Source:** CI workflow logs, `.artifacts/deployments/`
+
+**Workflow Efficiency:**
+- ci-lint.yml: Avg 1.2 minutes (✅ Fast feedback)
+- ci-test.yml: Avg 3.5 minutes (acceptable for full suite)
+- ci-deploy.yml: Avg 4.8 minutes (staging deployment)
+
+**Deployment Validation:**
+- Health checks: ✅ All endpoints responding (5/5)
+- Performance: Avg 180ms (target: <500ms ✅ EXCELLENT)
+- Errors: 0 in 1-hour observation window
+
+---
+
+## Recommendations (Evidence-Driven)
+
+**Based on Test Evidence:**
+1. Expand edge case test coverage (13 uncovered lines identified)
+2. Maintain 100% test stability (0 flaky tests - keep it!)
+3. Consider performance tests for API integration (noted in gaps)
+
+**Based on Quality Evidence:**
+1. Add usage examples to component README (identified gap)
+2. Remove console.log statements or replace with proper logging
+3. Document security finding acceptance for future reference
+
+**Based on CI/CD Evidence:**
+1. CI workflows performing excellently (fast feedback)
+2. Deployment process validated and repeatable
+3. Consider adding automated performance regression tests
+
+[RETROSPECTIVE COMPLETE] Evidence-driven analysis complete.
+- Evidence artifacts: 12 referenced
+- Recommendations: 9 evidence-based improvements
+- Rule updates: 2 proposed (testing standards, documentation standards)
+```
+
+### ❌ Anti-Pattern: Retrospective Without Evidence
+```markdown
+[PROTOCOL 5] Retrospective
+
+The task went well. Tests passed and code looks good.
+
+No major issues observed. Ready for next task.
+
+(No evidence referenced, no artifacts analyzed, no data-driven insights - 
+purely subjective assessment with no learning captured)
+```
+
+---
+
+## Testing & Verification
+
+### **[STRICT]** Test Case 1: Evidence Capture During Execution
+**Scenario:** Execute parent task with evidence pipeline active
+
+**Steps:**
+1. Complete sub-tasks with test execution
+2. Observe evidence artifact capture
+3. Verify artifacts stored in `.artifacts/` directory
+4. Confirm naming conventions followed
+5. Validate artifact contents (parseable, complete)
+
+**Expected Artifacts:**
+- Test results in `.artifacts/tests/`
+- Coverage reports in `.artifacts/tests/`
+- Quality audit in `.artifacts/quality/`
+- All files follow naming convention
+
+**Validation Command:**
+```bash
+# Check artifact directory structure
+ls -la .artifacts/{tests,quality,deployments}/
+
+# Verify naming conventions
+find .artifacts -type f | grep -E "(test-results|coverage-report|quality-audit)-.*-[0-9]{8}-[0-9]{4}\.(json|html|md)"
+
+# Validate artifact contents
+jq '.' .artifacts/tests/test-results-*.json
+cat .artifacts/quality/quality-audit-*.md
+```
+
+---
+
+### **[STRICT]** Test Case 2: Evidence Aggregation for Retrospective
+**Scenario:** Execute Protocol 5 with evidence pipeline
+
+**Steps:**
+1. Complete parent task with artifacts captured
+2. Start retrospective (Protocol 5)
+3. Observe evidence aggregation script execution
+4. Verify aggregated report generated
+5. Confirm evidence loaded into retrospective context
+6. Validate retrospective references specific artifacts
+
+**Expected Artifacts:**
+- Aggregated evidence report in `.artifacts/`
+- Retrospective output references evidence files
+- Evidence-based recommendations documented
+
+**Validation Command:**
+```bash
+# Check aggregated report exists
+ls .artifacts/evidence-report-task-*.md
+
+# Verify retrospective references evidence
+grep -E "(Data Source|Evidence-Based)" .cursor/tasks/retro-*.md
+
+# Count artifact references in retrospective
+grep -o ".artifacts/" .cursor/tasks/retro-*.md | wc -l
+```
+
+---
+
+## Success Criteria
+
+### **[STRICT]** Evidence Pipeline Completeness
+Mark evidence pipeline as successfully integrated when:
+
+- ✅ Artifacts captured at all defined checkpoints
+- ✅ Naming conventions followed consistently
+- ✅ Artifacts stored in standardized directory structure
+- ✅ Aggregation scripts execute before retrospectives
+- ✅ Retrospectives reference specific evidence artifacts
+- ✅ Evidence-based recommendations documented
+- ✅ CI workflows upload artifacts to GitHub Actions
+
+### **[GUIDELINE]** Evidence Quality Metrics
+- **Capture Rate:** % of tasks with evidence artifacts
+- **Artifact Completeness:** % of artifacts parseable and valid
+- **Retrospective Coverage:** % of retrospectives citing evidence
+- **Recommendation Quality:** % of recommendations evidence-based
+- **Artifact Retention:** % of artifacts available within retention window
+
+---
+
+## Version & Changelog
+- **Version:** 1.0.0
+- **Created:** 2025-10-06
+- **Status:** Active
+- **Changelog:**
+  - 1.0.0 (2025-10-06): Initial evidence pipeline standard
+
+---
+
+## References
+- [Master Integration Guide](mdc:.cursor/rules/master-rules/7-master-rule-dev-workflow-integration-guide.mdc)
+- [Protocol 3 Execution](mdc:.cursor/dev-workflow/3-process-tasks.md)
+- [Protocol 5 Retrospective](mdc:.cursor/dev-workflow/5-implementation-retrospective.md)
+- [Scripts README](mdc:scripts/README.md)
+
+---
+
+*This protocol ensures retrospectives are evidence-driven, transforming subjective reviews into data-backed continuous improvement sessions.*

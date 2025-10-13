@@ -1,0 +1,46 @@
+# Project-specific files (to be added per project)
+node_modules/
+venv/
+__pycache__/
+*.pyc
+.env
+.DS_Store
+
+# Keep template structure
+!.cursor/
+!scripts/
+!.github/
+
+# Validation output files
+validation-results/
+*.log
+test-output/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Documentation builds
+docs/_build/
+site/

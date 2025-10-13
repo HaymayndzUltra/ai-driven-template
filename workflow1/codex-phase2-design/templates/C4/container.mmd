@@ -1,0 +1,20 @@
+%% C4 Container Diagram (Mermaid)
+C4Container
+    title Container View
+    Person(customer, "Customer")
+    Container_Boundary(system, "Target Platform") {
+        Container(web_app, "Web App", "React/Next.js", "UI and client orchestration")
+        Container(api, "API Gateway", "FastAPI", "Contract-first services")
+        Container(db, "Primary Database", "PostgreSQL", "Transactional store")
+        Container(job, "Async Workers", "Celery", "Background processing")
+    }
+    Container_Ext(third_party, "3rd Party Service", "REST", "External capability")
+    Container_Ext(monitoring, "Monitoring Stack", "Grafana/Prometheus", "Observability")
+
+    Rel(customer, web_app, "Uses", "HTTPS")
+    Rel(web_app, api, "Calls", "REST / GraphQL")
+    Rel(api, db, "Reads/Writes", "SQL")
+    Rel(api, job, "Queues work", "AMQP")
+    Rel(job, db, "Stores results", "SQL")
+    Rel(api, third_party, "Integrates", "OpenAPI contract")
+    Rel(api, monitoring, "Emits metrics", "OTel")

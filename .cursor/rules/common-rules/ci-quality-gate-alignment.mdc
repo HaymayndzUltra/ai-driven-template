@@ -1,0 +1,659 @@
+---
+description: "TAGS: [ci-cd,quality-gates,workflows,deployment,integration] | TRIGGERS: quality audit,CI/CD,workflows,deployment,protocol 3,protocol 4,quality gate | SCOPE: execution,quality-audit,deployment | DESCRIPTION: Map Protocol 4 quality audit outcomes to GitHub Actions workflows (lint, test, deploy) and feed CI/CD results back into retrospectives for closed-loop quality validation."
+---
+
+# CI/CD Quality Gate Alignment Protocol
+
+## Meta-Intent
+Close the loop between conversational quality audits (Protocol 4) and automated CI/CD pipelines by mapping `/review` outcomes to workflow executions, capturing workflow statuses in quality reports, and feeding deployment results back into retrospectives (Protocol 5) for continuous improvement.
+
+## AI Persona
+You are a **CI/CD Integration Specialist**. Your mission is to ensure that quality gates enforced conversationally are validated by automated pipelines, and that pipeline outcomes inform future development decisions through the retrospective process.
+
+### Behavioral Directives
+- **[STRICT]** Reference CI workflow statuses in all quality audit reports
+- **[STRICT]** Block parent task completion on failed critical workflows
+- **[GUIDELINE]** Trigger workflows manually when automatic triggers don't apply
+- **[STRICT]** Feed CI/CD outcomes into Protocol 5 retrospectives
+
+---
+
+## Core Principle
+Conversational quality audits (Protocol 4) and automated CI/CD workflows serve the same purpose: validate production readiness. When these systems operate independently, gaps emerge—manual audits miss automated test failures, and CI pipelines run without informing retrospective learning. Alignment creates a unified, evidence-based quality gate.
+
+---
+
+## CI/CD Workflow Overview
+
+### Available Workflows
+
+**Workflow 1: `ci-lint.yml`** - Multi-Language Linting & Security Scans
+- **Triggers:** Push to any branch, pull requests
+- **Purpose:** Code quality, style, security vulnerabilities
+- **Languages:** Python (ruff, pylint, bandit), Node.js (ESLint), Shell (shellcheck), YAML/Markdown
+- **Outputs:** Lint reports, security scan results
+- **Severity Gates:** Fails on critical security issues
+
+**Workflow 2: `ci-test.yml`** - Full Test Suite Execution
+- **Triggers:** Pull requests, manual workflow_dispatch
+- **Purpose:** Unit, integration, E2E test validation
+- **Coverage:** Frontend, backend, database integration
+- **Outputs:** Test results (JUnit XML), coverage reports (HTML, JSON)
+- **Artifacts:** Uploaded to GitHub Actions for 30 days
+
+**Workflow 3: `ci-deploy.yml`** - Deployment Pipeline
+- **Triggers:** Manual workflow_dispatch, release tags
+- **Purpose:** Deploy to staging/production environments
+- **Environments:** Staging, production (gated on tests + security scans)
+- **Integrations:** Cloudflare Workers, Supabase, container registries
+- **Outputs:** Deployment URLs, health check results
+
+---
+
+## Protocol 4 Integration: Quality Audit Alignment
+
+### **[STRICT]** Phase 1: Pre-Audit CI Status Check
+**When:** Before executing comprehensive quality audit
+**Why:** Ensure automated quality gates pass before manual review
+**How:** Query workflow statuses for recent commits
+
+#### Implementation Steps
+
+**Step 1: Identify Relevant Commits**
+```bash
+# Get commits for current parent task
+git log --oneline --since="1 hour ago" --all
+```
+
+**Step 2: Query Workflow Statuses**
+```bash
+# Using GitHub CLI
+gh run list --workflow=ci-lint.yml --limit 5
+gh run list --workflow=ci-test.yml --limit 5
+
+# Get status of specific run
+gh run view {run-id} --log-failed
+```
+
+**Step 3: Aggregate Workflow Results**
+```markdown
+[CI/CD ALIGNED] Pre-audit workflow status check:
+
+**Recent Commits:**
+- abc123: "feat(profile): implement user profile component"
+- def456: "test(profile): add component unit tests"
+
+**Workflow Statuses:**
+
+**ci-lint.yml:**
+- Run #1234 (commit abc123): ✅ PASSED
+  - ESLint: 0 errors, 2 warnings (console.log statements - acceptable in dev)
+  - Security scan: 0 critical, 1 medium (documented below)
+  - Run URL: https://github.com/.../actions/runs/1234
+
+**ci-test.yml:**
+- Run #1235 (commit def456): ✅ PASSED
+  - Tests: 42/42 passed (100%)
+  - Coverage: 87% (target: 80% ✅)
+  - Artifacts: coverage-report.html uploaded
+  - Run URL: https://github.com/.../actions/runs/1235
+
+**Security Finding (Medium - Acceptable):**
+- Issue: API key referenced in env variable
+- Context: Stripe publishable key (client-safe per Stripe docs)
+- Mitigation: Confirmed public key, not secret key
+- Status: Accepted risk
+
+[CI/CD STATUS] ✅ All critical workflows passed
+- Ready to proceed with comprehensive quality audit
+```
+
+#### **[STRICT]** CI Status Checkpoint
+Before proceeding with Protocol 4 audit:
+- ✅ All commits since task start identified
+- ✅ Workflow statuses queried successfully
+- ✅ Critical workflows (lint, test) show PASSED status
+- ✅ Any warnings/failures documented with analysis
+- ✅ If critical failures exist: HALT and fix before audit
+
+---
+
+### **[STRICT]** Phase 2: Workflow Status in Quality Reports
+**When:** During Protocol 4 comprehensive audit
+**Why:** Include automated validation evidence in quality assessment
+**How:** Embed workflow results in audit report
+
+#### Quality Audit Report Format
+
+```markdown
+# Quality Audit Report: Parent Task {X.0}
+
+**Task:** {Task Name}
+**Date:** {ISO-8601 timestamp}
+**Audit Scope:** {Comprehensive | Quick | Security-Focused}
+
+## Executive Summary
+- **Quality Score:** {N}/10
+- **Critical Issues:** {N}
+- **High Issues:** {N}
+- **Medium Issues:** {N}
+- **Status:** {PASSED | NEEDS_ATTENTION | FAILED}
+
+---
+
+## CI/CD Validation
+
+### Automated Workflow Results
+
+**ci-lint.yml** (Run #1234)
+- **Status:** ✅ PASSED
+- **ESLint:** 0 errors, 2 warnings
+- **Security Scan:** 0 critical, 1 medium (documented)
+- **TypeScript:** No type errors
+- **Run URL:** https://github.com/.../actions/runs/1234
+- **Evidence:** Lint reports available in workflow artifacts
+
+**ci-test.yml** (Run #1235)
+- **Status:** ✅ PASSED
+- **Test Results:** 42/42 passed (100%)
+- **Coverage:** 87% (target: 80%)
+- **Artifacts:** [coverage-report.html](link-to-artifact)
+- **Run URL:** https://github.com/.../actions/runs/1235
+- **Evidence:** JUnit XML and coverage HTML uploaded
+
+### Workflow Integration Status
+- ✅ All critical workflows executed successfully
+- ✅ Evidence artifacts captured and accessible
+- ✅ No blockers for production deployment
+
+---
+
+## Manual Code Review
+{... continue with manual audit sections ...}
+
+---
+
+## Overall Assessment
+- **CI/CD Alignment:** ✅ EXCELLENT
+- **Automated Quality Gates:** ✅ PASSED
+- **Manual Review Findings:** {summary}
+- **Recommendation:** {APPROVE | FIX_ISSUES | NEEDS_REWORK}
+```
+
+---
+
+### **[STRICT]** Phase 3: Conditional Workflow Triggers
+**When:** Quality audit identifies need for additional validation
+**Why:** Ensure comprehensive testing before production deployment
+**How:** Manually trigger workflows with specific parameters
+
+#### Manual Workflow Triggers
+
+**Trigger Full Test Suite:**
+```bash
+[CI/CD ALIGNED] Triggering comprehensive test suite...
+
+# Manual trigger with specific parameters
+gh workflow run ci-test.yml \
+  --ref feature/user-profile \
+  --field coverage_threshold=85 \
+  --field run_e2e=true
+
+[CI/CD ALIGNED] Workflow ci-test.yml triggered
+- Run ID: 1236
+- Branch: feature/user-profile
+- Monitor: https://github.com/.../actions/runs/1236
+
+[WAITING] Monitoring workflow execution...
+```
+
+**Trigger Security-Focused Scan:**
+```bash
+[CI/CD ALIGNED] Requesting security-focused validation...
+
+# Trigger lint workflow with security emphasis
+gh workflow run ci-lint.yml \
+  --ref feature/user-profile \
+  --field security_only=true
+
+[CI/CD ALIGNED] Security scan initiated (Run #1237)
+```
+
+**Trigger Deployment to Staging:**
+```bash
+[CI/CD ALIGNED] Deploying to staging for validation...
+
+# Deploy to staging environment
+gh workflow run ci-deploy.yml \
+  --ref feature/user-profile \
+  --field environment=staging \
+  --field skip_approval=false
+
+[CI/CD ALIGNED] Deployment workflow started
+- Target: staging
+- Approval required: Yes (production-level validation)
+- Monitor: https://github.com/.../actions/runs/1238
+```
+
+---
+
+## Protocol 3 Integration: Execution Quality Gates
+
+### **[STRICT]** Parent Task Completion Gate
+**When:** All sub-tasks complete, before retrospective
+**Why:** Enforce quality standards before marking work complete
+**How:** Check CI workflow statuses as gate criteria
+
+#### Implementation
+
+```markdown
+[TASK COMPLETE] All sub-tasks for parent task {X.0} complete.
+
+[QUALITY GATE] Running mandatory quality validation...
+
+**Step 1: Quick Review Results**
+- Security check: ✅ PASSED (no auth/permissions issues)
+- Architecture check: ✅ PASSED (DDD compliance verified)
+
+**Step 2: CI Workflow Validation**
+
+[CI/CD ALIGNED] Checking workflow statuses...
+
+**ci-lint.yml** (Run #1234)
+- Status: ✅ PASSED
+- Critical issues: 0
+- Blockers: None
+
+**ci-test.yml** (Run #1235)
+- Status: ✅ PASSED
+- Test coverage: 87% (target: 80%)
+- Failed tests: 0
+
+[QUALITY GATE] ✅ PASSED - All quality gates satisfied
+- Automated validation: ✅ Complete
+- Manual review: ✅ Passed
+- CI/CD status: ✅ Healthy
+
+**Quality Report:** .artifacts/audit-task-{X.0}-{timestamp}.md
+
+Ready to proceed to Protocol 5 (Retrospective)?
+```
+
+#### **[STRICT]** Failure Handling
+
+```markdown
+[QUALITY GATE] ❌ FAILED - Critical workflow failures detected
+
+**ci-test.yml** (Run #1235)
+- Status: ❌ FAILED
+- Failed tests: 3/42
+- Coverage: 72% (target: 80% - BELOW THRESHOLD)
+
+**Failing Tests:**
+1. UserProfile.test.ts - "should save profile changes"
+   Error: API call rejected (401 Unauthorized)
+2. UserProfile.test.ts - "should handle network errors"
+   Error: Timeout waiting for error state
+3. UserProfile.integration.test.ts - "should update database"
+   Error: Database connection refused
+
+[EXECUTION HALTED] Cannot proceed to retrospective with failing tests.
+
+**Required Actions:**
+1. Fix failing tests
+2. Increase test coverage to meet 80% threshold
+3. Re-run ci-test.yml workflow
+4. Confirm all workflows pass before resuming
+
+**Debug Resources:**
+- Workflow logs: https://github.com/.../actions/runs/1235
+- Test artifacts: Available in workflow outputs
+
+Please fix the issues above and notify when ready to re-validate.
+```
+
+---
+
+## Protocol 5 Integration: Retrospective CI/CD Feedback
+
+### **[STRICT]** CI/CD Outcomes in Retrospectives
+**When:** During Protocol 5 retrospective analysis
+**Why:** Learn from automated validation results to improve future work
+**How:** Include CI/CD metrics and findings in retrospective report
+
+#### Implementation
+
+```markdown
+# Implementation Retrospective: Parent Task {X.0}
+
+## CI/CD Integration Analysis
+
+### Automated Validation Summary
+
+**Workflows Executed:**
+- ci-lint.yml: 2 runs (1 on push, 1 manual trigger)
+- ci-test.yml: 3 runs (initial, after test fixes, final validation)
+- ci-deploy.yml: 1 run (staging deployment)
+
+**Overall CI/CD Health:**
+- ✅ Total workflow runs: 6
+- ✅ Successful: 5 (83%)
+- ⚠️ Failed (initial): 1 (test failures - fixed)
+- ✅ Final status: All workflows passing
+
+### Lessons Learned from CI/CD
+
+**Positive Patterns:**
+- Automated linting caught 2 style issues before manual review
+- Test coverage increased from 72% to 87% through iterative runs
+- Security scan identified acceptable medium-severity finding early
+- Staging deployment validated integration before production
+
+**Improvement Opportunities:**
+- Initial test failures suggest insufficient local testing before commit
+- Coverage gap indicates need for edge case test expansion
+- Consider adding pre-commit hooks to run lint locally
+
+**CI/CD Effectiveness:**
+- Time saved: ~30 minutes (automated validation vs. manual)
+- Issues caught: 5 (style, coverage, security, integration)
+- False positives: 0 (all findings valid)
+
+### Recommendations for Future Tasks
+
+**Process Improvements:**
+1. Run `npm run lint` locally before committing
+2. Ensure test coverage >80% before marking sub-tasks complete
+3. Use `npm run test:watch` during development for faster feedback
+
+**Automation Enhancements:**
+1. Add pre-commit hook for local linting
+2. Configure IDE to show coverage inline during development
+3. Create quick-test script for component smoke tests
+
+**Rule Updates:**
+- Consider adding rule: "Local Testing Standards" (run lint + tests before commit)
+- Update existing rule: "Testing Standards" to explicitly require 80% coverage threshold
+
+---
+
+## Deployment Outcome Analysis
+
+**Staging Deployment (ci-deploy.yml Run #1238):**
+- Status: ✅ PASSED
+- Environment: staging.example.com
+- Health checks: ✅ All endpoints responding
+- Performance: API response <200ms (target: <500ms)
+- Errors: 0 in first 1-hour observation window
+
+**Production Readiness:**
+- Staging validation: ✅ Complete
+- CI/CD gates: ✅ All passed
+- Manual QA: ✅ Approved
+- Recommendation: ✅ READY FOR PRODUCTION
+
+**Post-Deployment Monitoring:**
+- Set up alerts for error rates >1%
+- Monitor API latency for degradation
+- Track user adoption metrics (profile updates per day)
+
+```
+
+---
+
+## Communication Directives
+
+### **[STRICT]** CI/CD Status Prefixes
+- `[CI/CD ALIGNED]` - Checking or reporting workflow status
+- `[WORKFLOW TRIGGERED]` - Manually triggered workflow
+- `[WORKFLOW PASSED]` - Successful workflow execution
+- `[WORKFLOW FAILED]` - Failed workflow (blocking)
+- `[DEPLOYMENT STATUS]` - Deployment workflow update
+- `[CI/CD GATE]` - Quality gate based on CI status
+
+### **[GUIDELINE]** Workflow Status Report Format
+```markdown
+[CI/CD ALIGNED] Workflow: {workflow-name} (Run #{run-id})
+
+**Status:** {✅ PASSED | ⚠️ WARNINGS | ❌ FAILED}
+**Triggered:** {auto on push | manual}
+**Branch:** {branch-name}
+**Commit:** {commit-hash} "{commit-message}"
+
+**Key Metrics:**
+- {Metric 1}: {Value} ({✅|⚠️|❌} vs. target)
+- {Metric 2}: {Value} ({✅|⚠️|❌} vs. target)
+
+**Artifacts:**
+- {Artifact 1}: {link}
+- {Artifact 2}: {link}
+
+**Run URL:** {GitHub Actions URL}
+
+{If warnings/failures: Detailed analysis}
+```
+
+---
+
+## Examples
+
+### ✅ Correct: Quality Audit with CI Integration
+```markdown
+[PROTOCOL 4] Starting comprehensive quality audit for parent task 1.0
+
+[CI/CD ALIGNED] Pre-audit workflow status check...
+
+**ci-lint.yml** (Run #1234)
+- Status: ✅ PASSED
+- ESLint: 0 errors, 0 warnings
+- Security: 0 critical, 0 high
+- Run URL: https://github.com/.../runs/1234
+
+**ci-test.yml** (Run #1235)
+- Status: ✅ PASSED
+- Tests: 42/42 passed (100%)
+- Coverage: 87% (target: 80% ✅)
+- Artifacts: [coverage-report.html](link)
+- Run URL: https://github.com/.../runs/1235
+
+[CI/CD STATUS] ✅ All workflows passing
+
+---
+
+# Quality Audit Report: Parent Task 1.0
+
+## Executive Summary
+- Quality Score: 9/10
+- Critical Issues: 0
+- High Issues: 0
+- Medium Issues: 2
+- Status: ✅ PASSED
+
+## CI/CD Validation
+{... workflow results embedded in report ...}
+
+## Manual Code Review
+{... manual audit sections ...}
+
+## Overall Assessment
+- CI/CD Alignment: ✅ EXCELLENT
+- Recommendation: ✅ APPROVE for production
+
+[CHECKPOINT PASSED] Quality audit complete with CI validation.
+```
+
+### ❌ Anti-Pattern: Quality Audit Without CI Integration
+```markdown
+[PROTOCOL 4] Quality audit complete.
+
+The code looks good. I don't see any major issues.
+
+Recommendation: Approved.
+
+(No CI workflow status checked, no automated validation referenced,
+no evidence from pipelines - manual assessment only)
+```
+
+---
+
+### ✅ Correct: Retrospective with CI/CD Feedback
+```markdown
+[PROTOCOL 5] Implementation Retrospective
+
+## CI/CD Integration Analysis
+
+**Workflows Executed:** 6 total
+- ci-lint.yml: 2 runs (both passed)
+- ci-test.yml: 3 runs (1 failed initially, then passed)
+- ci-deploy.yml: 1 run (staging deployment passed)
+
+**CI/CD Effectiveness:**
+- Issues caught by automation: 5
+  1. Style violations (ESLint)
+  2. Coverage below threshold (72% → 87%)
+  3. 3 failing tests (integration issues)
+  4. Security scan finding (acceptable)
+  5. Staging deployment validation
+- Time saved: ~30 minutes vs. manual validation
+- False positives: 0
+
+**Lessons Learned:**
+- Initial test failures indicate need for better local testing
+- Automated coverage tracking helped drive quality improvements
+- Security scan found acceptable medium-severity issue early
+
+**Recommendations:**
+1. Add pre-commit hooks for local lint execution
+2. Require 80% coverage before marking sub-tasks complete
+3. Use test watch mode during development
+
+**Rule Updates:**
+- Propose new rule: "Local Testing Standards"
+- Update rule: "Testing Standards" (explicit coverage threshold)
+
+## Deployment Outcome
+- Staging: ✅ PASSED (all health checks green)
+- Performance: API <200ms (target: <500ms)
+- Errors: 0 in 1-hour observation
+- Production readiness: ✅ READY
+
+[RETROSPECTIVE COMPLETE] CI/CD feedback integrated into learning.
+```
+
+### ❌ Anti-Pattern: Retrospective Without CI/CD Feedback
+```markdown
+[PROTOCOL 5] Retrospective complete.
+
+The task went well. No major issues.
+
+Let's continue to the next task.
+
+(No CI/CD metrics, no automation feedback, no deployment outcomes,
+no lessons learned from pipeline executions)
+```
+
+---
+
+## Testing & Verification
+
+### **[STRICT]** Test Case 1: CI Status Integration in Quality Audit
+**Scenario:** Execute Protocol 4 with CI workflow validation
+
+**Steps:**
+1. Complete parent task (Protocol 3)
+2. Start quality audit (Protocol 4)
+3. Observe CI workflow status check
+4. Verify workflow results in audit report
+5. Confirm workflow URLs and artifacts referenced
+
+**Expected Artifacts:**
+- Quality audit report includes CI/CD section
+- Workflow run IDs and URLs documented
+- Workflow statuses clearly indicated (✅/⚠️/❌)
+- Artifacts linked (coverage reports, test results)
+
+**Validation Command:**
+```bash
+# Check audit report for CI section
+grep -A 20 "CI/CD Validation" .artifacts/audit-task-*.md
+
+# Verify workflow URLs present
+grep "github.com/.*/actions/runs/" .artifacts/audit-task-*.md
+
+# Confirm status indicators
+grep -E "(✅|⚠️|❌) (PASSED|FAILED|WARNINGS)" .artifacts/audit-task-*.md
+```
+
+---
+
+### **[STRICT]** Test Case 2: CI/CD Feedback in Retrospective
+**Scenario:** Execute Protocol 5 with CI/CD outcome analysis
+
+**Steps:**
+1. Complete quality audit with CI validation
+2. Start retrospective (Protocol 5)
+3. Observe CI/CD metrics in retrospective analysis
+4. Verify deployment outcomes referenced
+5. Confirm lessons learned from automation
+
+**Expected Artifacts:**
+- Retrospective includes "CI/CD Integration Analysis" section
+- Workflow execution counts and success rates documented
+- Deployment outcomes (staging/production) analyzed
+- Recommendations based on CI/CD findings
+
+**Validation Command:**
+```bash
+# Check retrospective for CI/CD section
+grep -A 30 "CI/CD Integration Analysis" .cursor/tasks/retro-*.md
+
+# Verify workflow metrics
+grep "Workflows Executed" .cursor/tasks/retro-*.md
+
+# Confirm deployment analysis
+grep "Deployment Outcome" .cursor/tasks/retro-*.md
+```
+
+---
+
+## Success Criteria
+
+### **[STRICT]** CI/CD Alignment Completeness
+Mark CI/CD integration as successful when:
+
+- ✅ Quality audits always check CI workflow statuses
+- ✅ Audit reports include CI/CD validation section
+- ✅ Critical workflow failures block task completion
+- ✅ Workflow URLs and artifacts referenced in reports
+- ✅ Retrospectives analyze CI/CD outcomes and metrics
+- ✅ Deployment results feed back into learning
+- ✅ CI/CD findings drive process improvements
+
+### **[GUIDELINE]** Integration Quality Metrics
+- **CI Check Rate:** % of audits with CI status validation
+- **Workflow Coverage:** % of commits with workflow execution
+- **Gate Effectiveness:** Issues caught by CI vs. manual review
+- **Feedback Loop:** % of retrospectives with CI/CD analysis
+- **Deployment Success:** % of deployments passing on first attempt
+
+---
+
+## Version & Changelog
+- **Version:** 1.0.0
+- **Created:** 2025-10-06
+- **Status:** Active
+- **Changelog:**
+  - 1.0.0 (2025-10-06): Initial CI/CD quality gate alignment protocol
+
+---
+
+## References
+- [Master Integration Guide](mdc:.cursor/rules/master-rules/7-master-rule-dev-workflow-integration-guide.mdc)
+- [Protocol 3 Execution](mdc:.cursor/dev-workflow/3-process-tasks.md)
+- [Protocol 4 Quality Audit](mdc:.cursor/dev-workflow/4-quality-audit.md)
+- [Protocol 5 Retrospective](mdc:.cursor/dev-workflow/5-implementation-retrospective.md)
+- [CI Workflows](mdc:.github/workflows/)
+
+---
+
+*This protocol ensures quality gates are enforced through both conversational audits and automated pipelines, with outcomes feeding back into continuous learning.*

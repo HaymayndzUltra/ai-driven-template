@@ -1,0 +1,27 @@
+{
+  "metadata": {
+    "description": "Performance budgets aligned with AGENTS Phase 3 quality rails",
+    "owner": "performance-team",
+    "target_environment": "staging"
+  },
+  "budgets": [
+    {
+      "metric": "largest-contentful-paint",
+      "threshold_ms": 2500,
+      "tooling": "lighthouse",
+      "notes": "95th percentile on staging"
+    },
+    {
+      "metric": "cumulative-layout-shift",
+      "threshold": 0.1,
+      "tooling": "lighthouse",
+      "notes": "No layout shift regressions"
+    },
+    {
+      "metric": "server-response-time",
+      "threshold_ms": 300,
+      "tooling": "synthetic-monitor",
+      "notes": "API p95 latency"
+    }
+  ]
+}

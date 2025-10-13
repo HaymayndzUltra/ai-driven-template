@@ -1,0 +1,16 @@
+[
+  {
+    "checksum": "cc194f92358d683f04bb49460bd2022e47b7e62595cb7e94d45b90293bfab129",
+    "file": "evidence/phase5/outputs/demo/launch/rollback_rehearsal.txt",
+    "phase": "phase5",
+    "project": "demo",
+    "recorded_at": "2025-09-30T09:03:15.883498Z"
+  },
+  {
+    "checksum": "8f08b8407584e1447fe9992d0a495c1c7f4b625e08d52ad33067ce02683a6859",
+    "file": "evidence/phase5/outputs/demo/launch/dr_restore_report.txt",
+    "phase": "phase5",
+    "project": "demo",
+    "recorded_at": "2025-09-30T09:03:18.919819Z"
+  }
+]

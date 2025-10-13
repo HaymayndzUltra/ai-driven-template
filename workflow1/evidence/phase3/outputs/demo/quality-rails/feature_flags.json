@@ -1,0 +1,13 @@
+{
+  "flags": [
+    {
+      "description": "",
+      "key": "user_onboarding",
+      "owner": "alice",
+      "type": "release",
+      "updated_at": "2025-09-30T09:03:03.404126Z"
+    }
+  ],
+  "project": "demo",
+  "updated_at": "2025-09-30T09:03:03.403821Z"
+}

@@ -1,0 +1,13 @@
+%% C4 Context Diagram (Mermaid) — aligns with AGENTS Phase 2 architecture requirements
+C4Context
+    title System Context
+    Person(customer, "Customer", "Primary persona interacting with the product")
+    System_Boundary(system, "Target Platform") {
+        Container(app, "Application", "Tech Stack TBD", "Delivers the core user workflow")
+    }
+    System_Ext(api_partner, "Partner API", "External", "Data provider / integration")
+    System_Ext(obs, "Observability Stack", "Logging/metrics destination")
+
+    Rel(customer, app, "Uses", "Web / Mobile")
+    Rel(app, api_partner, "Consumes", "OpenAPI contract: /openapi/<service>.yaml")
+    Rel(app, obs, "Emits telemetry", "OTel traces + metrics")

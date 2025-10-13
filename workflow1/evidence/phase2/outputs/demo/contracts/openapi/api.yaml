@@ -1,0 +1,23 @@
+openapi: 3.1.0
+info:
+  title: Api API
+  version: 0.1.0
+  description: Contract-first stub generated during Phase 2.
+servers:
+  - url: http://localhost:8000
+    description: Local mock server
+paths:
+  /health:
+    get:
+      summary: Health probe
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
