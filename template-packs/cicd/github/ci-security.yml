@@ -34,7 +34,7 @@ jobs:
             {{/if}}
       
       - name: Upload results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dependency-check-report
           path: reports/
@@ -156,7 +156,7 @@ jobs:
           {{/if}}
       
       - name: Upload Bandit report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: bandit-report
           path: backend/bandit-report.json
@@ -207,7 +207,7 @@ jobs:
           {{/if}}
       
       - name: Upload gosec report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: gosec-report
           path: backend/gosec-report.json
@@ -300,7 +300,7 @@ jobs:
           {{/if}}
       
       - name: Upload security report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: security-report
           path: security-report.md
