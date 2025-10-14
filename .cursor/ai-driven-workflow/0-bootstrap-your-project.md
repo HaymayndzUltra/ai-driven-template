@@ -4,6 +4,8 @@
 
 You are an **AI Codebase Analyst & Context Architect**. Your mission is to perform an initial analysis of this project, configure the pre-installed AI Governor Framework, and propose a foundational "Context Kit" to dramatically improve all future AI collaboration.
 
+**🚫 [CRITICAL] DO NOT MODIFY PRODUCTION CODE.** Contain all actions within the governed template workspace.
+
 ## 2. THE BOOTSTRAP PROCESS
 
 ### STEP 1: Tooling Configuration & Rule Activation
@@ -31,6 +33,7 @@ You are an **AI Codebase Analyst & Context Architect**. Your mission is to perfo
 2.  **`[MUST]` Map the Codebase Structure and Identify Key Files:**
     *   **Action 1: Perform Recursive File Listing.** List all files and directories to create a complete `tree` view of the project.
     *   **Action 2: Propose an Analysis Plan.** From the file tree, identify key files that appear to be project pillars (e.g., `package.json`, `pom.xml`, `main.go`, `index.js`, core configuration files). Propose these to the user as a starting point.
+    *   **[GUIDELINE]** Keep the plan concise—focus on the smallest file set that gives complete architectural coverage.
     *   **Action 3: Validate Plan with User.** Present the proposed file list for confirmation.
         > "I have mapped your repository. To build an accurate understanding, I propose analyzing these key files: `package.json`, `src/main.tsx`, `vite.config.ts`, `README.md`. Does this list cover the main pillars of your project?"
     *   **Halt and await user confirmation.**
@@ -76,21 +79,7 @@ You are an **AI Codebase Analyst & Context Architect**. Your mission is to perfo
     *   **Note:** To preserve this repository as a reusable template, the recommended default is to generate into a sibling output directory (e.g., `../generated-projects/{brief.name}`) rather than in-place.
 
 3.  **`[MUST]` If User Confirms, Execute Generator:**
-    *   **Brief-based Generation (recommended):**
-        ```bash
-        python scripts/generate_from_brief.py \
-          --brief docs/briefs/{project-name}/brief.md \
-          --output-root ../generated-projects \
-          --force --yes
-        ```
-    *   **Alternative Interactive/Bootstrap Modes:**
-        ```bash
-        # Interactive variant
-        python scripts/generate_client_project.py --interactive --brief docs/briefs/{project-name}/brief.md
-
-        # One-command bootstrap variant
-        python scripts/bootstrap_project.py --name {project-name} --project-type {type}
-        ```
+    *   **Action:** Jump to the automation package in **Step 7.6** to run the appropriate generator command exactly once.
 
 4.  **`[MUST]` Sync Artifacts to Context Kit:**
     *   **Action:** Write a summary of generated outputs (paths, selected templates, CI workflows) to `.cursor/context-kit/README.md`.
@@ -132,6 +121,8 @@ You are an **AI Codebase Analyst & Context Architect**. Your mission is to perfo
     *   Propose a plan of `README.md` to create/update.
     *   Generate each file iteratively, based on the **validated principles** from STEP 4, and await user approval for each one.
 
+> Integration Gate: Steps 6.5, 7.5 ensure automation alignment.
+
 ### STEP 6.5: Rule Normalization & Audit (Automation)
 
 1.  **`[MUST]` Normalize Rule Metadata:** Ensure all rule files conform to Cursor metadata spec.
@@ -155,9 +146,7 @@ You are an **AI Codebase Analyst & Context Architect**. Your mission is to perfo
 ### STEP 7.5: Post-Rules Validation & Template Discovery (Automation)
 
 1.  **`[MUST]` Re-run Rule Audit:** Validate newly generated/updated project rules.
-    ```bash
-    python scripts/rules_audit_quick.py --output .cursor/rules/audit-$(date +%Y-%m-%d).md
-    ```
+    *   **Action:** Invoke the automation from **Step 6.5** with updated timestamps and attach the latest report link.
 2.  **`[MUST]` Surface Template Inventory:** Discover available template packs aligned with the detected stack and update the context kit.
     ```bash
     python -c "from project_generator.template_registry import TemplateRegistry; print(TemplateRegistry.list_all())" > .cursor/context-kit/template-inventory.md
@@ -195,6 +184,7 @@ You are an **AI Codebase Analyst & Context Architect**. Your mission is to perfo
     *   **Action:** Reference generated project structure in context kit README
     *   **Action:** Include links to generated documentation and rules
     *   **Action:** Note any compliance artifacts or CI/CD workflows created
+    *   **[STRICT]** Ensure every automation outcome is captured inside `.cursor/context-kit/README.md` before closing the protocol.
 
 ### FINALIZATION
 > "The initial context bootstrapping is complete. We now have a solid 'Version 1.0' of the project's knowledge base, containing both human-readable documentation and machine-actionable rules.

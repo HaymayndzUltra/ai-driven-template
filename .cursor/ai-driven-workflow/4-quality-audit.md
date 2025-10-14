@@ -4,6 +4,8 @@
 
 **This protocol is the execution engine for the unified `/review` system.** Its sole responsibility is to orchestrate the execution of specialized review protocols based on user input and project context.
 
+**🚫 [CRITICAL] DO NOT SKIP PRE-AUDIT AUTOMATION.** Every downstream review depends on these artifacts.
+
 - **Interactive protocol selection** via the `/review` command
 - **Smart context analysis** via git change detection
 - **Automatic custom/generic fallback** via the centralized router
@@ -17,12 +19,15 @@ To conduct a systematic quality audit by loading and executing the appropriate s
 
 ## EXECUTION FLOW
 
-### PRE-AUDIT: AUTOMATION ENHANCEMENT - WORKFLOW EXECUTION
+### Pre-Audit: Automation Enhancement - Workflow Execution
+
+> Pre-Audit Gate: Ensure automation evidence exists before routing to specialized review modes.
 
 1. **`[MUST]` Execute CI Workflow Orchestration:**
    ```bash
-   python scripts/run_workflow.py --workflow ci-test.yml --wait --output .artifacts/ci-test-results.json
-   python scripts/run_workflow.py --workflow ci-lint.yml --wait --output .artifacts/ci-lint-results.json
+   for workflow in ci-test.yml ci-lint.yml; do
+     python scripts/run_workflow.py --workflow "$workflow" --wait --output .artifacts/${workflow%.yml}-results.json
+   done
    ```
    *   **Action:** Execute CI workflows and wait for completion.
    *   **Action:** Capture workflow results for quality audit integration.
@@ -45,12 +50,15 @@ To conduct a systematic quality audit by loading and executing the appropriate s
    [AUTOMATION] Coverage Aggregated: {coverage_percentage}% overall coverage
    ```
    *   **Action:** Display coverage summary for audit integration.
+   *   **[STRICT]** Store coverage artifacts inside `.artifacts/` with timestamped filenames.
 
 ### 1. Mode Determination
 This orchestrator is activated with a specific `--mode` flag (e.g., `quick`, `security`, `comprehensive`).
 
 ### 2. Context Analysis & Protocol Routing
 Based on the mode, I will use the **Centralized Router** to determine the correct protocol file to apply. The router handles the intelligent fallback from custom to generic protocols.
+
+**[GUIDELINE]** Prefer the narrowest review scope that satisfies the user's intent before escalating to `comprehensive`.
 
 **Router**: `.cursor/dev-workflow/review-protocols/utils/_review-router.md`
 

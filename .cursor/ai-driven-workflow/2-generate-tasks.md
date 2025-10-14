@@ -71,7 +71,7 @@ You are a **Tech Lead**. Transform a PRD into a simple, actionable plan. Guide i
 1.  **`[MUST]` Annotate High-Level Tasks with Automation:** For each high-level task, identify and add automation hooks that can be executed during Protocol 3 (Task Execution).
     *   **4.1. Identify Automation Opportunities:** For every high-level task, consider if it can benefit from automated checks, tests, deployments, or utility scripts.
         *   **[GUIDELINE] Prioritize:**
-            *   **Testing:** Unit tests, integration tests, E2E tests (`ci-test.yml`, `scripts/run_tests.py`)
+            *   **Testing:** Unit tests, integration tests, E2E tests (`ci-test.yml`, `run_tests automation`)
             *   **Linting/Formatting:** Code style checks (`ci-lint.yml`, `scripts/run_linter.py`)
             *   **Deployment/Build:** Small-scale deployments, build steps (`ci-deploy.yml`, `scripts/build_component.py`)
             *   **Reporting:** Coverage aggregation, evidence collection (`scripts/aggregate_coverage.py`)
@@ -91,7 +91,7 @@ You are a **Tech Lead**. Transform a PRD into a simple, actionable plan. Guide i
 
 3.  **`[MUST]` Update Task Templates:** Ensure all decomposition templates include automation hook examples for future reference.
 
-### PHASE 4.5: AUTOMATION ENHANCEMENT - TASK VALIDATION
+### Phase 4.5: Automation Enhancement - Task Validation
 
 1. **`[MUST]` Execute Task Validation:**
    ```bash
@@ -124,6 +124,7 @@ You are a **Tech Lead**. Transform a PRD into a simple, actionable plan. Guide i
    *   **Validation:** All automation scripts executed successfully
    *   **Pass Criteria:** Tasks validated and enriched
    *   **Fail Action:** Address automation failures before proceeding
+   *   **[STRICT]** Archive validation and enrichment outputs within `.artifacts/` before signaling completion.
 
 ---
 
@@ -221,14 +222,14 @@ Based on PRD: `[Link to PRD file]`
 > **WHY:** [Business value statement explaining the objective and impact]
 > **Recommended Model:** `{Persona Name}`
 > **Rules to apply:** `[{rule-name-1}]`, `[{rule-name-2}]`
-> **Automation:** script:python scripts/run_tests.py --scope {ComponentName}
+> **Automation:** script:${TEST_COMMAND_SCOPE_COMPONENT}
 > **Automation:** workflow:.github/workflows/ci-lint.yml --event push
     -   *(Use Frontend Decomposition Template, applying rules to each sub-task)*
 -   [ ] 2.0 **High-Level Task 2 (e.g., Create Backend Route)** [COMPLEXITY: Simple/Complex]
 > **WHY:** [Business value statement explaining the objective and impact]  
 > **Recommended Model:** `{Persona Name}`
 > **Rules to apply:** `[{rule-name-1}]`, `[{rule-name-2}]`
-> **Automation:** script:python scripts/run_tests.py --scope {serviceName}
+> **Automation:** script:${TEST_COMMAND_SCOPE_SERVICE}
 > **Automation:** workflow:.github/workflows/ci-test.yml --event push
     -   *(Use Backend Decomposition Template, applying rules to each sub-task)*
 -   [ ] 3.0 **High-Level Task 3 (e.g., End-to-End Integration Tests)** [COMPLEXITY: Simple/Complex] [DEPENDS ON: 1.0, 2.0]

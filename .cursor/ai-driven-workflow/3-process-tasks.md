@@ -149,6 +149,8 @@ This ensures the AI works with a clean, relevant context for each major step of 
         4.  **[HYBRID STRATEGY]** `[GIT STRATEGY] Parent task complete. Options: (A) Keep {X} granular commits for debugging (B) Squash into single semantic commit. Recommend: {A/B based on task complexity}. Confirm?`
         5.  **[STRICT]** Await explicit confirmation before executing consolidation strategy.
 
+> Integration Hand-Off: Steps 3.5, 3.6 ensure downstream automation receives synchronized inputs.
+
 ### STEP 3.5: AUTOMATION ENHANCEMENT - TASK STATE SYNC
 
 1. **`[MUST]` Execute Task State Synchronization:**
@@ -178,6 +180,7 @@ This ensures the AI works with a clean, relevant context for each major step of 
    [AUTOMATION] Evidence Captured: {artifact_count} artifacts stored
    ```
    *   **Action:** Display captured evidence summary.
+    *   **[STRICT]** Attach evidence file paths to the task log entry.
 
 4.  **[NEW] MicroSaaS Architecture Considerations:**
     *   **Gateway Changes**: Always commit separately from service changes for rollback precision

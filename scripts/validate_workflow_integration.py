@@ -70,7 +70,7 @@ class WorkflowValidator:
             },
             "5": {
                 "file": "5-implementation-retrospective.md",
-                "scripts": ["rules_audit_quick.py", "evidence_report.py"],
+                "scripts": ["retrospective_rules_audit.py", "retrospective_evidence_report.py"],
                 "integration_point": "Pre-Retrospective",
                 "gate_criteria": "Audit complete"
             }
