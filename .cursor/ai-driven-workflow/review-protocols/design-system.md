@@ -2,7 +2,7 @@
 
 **IMPORTANT**: This protocol is now a specialized pointer to the comprehensive quality audit.
 
-**Primary Protocol**: `.cursor/dev-workflow/4-quality-audit.md`
+**Primary Protocol**: `.cursor/ai-driven-workflow/4-quality-audit.md`
 
 **Execution Mode**: Mode 6 (Design System Review)
 - **Layers**: LAYER 1 (DDD Compliance) + LAYER 6 (Design System)

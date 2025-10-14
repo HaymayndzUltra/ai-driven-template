@@ -2,7 +2,7 @@
 
 ## Overview
 
-This guide documents the complete automation integration across all dev-workflow protocols (00-5), ensuring alignment, eliminating gaps, and creating a connected, automated pipeline from client discovery to retrospective.
+This guide documents the complete automation integration across all ai-driven-workflow protocols (00-5), ensuring alignment, eliminating gaps, and creating a connected, automated pipeline from client discovery to retrospective.
 
 ## Integration Architecture
 
@@ -27,7 +27,7 @@ Protocol 5 (Retrospective) → rules_audit_quick.py, evidence_report.py (aggrega
 ## Protocol-by-Protocol Integration
 
 ### Protocol 00: Client Discovery
-**Location:** `.cursor/dev-workflow/00-client-discovery.md`
+**Location:** `.cursor/ai-driven-workflow/00-client-discovery.md`
 **Enhancement:** Phase 5.5 - Automation Enhancement
 
 **Automation Hooks:**
@@ -50,7 +50,7 @@ Protocol 5 (Retrospective) → rules_audit_quick.py, evidence_report.py (aggrega
 **Gate:** Automation validation complete before client validation
 
 ### Protocol 0: Bootstrap
-**Location:** `.cursor/dev-workflow/0-bootstrap-your-project.md`
+**Location:** `.cursor/ai-driven-workflow/0-bootstrap-your-project.md`
 **Enhancement:** Existing rule automation (Steps 6.5, 7.5)
 
 **Automation Hooks:**
@@ -68,7 +68,7 @@ Protocol 5 (Retrospective) → rules_audit_quick.py, evidence_report.py (aggrega
 **Gate:** Rules normalized and audited before PRD creation
 
 ### Protocol 1: PRD Creation
-**Location:** `.cursor/dev-workflow/1-create-prd.md`
+**Location:** `.cursor/ai-driven-workflow/1-create-prd.md`
 **Enhancement:** Phase 4.5 - Automation Enhancement
 
 **Automation Hooks:**
@@ -86,7 +86,7 @@ Protocol 5 (Retrospective) → rules_audit_quick.py, evidence_report.py (aggrega
 **Gate:** Assets generated and PRD validation ≥85
 
 ### Protocol 2: Task Generation
-**Location:** `.cursor/dev-workflow/2-generate-tasks.md`
+**Location:** `.cursor/ai-driven-workflow/2-generate-tasks.md`
 **Enhancement:** Phase 4.5 - Automation Enhancement
 
 **Automation Hooks:**
@@ -104,7 +104,7 @@ Protocol 5 (Retrospective) → rules_audit_quick.py, evidence_report.py (aggrega
 **Gate:** Tasks validated and enriched before execution
 
 ### Protocol 3: Task Execution
-**Location:** `.cursor/dev-workflow/3-process-tasks.md`
+**Location:** `.cursor/ai-driven-workflow/3-process-tasks.md`
 **Enhancement:** Steps 3.5, 3.6 - Automation Enhancement
 
 **Automation Hooks:**
@@ -122,7 +122,7 @@ Protocol 5 (Retrospective) → rules_audit_quick.py, evidence_report.py (aggrega
 **Gate:** Task state synced and evidence captured per task
 
 ### Protocol 4: Quality Audit
-**Location:** `.cursor/dev-workflow/4-quality-audit.md`
+**Location:** `.cursor/ai-driven-workflow/4-quality-audit.md`
 **Enhancement:** Pre-Audit - Automation Enhancement
 
 **Automation Hooks:**
@@ -140,7 +140,7 @@ Protocol 5 (Retrospective) → rules_audit_quick.py, evidence_report.py (aggrega
 **Gate:** CI workflows executed and coverage aggregated before audit
 
 ### Protocol 5: Retrospective
-**Location:** `.cursor/dev-workflow/5-implementation-retrospective.md`
+**Location:** `.cursor/ai-driven-workflow/5-implementation-retrospective.md`
 **Enhancement:** Pre-Retrospective - Automation Enhancement
 
 **Automation Hooks:**
@@ -336,7 +336,7 @@ python scripts/script_name.py --help
 
 #### Verify Automation Hooks
 ```bash
-grep -r "python scripts/" .cursor/dev-workflow/
+grep -r "python scripts/" .cursor/ai-driven-workflow/
 ```
 
 #### Check Evidence Artifacts
@@ -400,4 +400,4 @@ gh run list --workflow=ci-lint.yml --limit 5
 
 ---
 
-*This integration guide ensures the dev-workflow automation is aligned, logical, gap-free, and fully connected across all protocols.*
+*This integration guide ensures the ai-driven-workflow automation is aligned, logical, gap-free, and fully connected across all protocols.*

@@ -60,7 +60,7 @@ Based on the mode, I will use the **Centralized Router** to determine the correc
 
 **[GUIDELINE]** Prefer the narrowest review scope that satisfies the user's intent before escalating to `comprehensive`.
 
-**Router**: `.cursor/dev-workflow/review-protocols/utils/_review-router.md`
+**Router**: `.cursor/ai-driven-workflow/review-protocols/utils/_review-router.md`
 
 ### 3. Protocol Execution
 I will load the instructions from the determined protocol file (e.g., `@review-protocols/security-check.md`) and execute them precisely. All detailed validation logic, checklists, and report formats are defined within those specialized files.

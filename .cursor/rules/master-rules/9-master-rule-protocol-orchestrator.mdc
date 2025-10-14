@@ -646,7 +646,7 @@ If orchestration decisions conflict with user requirements:
 
 ## References
 - [Protocol Orchestrator Design](mdc:.cursor/commands/protocol-orchestrator.md) - Original orchestration system specification
-- [Dev-Workflow Integration Guide](mdc:.cursor/rules/master-rules/7-master-rule-dev-workflow-integration-guide.mdc) - Integration patterns and automation
+- [Dev-Workflow Integration Guide](mdc:.cursor/rules/master-rules/7-master-rule-ai-driven-workflow-integration-guide.mdc) - Integration patterns and automation
 - [Scripts Directory](mdc:scripts/README.md) - Available automation scripts
 - [Protocol Metadata](mdc:.cursor/ai-driven-workflow/protocol-metadata.json) - Protocol definitions and requirements
 - [GitHub Workflows](mdc:.github/workflows/) - CI/CD automation workflows

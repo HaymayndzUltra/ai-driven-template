@@ -193,7 +193,7 @@ const relevantRules = masterRules
 ### Step 3: Enhanced Execution
 ```bash
 # Execute enhanced static protocol
-Apply instructions from .cursor/dev-workflow/4-quality-audit.md 
+Apply instructions from .cursor/ai-driven-workflow/4-quality-audit.md 
 --mode ${selectedMode}
 --context "${detectedContext}"
 --rules "${relevantRules}"

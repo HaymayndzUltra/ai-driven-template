@@ -4,13 +4,13 @@ on:
   push:
     branches: [ main, develop ]
     paths:
-      - '.cursor/dev-workflow/**'
+      - '.cursor/ai-driven-workflow/**'
       - 'scripts/**'
       - '.github/workflows/validate-integration.yml'
   pull_request:
     branches: [ main, develop ]
     paths:
-      - '.cursor/dev-workflow/**'
+      - '.cursor/ai-driven-workflow/**'
       - 'scripts/**'
       - '.github/workflows/validate-integration.yml'
 
@@ -142,7 +142,7 @@ jobs:
           }
           
           comment += '---\n';
-          comment += '*This validation runs automatically on every commit to ensure dev-workflow integration remains aligned and functional.*';
+          comment += '*This validation runs automatically on every commit to ensure ai-driven-workflow integration remains aligned and functional.*';
           
           github.rest.issues.createComment({
             issue_number: context.issue.number,

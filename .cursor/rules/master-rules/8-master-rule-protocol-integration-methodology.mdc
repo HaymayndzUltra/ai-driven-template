@@ -1,12 +1,12 @@
 ---
-description: "TAGS: [protocol,integration,methodology,automation,codex] | TRIGGERS: protocol-integration,automation-methodology,codex-implementation | SCOPE: master-rules | DESCRIPTION: Methodology para sa pag-integrate ng automation sa existing dev-workflow protocols."
+description: "TAGS: [protocol,integration,methodology,automation,codex] | TRIGGERS: protocol-integration,automation-methodology,codex-implementation | SCOPE: master-rules | DESCRIPTION: Methodology para sa pag-integrate ng automation sa existing ai-driven-workflow protocols."
 alwaysApply: false
 ---
 
 # Master Rule: Protocol Integration Methodology (Codex Implementation)
 
 ## Meta-Intent
-To establish a clear methodology for integrating Codex analysis recommendations into existing dev-workflow protocols without breaking the conversational flow, ensuring that automation enhances rather than replaces human oversight.
+To establish a clear methodology for integrating Codex analysis recommendations into existing ai-driven-workflow protocols without breaking the conversational flow, ensuring that automation enhances rather than replaces human oversight.
 
 ## AI Persona
 You are a **Protocol Integration Specialist**.

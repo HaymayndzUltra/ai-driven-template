@@ -21,7 +21,7 @@ This workflow guides you through the entire development process, from initial se
 First, the AI analyzes your entire codebase to build a "Context Kit"—a set of foundational `READMEs` and project-specific rules. This is a one-time protocol that turns a generic AI into a project-specific expert.
 
 ```
-Apply instructions from dev-workflow/0-bootstrap-your-project.md
+Apply instructions from ai-driven-workflow/0-bootstrap-your-project.md
 ```
 *(For best results, Cursor users should use Max Mode for this step.)*
 
@@ -31,7 +31,7 @@ Apply instructions from dev-workflow/0-bootstrap-your-project.md
 Next, you define the "what" and "why" of your feature. The AI interviews you to create a detailed Product Requirements Document (PRD), ensuring all requirements are captured before any code is written.
 
 ```
-Apply instructions from dev-workflow/1-create-prd.md
+Apply instructions from ai-driven-workflow/1-create-prd.md
 
 Here's the feature I want to build: [Describe your feature in detail]
 ```
@@ -43,7 +43,7 @@ Here's the feature I want to build: [Describe your feature in detail]
 The AI then transforms the PRD into a granular, step-by-step technical execution plan. This ensures that both you and the AI are aligned on the implementation strategy.
 
 ```
-Apply instructions from dev-workflow/2-generate-tasks.md to @prd-my-feature.md
+Apply instructions from ai-driven-workflow/2-generate-tasks.md to @prd-my-feature.md
 ```
 *(Note: Replace `@prd-my-feature.md` with the actual filename of your PRD.)*
 
@@ -58,7 +58,7 @@ Here, the AI implements the plan one parent task at a time, within a dedicated c
 
 1.  **Start a parent task in a fresh session:**
     ```
-    Apply instructions from dev-workflow/3-process-tasks.md to @tasks-my-feature.md. Start on task 1.
+    Apply instructions from ai-driven-workflow/3-process-tasks.md to @tasks-my-feature.md. Start on task 1.
     ```
     *(Note: Replace `@tasks-my-feature.md` with the actual filename of your task list.)*
 
@@ -72,7 +72,7 @@ Here, the AI implements the plan one parent task at a time, within a dedicated c
     
     **🎯 Tool-Agnostic Command:**
     ```
-    Apply instructions from dev-workflow/4-quality-audit.md
+    Apply instructions from ai-driven-workflow/4-quality-audit.md
     ```
     
     **The orchestrator provides an interactive selection interface:**
@@ -89,12 +89,12 @@ Here, the AI implements the plan one parent task at a time, within a dedicated c
 4.  **Protocol 5: Implementation Retrospective (Same Session)**
     Capture learnings while context is fresh:
     ```
-    Apply instructions from dev-workflow/5-implementation-retrospective.md
+    Apply instructions from ai-driven-workflow/5-implementation-retrospective.md
     ```
 
 5.  **Start the next parent task in a new chat:**
     ```
-    Apply instructions from dev-workflow/3-process-tasks.md to @tasks-my-feature.md. Start on task 2.
+    Apply instructions from ai-driven-workflow/3-process-tasks.md to @tasks-my-feature.md. Start on task 2.
     ```
 
 ---
@@ -114,14 +114,14 @@ This streamlined 5-protocol workflow with a **unified review system** eliminates
 
 **Claude Code:** Use the `/review` command for interactive selection.
 **Cursor:** Use `@review` for interactive selection.
-**Aider:** Use `/load .cursor/dev-workflow/4-quality-audit.md`
+**Aider:** Use `/load .cursor/ai-driven-workflow/4-quality-audit.md`
 **Universal:** All tools use the same underlying protocol system.
 
 The initial structured approach pays off exponentially as the AI learns your codebase patterns and becomes a true expert companion for your project with **predictable, high-quality output across any development tool**.
 
 ## 3. Automation Integration Architecture
 
-The dev-workflow now includes comprehensive automation integration across all protocols, ensuring alignment, eliminating gaps, and creating a connected pipeline from client discovery to retrospective.
+The ai-driven-workflow now includes comprehensive automation integration across all protocols, ensuring alignment, eliminating gaps, and creating a connected pipeline from client discovery to retrospective.
 
 ### Automation Flow Map
 
@@ -189,7 +189,7 @@ Each protocol includes automation checkpoints that validate:
 Transform any job post into a structured project brief with automated validation:
 
 ```
-Apply instructions from dev-workflow/00-client-discovery.md
+Apply instructions from ai-driven-workflow/00-client-discovery.md
 
 --- JOB POST START ---
 [Your job post content here]
@@ -202,7 +202,7 @@ Apply instructions from dev-workflow/00-client-discovery.md
 **Role:** The AI acts as a **Project Analyst** with automation.
 
 ```
-Apply instructions from dev-workflow/0-bootstrap-your-project.md
+Apply instructions from ai-driven-workflow/0-bootstrap-your-project.md
 ```
 
 **Automation:** Rule normalization, rule audit, template discovery
@@ -211,7 +211,7 @@ Apply instructions from dev-workflow/0-bootstrap-your-project.md
 **Role:** The AI acts as a **Product Manager** with asset generation.
 
 ```
-Apply instructions from dev-workflow/1-create-prd.md
+Apply instructions from ai-driven-workflow/1-create-prd.md
 ```
 
 **Automation:** PRD asset generation, validation gate
@@ -220,7 +220,7 @@ Apply instructions from dev-workflow/1-create-prd.md
 **Role:** The AI acts as a **Tech Lead** with task enhancement.
 
 ```
-Apply instructions from dev-workflow/2-generate-tasks.md to @prd-my-feature.md
+Apply instructions from ai-driven-workflow/2-generate-tasks.md to @prd-my-feature.md
 ```
 
 **Automation:** Task validation, task enrichment
@@ -229,7 +229,7 @@ Apply instructions from dev-workflow/2-generate-tasks.md to @prd-my-feature.md
 **Role:** The AI acts as a **Paired Developer** with evidence capture.
 
 ```
-Apply instructions from dev-workflow/3-process-tasks.md to @tasks-my-feature.md. Start on task 1.
+Apply instructions from ai-driven-workflow/3-process-tasks.md to @tasks-my-feature.md. Start on task 1.
 ```
 
 **Automation:** Task state sync, evidence capture
@@ -238,7 +238,7 @@ Apply instructions from dev-workflow/3-process-tasks.md to @tasks-my-feature.md.
 **Role:** The AI acts as a **Quality Engineer** with CI integration.
 
 ```
-Apply instructions from dev-workflow/4-quality-audit.md
+Apply instructions from ai-driven-workflow/4-quality-audit.md
 ```
 
 **Automation:** CI workflow execution, coverage aggregation
@@ -247,7 +247,7 @@ Apply instructions from dev-workflow/4-quality-audit.md
 **Role:** The AI acts as a **Process Improvement Lead** with evidence analysis.
 
 ```
-Apply instructions from dev-workflow/5-implementation-retrospective.md
+Apply instructions from ai-driven-workflow/5-implementation-retrospective.md
 ```
 
 **Automation:** Rule audit, evidence aggregation
@@ -311,7 +311,7 @@ The workflow includes continuous validation through:
 
 ## 8. Folder Overview and Key Files
 
-This directory contains the end-to-end dev-workflow protocols and the unified quality review system used throughout the repository.
+This directory contains the end-to-end ai-driven-workflow protocols and the unified quality review system used throughout the repository.
 
 ### Directory structure (high level)
 

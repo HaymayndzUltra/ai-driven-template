@@ -780,7 +780,7 @@ Before proceeding to PRD creation, verify:
 Once checklist is complete, use this command to proceed:
 
 ```
-Apply instructions from dev-workflow/1-create-prd.md
+Apply instructions from ai-driven-workflow/1-create-prd.md
 
 Here's the feature I want to build: [Reference to brief.md]
 ```
@@ -851,8 +851,8 @@ Discovery is complete when:
 ---
 
 ## 10. REFERENCES
-- [Protocol 0 Bootstrap](mdc:.cursor/dev-workflow/0-bootstrap-your-project.md) - Project initialization
-- [Protocol 1 PRD Creation](mdc:.cursor/dev-workflow/1-create-prd.md) - Requirements documentation
+- [Protocol 0 Bootstrap](mdc:.cursor/ai-driven-workflow/0-bootstrap-your-project.md) - Project initialization
+- [Protocol 1 PRD Creation](mdc:.cursor/ai-driven-workflow/1-create-prd.md) - Requirements documentation
 - [Master Rule: AI Collaboration Guidelines](mdc:.cursor/rules/master-rules/2-master-rule-ai-collaboration-guidelines.mdc) - Collaboration protocols
 
 ---

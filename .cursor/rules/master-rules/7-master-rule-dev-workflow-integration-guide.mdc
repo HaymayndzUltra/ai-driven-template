@@ -1,12 +1,12 @@
 ---
-description: "TAGS: [global,workflow,integration,automation,governance] | TRIGGERS: bootstrap,protocol,integration,dev-workflow,automation,template,generator,CI/CD | SCOPE: global | DESCRIPTION: Comprehensive guide for AI agents to understand and implement the 6-phase dev-workflow integration roadmap, connecting bootstrap through retrospective with template packs, automation scripts, and CI/CD workflows."
+description: "TAGS: [global,workflow,integration,automation,governance] | TRIGGERS: bootstrap,protocol,integration,ai-driven-workflow,automation,template,generator,CI/CD | SCOPE: global | DESCRIPTION: Comprehensive guide for AI agents to understand and implement the 6-phase ai-driven-workflow integration roadmap, connecting bootstrap through retrospective with template packs, automation scripts, and CI/CD workflows."
 alwaysApply: false
 ---
 
 # Master Rule: Dev-Workflow Integration Guide
 
 ## Meta-Intent
-Provide AI agents with a complete, unambiguous protocol for integrating the five-protocol dev-workflow lifecycle (Bootstrap → PRD → Tasks → Execution → Retrospective) with supporting systems (template packs, project generator, automation scripts, CI/CD workflows) to achieve end-to-end delivery without misinterpretation.
+Provide AI agents with a complete, unambiguous protocol for integrating the five-protocol ai-driven-workflow lifecycle (Bootstrap → PRD → Tasks → Execution → Retrospective) with supporting systems (template packs, project generator, automation scripts, CI/CD workflows) to achieve end-to-end delivery without misinterpretation.
 
 ## AI Persona
 You are a **Dev-Workflow Integration Architect**. Your mission is to understand and correctly implement the complete integration roadmap that connects conversational AI protocols with automated tooling, ensuring no gaps between planning, execution, quality gates, and deployment.
@@ -20,19 +20,19 @@ You are a **Dev-Workflow Integration Architect**. Your mission is to understand 
 ---
 
 ## Core Principle
-The dev-workflow achieves predictable, production-ready results when conversational protocols are tightly coupled with automated tooling. Manual gaps between phases (bootstrap, planning, execution, quality, learning) lead to inconsistency, rework, and missed opportunities for automation. This rule codifies the complete integration architecture.
+The ai-driven-workflow achieves predictable, production-ready results when conversational protocols are tightly coupled with automated tooling. Manual gaps between phases (bootstrap, planning, execution, quality, learning) lead to inconsistency, rework, and missed opportunities for automation. This rule codifies the complete integration architecture.
 
 ---
 
 ## Integration Architecture Overview
 
 ### The Five-Protocol Lifecycle
-1. **Protocol 0 (Bootstrap):** Discovers architecture, validates with user, produces READMEs and project rules【[.cursor/dev-workflow/0-bootstrap-your-project.md](mdc:.cursor/dev-workflow/0-bootstrap-your-project.md)】
-2. **Protocol 1 (PRD):** Captures requirements, defines implementation layers, validates constraints【[.cursor/dev-workflow/1-create-prd.md](mdc:.cursor/dev-workflow/1-create-prd.md)】
-3. **Protocol 2 (Tasks):** Builds rule index, creates dependency-aware task plans with rule references【[.cursor/dev-workflow/2-generate-tasks.md](mdc:.cursor/dev-workflow/2-generate-tasks.md)】
-4. **Protocol 3 (Execution):** Enforces "one parent task per chat," loads rules just-in-time, triggers quality gates【[.cursor/dev-workflow/3-process-tasks.md](mdc:.cursor/dev-workflow/3-process-tasks.md)】
-5. **Protocol 4 (Quality Audit):** Orchestrates specialized reviews with automatic fallback【[.cursor/dev-workflow/4-quality-audit.md](mdc:.cursor/dev-workflow/4-quality-audit.md)】
-6. **Protocol 5 (Retrospective):** Audits against rules, captures learnings, closes feedback loop【[.cursor/dev-workflow/5-implementation-retrospective.md](mdc:.cursor/dev-workflow/5-implementation-retrospective.md)】
+1. **Protocol 0 (Bootstrap):** Discovers architecture, validates with user, produces READMEs and project rules【[.cursor/ai-driven-workflow/0-bootstrap-your-project.md](mdc:.cursor/ai-driven-workflow/0-bootstrap-your-project.md)】
+2. **Protocol 1 (PRD):** Captures requirements, defines implementation layers, validates constraints【[.cursor/ai-driven-workflow/1-create-prd.md](mdc:.cursor/ai-driven-workflow/1-create-prd.md)】
+3. **Protocol 2 (Tasks):** Builds rule index, creates dependency-aware task plans with rule references【[.cursor/ai-driven-workflow/2-generate-tasks.md](mdc:.cursor/ai-driven-workflow/2-generate-tasks.md)】
+4. **Protocol 3 (Execution):** Enforces "one parent task per chat," loads rules just-in-time, triggers quality gates【[.cursor/ai-driven-workflow/3-process-tasks.md](mdc:.cursor/ai-driven-workflow/3-process-tasks.md)】
+5. **Protocol 4 (Quality Audit):** Orchestrates specialized reviews with automatic fallback【[.cursor/ai-driven-workflow/4-quality-audit.md](mdc:.cursor/ai-driven-workflow/4-quality-audit.md)】
+6. **Protocol 5 (Retrospective):** Audits against rules, captures learnings, closes feedback loop【[.cursor/ai-driven-workflow/5-implementation-retrospective.md](mdc:.cursor/ai-driven-workflow/5-implementation-retrospective.md)】
 
 ### Supporting Systems
 - **Template Packs:** Domain-specific scaffolds (frontend, backend, database, DevEx, CI/CD)【[template-packs/README.md](mdc:template-packs/README.md)】
@@ -490,7 +490,7 @@ If integration recommendations conflict with existing protocols:
 ---
 
 ## References
-- [Dev-Workflow README](mdc:.cursor/dev-workflow/README.md) - Five-protocol lifecycle overview
+- [Dev-Workflow README](mdc:.cursor/ai-driven-workflow/README.md) - Five-protocol lifecycle overview
 - [Rule Automation Protocol](mdc:.cursor/rules/common-rules/rule-automation-protocol.mdc) - Recommendation 1 implementation
 - [Template Bootstrap Integration](mdc:.cursor/rules/common-rules/template-bootstrap-integration.mdc) - Recommendation 2 implementation
 - [Task Automation Binding](mdc:.cursor/rules/common-rules/task-automation-binding.mdc) - Recommendation 3 implementation
@@ -501,4 +501,4 @@ If integration recommendations conflict with existing protocols:
 
 ---
 
-*This master rule provides the governance framework for AI agents to correctly implement the complete dev-workflow integration roadmap without misinterpretation. For technical implementation details, consult the referenced common rules.*
+*This master rule provides the governance framework for AI agents to correctly implement the complete ai-driven-workflow integration roadmap without misinterpretation. For technical implementation details, consult the referenced common rules.*

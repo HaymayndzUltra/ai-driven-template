@@ -118,7 +118,7 @@ This ensures the AI works with a clean, relevant context for each major step of 
     *   **[STRICT] Module Documentation Check**: For module development tasks, verify README.md files are generated per module documentation template
     *   **[CRITICAL] Mandatory Quality Gate Integration:**
         - **[MANDATORY]** Execute unified `/review` command for comprehensive quality validation
-        - **[STRICT]** Apply: `.cursor/dev-workflow/4-quality-audit.md --mode comprehensive`
+        - **[STRICT]** Apply: `.cursor/ai-driven-workflow/4-quality-audit.md --mode comprehensive`
         - **[REQUIRED]** Address any CRITICAL or HIGH priority findings before proceeding
         - **[COMMUNICATION]** `[QUALITY GATE] Running comprehensive quality audit for parent task completion...`
         - **[VALIDATION]** Report audit results: `[QUALITY REPORT] Score: X/10. Critical: Y, High: Z. Status: PASS/NEEDS_ATTENTION`

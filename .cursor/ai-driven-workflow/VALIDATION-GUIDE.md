@@ -2,7 +2,7 @@
 
 ## Overview
 
-This guide documents the comprehensive validation system for the dev-workflow automation integration. The validation system ensures that all protocols are aligned, connected, and conflict-free.
+This guide documents the comprehensive validation system for the ai-driven-workflow automation integration. The validation system ensures that all protocols are aligned, connected, and conflict-free.
 
 ## Validation Components
 
@@ -304,7 +304,7 @@ python scripts/script_name.py --help
 
 #### Verify Automation Hooks
 ```bash
-grep -r "python scripts/" .cursor/dev-workflow/
+grep -r "python scripts/" .cursor/ai-driven-workflow/
 ```
 
 #### Check Evidence Artifacts
@@ -334,7 +334,7 @@ The validation system integrates with GitHub Actions to provide:
 
 - **Push to main/develop:** Full validation suite
 - **Pull Request:** Validation + PR comment
-- **Path Changes:** Only validate when dev-workflow files change
+- **Path Changes:** Only validate when ai-driven-workflow files change
 
 ### Quality Gates
 
@@ -394,4 +394,4 @@ The validation system integrates with GitHub Actions to provide:
 
 ---
 
-*This validation guide ensures the dev-workflow automation remains aligned, functional, and continuously validated.*
+*This validation guide ensures the ai-driven-workflow automation remains aligned, functional, and continuously validated.*

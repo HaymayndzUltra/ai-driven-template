@@ -9,8 +9,8 @@
 ### Step 1: Environment Detection
 ```bash
 # Check if custom/ folder exists
-CUSTOM_DIR=".cursor/dev-workflow/review-protocols/custom/"
-GENERIC_DIR=".cursor/dev-workflow/review-protocols/"
+CUSTOM_DIR=".cursor/ai-driven-workflow/review-protocols/custom/"
+GENERIC_DIR=".cursor/ai-driven-workflow/review-protocols/"
 
 if [[ -d "$CUSTOM_DIR" ]]; then
     echo "✅ Custom protocols directory detected - Portfolio Dashboard optimizations available"
@@ -119,10 +119,10 @@ fi
 ```markdown
 **IMPORTANT**: This [command/subagent/prompt] uses the centralized router for automatic protocol selection.
 
-**Router**: `.cursor/dev-workflow/review-protocols/utils/_review-router.md`
+**Router**: `.cursor/ai-driven-workflow/review-protocols/utils/_review-router.md`
 
 **Execution**: Apply the centralized quality audit with automatic protocol selection:
-`.cursor/dev-workflow/4-quality-audit.md --mode [MODE]`
+`.cursor/ai-driven-workflow/4-quality-audit.md --mode [MODE]`
 
 The router will automatically:
 1. **Detect** if `custom/` folder exists
@@ -170,13 +170,13 @@ The router will automatically:
 ### Claude Code
 ```bash
 # Router automatically selects appropriate protocol
-Apply instructions from .cursor/dev-workflow/4-quality-audit.md --mode quick
+Apply instructions from .cursor/ai-driven-workflow/4-quality-audit.md --mode quick
 ```
 
 ### Cursor
 ```bash
 # Router handles selection transparently
-@apply .cursor/dev-workflow/4-quality-audit.md --mode security
+@apply .cursor/ai-driven-workflow/4-quality-audit.md --mode security
 ```
 
 ### Result

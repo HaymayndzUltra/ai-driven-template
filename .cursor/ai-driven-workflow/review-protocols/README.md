@@ -59,7 +59,7 @@ These protocols define the **revolutionary core logic** for AI code reviews, all
 /security-auditor     # Comprehensive security audit (mode: deep-security)
 
 # Direct mode execution (for automation)
-Apply instructions from .cursor/dev-workflow/4-quality-audit.md --mode [quick|security|architecture|design|ui|deep-security|comprehensive]
+Apply instructions from .cursor/ai-driven-workflow/4-quality-audit.md --mode [quick|security|architecture|design|ui|deep-security|comprehensive]
 ```
 
 ### Cursor (Enhanced)
@@ -70,13 +70,13 @@ Apply instructions from .cursor/dev-workflow/4-quality-audit.md --mode [quick|se
 # → Automatic custom ↔ generic fallback
 
 # Direct mode execution
-@apply .cursor/dev-workflow/4-quality-audit.md --mode [quick|security|architecture|design|ui|deep-security|comprehensive]
+@apply .cursor/ai-driven-workflow/4-quality-audit.md --mode [quick|security|architecture|design|ui|deep-security|comprehensive]
 ```
 
 ### Aider (Streamlined)
 ```python
 # Unified review interface by loading the orchestrator
-/load .cursor/dev-workflow/4-quality-audit.md
+/load .cursor/ai-driven-workflow/4-quality-audit.md
 # → The orchestrator will then prompt for the mode
 ```
 
@@ -112,7 +112,7 @@ All protocols rigorously respect:
 ### Zero-Config Project Setup
 ```bash
 # Generate custom protocols fitted to any project
-Apply instructions from .cursor/dev-workflow/review-protocols/custom/customize-review-protocols.md
+Apply instructions from .cursor/ai-driven-workflow/review-protocols/custom/customize-review-protocols.md
 
 # Automatic analysis and generation:
 # 1. Analyze Master Rules, technology stack, domain context
@@ -189,5 +189,5 @@ Apply instructions from .cursor/dev-workflow/review-protocols/custom/customize-r
 
 ```20:25:/home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/README.md
 ### Step 3: Execute Tasks with Integrated Quality Gates
-... **Apply instructions from dev-workflow/4-quality-audit.md**
+... **Apply instructions from ai-driven-workflow/4-quality-audit.md**
 ```

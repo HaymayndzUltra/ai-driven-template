@@ -294,7 +294,7 @@ RULES=$(node scripts/filter-relevant-rules.js "$CONTEXT")
 echo "🎯 Relevant rules: $(echo $RULES | jq length) selected"
 
 # Step 3: Execute enhanced protocol
-Apply instructions from .cursor/dev-workflow/4-quality-audit.md \
+Apply instructions from .cursor/ai-driven-workflow/4-quality-audit.md \
   --mode $MODE \
   --context "$CONTEXT" \
   --rules "$RULES" \

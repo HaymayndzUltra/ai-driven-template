@@ -284,7 +284,7 @@
 
 ## Conclusion
 
-The dev-workflow protocols show **excellent overall consistency** with a score of **92/100**. The protocols are well-structured, have clear AI personas, and maintain good handoff alignment. The automation integration is comprehensive and well-executed.
+The ai-driven-workflow protocols show **excellent overall consistency** with a score of **92/100**. The protocols are well-structured, have clear AI personas, and maintain good handoff alignment. The automation integration is comprehensive and well-executed.
 
 **Key Strengths**:
 - Clear step sequences and phase structures
