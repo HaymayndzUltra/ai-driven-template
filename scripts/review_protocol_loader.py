@@ -39,7 +39,7 @@ class ReviewProtocolLoader:
         self.protocol_root = (
             self.repository_root
             / ".cursor"
-            / "dev-workflow"
+            / "ai-driven-workflow"
             / "review-protocols"
         )
         if not self.protocol_root.exists():

@@ -16,20 +16,10 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple, Union
 # Import project generator components using proper package imports
 # Since we're in unified-workflow, we need to go up to access project_generator
 import sys
-root_path = Path(__file__).resolve().parents[2]
+
+root_path = Path(__file__).resolve().parent.parent
 project_root = str(root_path)
 
-# Ensure the project root is in the path
-if project_root not in sys.path:
-    sys.path.insert(0, project_root)
-
-# Import project generator components using proper package imports
-# Since we're in unified-workflow, we need to go up to access project_generator
-import sys
-root_path = Path(__file__).resolve().parents[2]
-project_root = str(root_path)
-
-# Ensure the project root is in the path
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 

@@ -34,9 +34,9 @@ _ensure_project_generator_package()
 from scripts.workflow_automation.config import WorkflowConfig
 from scripts.workflow_automation.exceptions import GateFailedError
 from scripts.workflow_automation.orchestrator import WorkflowOrchestrator
-from unified_workflow.automation.evidence_manager import EvidenceManager
-from unified_workflow.automation.quality_gates import QualityGates
-from unified_workflow.automation.validation_gates import ValidationGates
+from scripts.evidence_manager import EvidenceManager
+from scripts.quality_gates import QualityGates
+from scripts.validation_gates import ValidationGates
 
 
 PHASE_SEQUENCE = [

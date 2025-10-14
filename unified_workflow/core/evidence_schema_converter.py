@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from unified_workflow.automation.evidence_schema_converter import (  # noqa: F401
+from scripts.evidence_schema_converter import (  # noqa: F401
     EvidenceSchemaConverter,
     EvidenceMigrator,
 )

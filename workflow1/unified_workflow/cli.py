@@ -178,7 +178,7 @@ class LegacyCommandRouter:
         """
         self.project_root = project_root or self._find_project_root()
         self.scripts_dir = self.project_root / "scripts"
-        self.unified_automation = self.project_root / "unified-workflow" / "automation"
+        self.unified_automation = self.project_root / "scripts"
         self.tracker = tracker or TelemetryTracker()
         
         # Define command mappings
@@ -186,7 +186,7 @@ class LegacyCommandRouter:
             # Project generation commands
             "generate-project": {
                 "script": "generate_client_project.py",
-                "unified": "project_generator.py",
+                "unified": "project_generator_orchestration.py",
                 "description": "Generate a new project from templates"
             },
             "generate-from-brief": {
@@ -196,7 +196,7 @@ class LegacyCommandRouter:
             },
             "bootstrap": {
                 "script": "bootstrap_project.py",
-                "unified": "project_generator.py",
+                "unified": "project_generator_orchestration.py",
                 "description": "Bootstrap a new project"
             },
             

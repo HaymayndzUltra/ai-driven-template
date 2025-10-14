@@ -17,7 +17,7 @@ import sys
 # Add unified-workflow to path for imports
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "unified-workflow"))
 
-from unified_workflow.automation.evidence_schema_converter import EvidenceSchemaConverter
+from scripts.evidence_schema_converter import EvidenceSchemaConverter
 
 # Setup logging
 logging.basicConfig(

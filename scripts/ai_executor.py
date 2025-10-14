@@ -6,8 +6,6 @@ Main orchestrator that executes the complete unified workflow from bootstrap to 
 with AI automation and human validation gates.
 """
 
-import os
-import sys
 import json
 import time
 from datetime import datetime
@@ -15,11 +13,8 @@ from pathlib import Path
 from typing import Dict, List, Any, Optional
 import click
 
-# Add the automation directory to Python path
-sys.path.insert(0, str(Path(__file__).parent))
-
-from evidence_manager import EvidenceManager
-from external_services import ExternalServicesManager
+from .evidence_manager import EvidenceManager
+from .external_services import ExternalServicesManager
 
 
 class AIExecutor:
@@ -28,7 +23,8 @@ class AIExecutor:
     def __init__(self, project_name: str, evidence_root: str = "evidence"):
         self.project_name = project_name
         self.evidence_manager = EvidenceManager(evidence_root)
-        self.workflow_home = Path(__file__).parent.parent
+        repo_root = Path(__file__).resolve().parent.parent
+        self.workflow_home = repo_root / "unified_workflow"
         self.phases_dir = self.workflow_home / "phases"
 
         # Ensure project directory exists
@@ -86,113 +82,6 @@ class AIExecutor:
         with open(config_path, 'w') as f:
             json.dump(self.config, f, indent=2)
     
-    def _build_governor_payload(self, context: Dict[str, Any]) -> Dict[str, Any]:
-        """Create a payload for AI Governor validation."""
-
-        project_config = self.config.get("project", {})
-        stack = project_config.get("stack", {})
-
-        if isinstance(stack, list):
-            stack = {
-                "frontend": stack[0] if stack else None,
-                "backend": stack[1] if len(stack) > 1 else None,
-                "database": stack[2] if len(stack) > 2 else None,
-            }
-
-        return {
-            "name": project_config.get("name", self.project_name),
-            "industry": project_config.get("industry", context.get("industry", "saas")),
-            "project_type": project_config.get("type", context.get("project_type", "fullstack")),
-            "stack": stack,
-            "compliance": context.get("compliance") or project_config.get("compliance", []),
-        }
-
-    def _prepare_phase_integrations(self, phase: int, phase_name: str, context: Dict[str, Any]) -> Dict[str, Any]:
-        """Prepare external integrations before executing a phase."""
-
-        services = self.external_services.get_phase_services(phase)
-        summary: Dict[str, Any] = {}
-
-        git_service = services.get("git")
-        if git_service:
-            git_summary: Dict[str, Any] = {"validation": git_service.validate()}
-            if not git_summary["validation"].get("repository_initialized"):
-                initialized = git_service.initialize_repository()
-                git_summary["initialized"] = initialized
-                self.evidence_manager.log_execution(
-                    phase=phase,
-                    action="Git Repository Initialization",
-                    status="completed" if initialized else "failed",
-                    details={"phase_name": phase_name},
-                )
-            summary["git"] = git_summary
-
-        governor_service = services.get("ai_governor")
-        if governor_service:
-            payload = self._build_governor_payload(context)
-            validation = governor_service.validate_project_config(payload)
-            summary["ai_governor"] = validation
-            self.evidence_manager.log_execution(
-                phase=phase,
-                action="AI Governor Policy Check",
-                status="completed" if validation.get("valid", True) else "failed",
-                details=validation,
-            )
-
-            if phase == 0:
-                copied_rules = governor_service.copy_master_rules(self.project_dir)
-                summary["ai_governor"]["copied_rules"] = copied_rules
-
-        policy_service = services.get("policy_dsl")
-        if policy_service:
-            bundle_info = policy_service.ensure_policy_bundle()
-            available = policy_service.available_policies()
-            summary["policy_dsl"] = {
-                "bundle": bundle_info,
-                "available_policies": available,
-            }
-            self.evidence_manager.log_execution(
-                phase=phase,
-                action="Policy DSL Prepared",
-                status="completed",
-                details={"available_policies": available},
-            )
-
-        return summary
-
-    def _finalize_phase_integrations(self, phase: int, phase_name: str, execution_result: Dict[str, Any], summary: Dict[str, Any]) -> None:
-        """Finalize integrations after phase execution."""
-
-        services = self.external_services.get_phase_services(phase)
-        git_service = services.get("git")
-
-        if (
-            git_service
-            and execution_result.get("status") == "success"
-            and execution_result.get("outputs", {}).get("artifacts")
-        ):
-            commit_message = f"Phase {phase}: {phase_name} deliverables"
-            committed = git_service.commit_phase_artifacts(phase, commit_message)
-            summary.setdefault("git", {})["commit"] = {
-                "message": commit_message,
-                "committed": committed,
-            }
-            self.evidence_manager.log_execution(
-                phase=phase,
-                action="Git Commit",
-                status="completed" if committed else "failed",
-                details={"message": commit_message},
-            )
-
-    def _print_service_summary(self, summary: Dict[str, Any]) -> None:
-        """Pretty print external service summary."""
-
-        if not summary:
-            return
-
-        print("🔗 External Services Summary:")
-        print(json.dumps(summary, indent=2))
-
     def _build_governor_payload(self, context: Dict[str, Any]) -> Dict[str, Any]:
         """Create a payload for AI Governor validation."""
 

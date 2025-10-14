@@ -23,16 +23,26 @@ class ProtocolStepValidator:
     def __init__(self, workspace_root: str = "."):
         self.workspace_root = Path(workspace_root)
         self.ai_driven_workflow_dir = self.workspace_root / ".cursor" / "ai-driven-workflow"
-        
-        # Protocol files
-        self.protocols = {
+        self.unified_workflow_dir = self.workspace_root / "unified_workflow" / "phases"
+
+        self.cursor_protocols = {
             "00": "00-client-discovery.md",
             "0": "0-bootstrap-your-project.md",
             "1": "1-create-prd.md",
             "2": "2-generate-tasks.md",
             "3": "3-process-tasks.md",
             "4": "4-quality-audit.md",
-            "5": "5-implementation-retrospective.md"
+            "5": "5-implementation-retrospective.md",
+        }
+
+        self.unified_protocols = {
+            "0": "0-bootstrap.md",
+            "1": "1-prd-creation.md",
+            "2": "2-task-generation.md",
+            "3": "3-implementation.md",
+            "4": "4-quality-audit.md",
+            "5": "5-retrospective.md",
+            "6": "6-operations.md",
         }
     
     def validate_protocol_steps(self) -> Dict[str, Any]:
@@ -40,7 +50,7 @@ class ProtocolStepValidator:
         results = {
             "status": "pass",
             "summary": {
-                "total_protocols": len(self.protocols),
+                "total_protocols": len(self.cursor_protocols) + len(self.unified_protocols),
                 "validated": 0,
                 "issues_found": 0,
                 "critical_issues": 0
@@ -50,9 +60,9 @@ class ProtocolStepValidator:
             "recommendations": []
         }
         
-        for protocol_id, protocol_file in self.protocols.items():
-            protocol_path = self.dev_workflow_dir / protocol_file
-            
+        for protocol_id, protocol_file in self.cursor_protocols.items():
+            protocol_path = self.ai_driven_workflow_dir / protocol_file
+
             if not protocol_path.exists():
                 results["issues"].append({
                     "severity": "critical",
@@ -65,10 +75,10 @@ class ProtocolStepValidator:
             
             try:
                 content = protocol_path.read_text(encoding='utf-8')
-                protocol_results = self._validate_single_protocol(protocol_id, content)
+                protocol_results = self._validate_single_protocol(protocol_id, content, require_scripts=False)
                 results["protocols"][f"protocol_{protocol_id}"] = protocol_results
                 results["summary"]["validated"] += 1
-                
+
                 if protocol_results["issues"]:
                     results["issues"].extend(protocol_results["issues"])
                     results["summary"]["issues_found"] += len(protocol_results["issues"])
@@ -82,16 +92,49 @@ class ProtocolStepValidator:
                     "fix": "Check file permissions and encoding"
                 })
                 results["summary"]["critical_issues"] += 1
-        
+
+        for protocol_id, protocol_file in self.unified_protocols.items():
+            protocol_path = self.unified_workflow_dir / protocol_file
+
+            if not protocol_path.exists():
+                results["issues"].append({
+                    "severity": "critical",
+                    "protocol": f"unified_protocol_{protocol_id}",
+                    "message": f"Unified protocol file not found: {protocol_file}",
+                    "fix": f"Create {protocol_path}",
+                })
+                results["summary"]["critical_issues"] += 1
+                continue
+
+            try:
+                content = protocol_path.read_text(encoding='utf-8')
+                protocol_results = self._validate_single_protocol(protocol_id, content, require_scripts=True)
+                results["protocols"][f"unified_protocol_{protocol_id}"] = protocol_results
+                results["summary"]["validated"] += 1
+
+                if protocol_results["issues"]:
+                    results["issues"].extend(protocol_results["issues"])
+                    results["summary"]["issues_found"] += len(protocol_results["issues"])
+                    results["summary"]["critical_issues"] += sum(1 for issue in protocol_results["issues"] if issue["severity"] == "critical")
+
+            except Exception as e:
+                results["issues"].append({
+                    "severity": "critical",
+                    "protocol": f"unified_protocol_{protocol_id}",
+                    "message": f"Cannot read protocol file: {str(e)}",
+                    "fix": "Check file permissions and encoding",
+                })
+                results["summary"]["critical_issues"] += 1
+
         # Calculate overall status
         if results["summary"]["critical_issues"] > 0:
             results["status"] = "fail"
         elif results["summary"]["issues_found"] > 0:
             results["status"] = "warning"
-        
+
         return results
-    
-    def _validate_single_protocol(self, protocol_id: str, content: str) -> Dict[str, Any]:
+
+    def _validate_single_protocol(self, protocol_id: str, content: str, *, require_scripts: bool) -> Dict[str, Any]:
         """Validate a single protocol's step sequence."""
         results = {
             "protocol_id": protocol_id,
@@ -100,7 +143,7 @@ class ProtocolStepValidator:
             "issues": [],
             "recommendations": []
         }
-        
+
         # Extract steps and phases
         steps = self._extract_steps(content)
         phases = self._extract_phases(content)
@@ -112,11 +155,17 @@ class ProtocolStepValidator:
         # Validate step dependencies
         dependency_results = self._validate_step_dependencies(steps, content)
         results["step_validation"].update(dependency_results)
-        
+
         # Validate phase consistency
         phase_results = self._validate_phase_consistency(phases)
         results["phase_validation"] = phase_results
-        
+
+        if require_scripts:
+            script_results = self._validate_script_injection(steps, content)
+            results["step_validation"].update(script_results)
+            if script_results.get("issues"):
+                results["issues"].extend(script_results["issues"])
+
         # Collect issues
         if step_results.get("issues"):
             results["issues"].extend(step_results["issues"])
@@ -124,8 +173,27 @@ class ProtocolStepValidator:
             results["issues"].extend(dependency_results["issues"])
         if phase_results.get("issues"):
             results["issues"].extend(phase_results["issues"])
-        
+
         return results
+
+    def _validate_script_injection(self, steps: List[Dict[str, Any]], content: str) -> Dict[str, Any]:
+        issues = []
+        script_pattern = re.compile(r"\{SCRIPT:\s*([^}]+)\}")
+
+        for idx, step in enumerate(steps):
+            start_line = step["line_number"]
+            end_line = steps[idx + 1]["line_number"] if idx + 1 < len(steps) else None
+            step_lines = content.splitlines()
+            segment = "\n".join(step_lines[start_line - 1 : end_line - 1 if end_line else None])
+            if not script_pattern.search(segment):
+                issues.append({
+                    "severity": "warning",
+                    "protocol": f"step_{step['number']}",
+                    "message": f"Step {step['number']} ('{step['title']}') is missing a SCRIPT binding",
+                    "fix": "Add `{SCRIPT: <automation>}` to align with orchestrator requirements.",
+                })
+
+        return {"issues": issues}
     
     def _extract_steps(self, content: str) -> List[Dict[str, Any]]:
         """Extract all steps from protocol content."""

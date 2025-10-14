@@ -12,13 +12,10 @@ import os
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Any, Optional
+
 import click
-import sys
 
-# Add parent directory to path for evidence_schema_converter import
-sys.path.append(str(Path(__file__).resolve().parents[2]))
-
-from unified_workflow.automation.evidence_schema_converter import EvidenceSchemaConverter
+from .evidence_schema_converter import EvidenceSchemaConverter
 
 
 class EvidenceManager:

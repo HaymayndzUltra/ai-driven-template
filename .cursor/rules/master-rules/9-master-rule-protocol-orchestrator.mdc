@@ -77,6 +77,37 @@ The quality of protocol execution depends on selecting the right protocols in th
    - **[STRICT]** Configure evidence collection artifacts
    - **[STRICT]** Link validation scripts and CI/CD workflows
 
+### **[STRICT]** Phase 4: Script Integration Engine
+
+8. **Contextual Script Injection**
+   - **[STRICT]** Analyze each protocol step for automation opportunities  
+   - **[STRICT]** Map available scripts to logical protocol positions  
+   - **[STRICT]** Inject script calls with appropriate parameters  
+   - **[STRICT]** Validate script compatibility with project stack  
+
+9. **Script Selection Logic**
+   - **Bootstrap**: Inject `bootstrap_project.py`, `generate_from_brief.py`
+   - **PRD**: Inject `validate_prd_gate.py`, `generate_prd_assets.py`
+   - **Task Gen**: Inject `lifecycle_tasks.py`, `enrich_tasks.py`
+   - **Execution**: Inject `run_workflow.py`, validation scripts
+   - **Quality**: Inject `quality_gates.py`, coverage collectors
+   - **Retrospective**: Inject `evidence_report.py`, improvement scripts
+   - **Operations (if applicable)**: Inject deployment, monitoring scripts
+
+### **[STRICT]** Decision: Adapt vs Generate New
+
+10. **Adaptation Criteria (Prefer Existing)**
+    - Project type matches existing protocol assumptions  
+    - Stack variations fit within protocol parameters  
+    - Business logic aligns with standard workflows  
+    - **Action**: Clone protocol → inject parameters → bind scripts  
+
+11. **New Generation Criteria**
+    - Domain-specific workflow (e.g., IoT, blockchain, ML pipeline)  
+    - Unique regulatory requirements (HIPAA, SOC2, PCI-DSS)  
+    - Non-standard architecture (event-driven, serverless-first)  
+    - **Action**: Generate from template → customize steps → validate dependencies  
+
 ---
 
 ## Decision Matrices
