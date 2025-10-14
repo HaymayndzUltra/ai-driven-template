@@ -35,6 +35,7 @@ jobs:
     - name: Make scripts executable
       run: |
         chmod +x scripts/*.py scripts/*.sh
+        mkdir -p .artifacts
         
     - name: Run workflow validation
       id: validation

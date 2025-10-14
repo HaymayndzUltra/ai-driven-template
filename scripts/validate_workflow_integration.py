@@ -26,6 +26,8 @@ class WorkflowValidator:
     def __init__(self, workspace_root: str = "."):
         self.workspace_root = Path(workspace_root)
         self.ai_driven_workflow_dir = self.workspace_root / ".cursor" / "ai-driven-workflow"
+        # Backward-compatible alias used elsewhere in the script
+        self.dev_workflow_dir = self.ai_driven_workflow_dir
         self.scripts_dir = self.workspace_root / "scripts"
         
         # Protocol definitions
@@ -614,7 +616,12 @@ def main():
     
     # Save to output file if specified
     if args.output:
-        with open(args.output, 'w') as f:
+        out_path = Path(args.output)
+        try:
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+        except Exception:
+            pass
+        with open(out_path, 'w') as f:
             json.dump(results, f, indent=2)
         print(f"Validation results saved to: {args.output}")
     
