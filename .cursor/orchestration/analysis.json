@@ -1,0 +1,35 @@
+{
+  "brief_path": "/home/haymayndz/ai-driven-template/PROJECT-BRIEF.md",
+  "detected_protocols": [
+    "0-bootstrap",
+    "1-prd-creation",
+    "2-task-generation",
+    "3-implementation",
+    "4-quality-audit",
+    "5-retrospective",
+    "6-operations",
+    "ml-experiments"
+  ],
+  "flags": {
+    "ml": true,
+    "operations": true
+  },
+  "metadata": {
+    "complexity": "enterprise",
+    "compliance": [
+      "GDPR",
+      "HIPAA",
+      "ISO27001",
+      "SOC2"
+    ],
+    "lifecycle": "production",
+    "project_type": "enterprise-saas",
+    "stack": {
+      "backend": "Python, FastAPI, Celery, Redis",
+      "database": "PostgreSQL, MongoDB",
+      "frontend": "React, TypeScript, Next.js, TailwindCSS",
+      "infrastructure": "AWS, Terraform, Docker, Kubernetes"
+    },
+    "title": "HealthCare Analytics Enterprise Platform"
+  }
+}
