@@ -1,0 +1,6 @@
+{
+  "protocol": "ai-driven-workflow/1-create-prd.md",
+  "plan": ".artifacts/integration-tests/test-plan.md",
+  "tasks": ".artifacts/integration-tests/test-tasks.md",
+  "generated_at": "2025-10-14T10:12:54Z"
+}

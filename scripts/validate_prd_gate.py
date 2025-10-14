@@ -80,6 +80,7 @@ def main() -> None:
     parser.add_argument("--prd", required=True)
     parser.add_argument("--architecture")
     parser.add_argument("--required-stage", default="PRD + Architecture OK")
+    parser.add_argument("--output", help="Optional JSON output path for validation result")
     args = parser.parse_args()
 
     prd_path = Path(args.prd)
@@ -94,7 +95,17 @@ def main() -> None:
     if args.architecture:
         validate_architecture(Path(args.architecture))
 
+    # Emit success message
     print("PRD gate validation passed.")
+
+    # Optionally write a minimal JSON result if an output path is provided
+    if args.output:
+        out_path = Path(args.output)
+        try:
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+        except Exception:
+            pass
+        out_path.write_text('{"status": "passed", "required_stage": "' + args.required_stage + '"}', encoding="utf-8")
 
 
 if __name__ == "__main__":

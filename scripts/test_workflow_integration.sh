@@ -15,12 +15,15 @@ WORKSPACE_ROOT="$(pwd)"
 TEST_DIR=".artifacts/integration-tests"
 SCRIPTS_DIR="scripts"
 AI_DRIVEN_WORKFLOW_DIR=".cursor/ai-driven-workflow"
+# Backward-compatible alias used elsewhere in the script
+DEV_WORKFLOW_DIR="$AI_DRIVEN_WORKFLOW_DIR"
 
 # Test artifacts
 TEST_JOB_POST="$TEST_DIR/test-job-post.md"
 TEST_BRIEF="$TEST_DIR/test-brief.md"
 TEST_PRD="$TEST_DIR/test-prd.md"
 TEST_TASKS="$TEST_DIR/test-tasks.md"
+TEST_PLAN="$TEST_DIR/test-plan.md"
 
 # Counters
 TESTS_RUN=0
@@ -165,6 +168,12 @@ EOF
 
     # Test PRD (expected output from Protocol 1)
     cat > "$TEST_PRD" << 'EOF'
+---
+signoff_stage: PRD + Architecture OK
+signoff_approver: Integration Test
+signoff_timestamp: 2025-10-14T00:00:00Z
+---
+
 # PRD: Real Estate Loan Dashboard
 
 ## 1. Overview
@@ -192,6 +201,18 @@ EOF
 - Real-time data updates (batch processing only)
 - Multi-user collaboration features
 - Advanced analytics beyond basic visualizations
+EOF
+
+    # Test plan (required by PRD asset generation)
+    cat > "$TEST_PLAN" << 'EOF'
+# Implementation Plan: Real Estate Loan Dashboard
+
+## Milestones
+- PRD sign-off
+- Dashboard design and mockups
+- Data extraction and transformation
+- Dashboard implementation
+- QA and delivery
 EOF
 
     # Test tasks (expected output from Protocol 2)
@@ -281,7 +302,11 @@ test_protocol_1() {
     # Test PRD asset generation (if script exists)
     if [ -f "$SCRIPTS_DIR/generate_prd_assets.py" ]; then
         run_test "PRD Asset Generation" "
-            python3 $SCRIPTS_DIR/generate_prd_assets.py --prd $TEST_PRD --output $TEST_DIR/prd-assets/
+            python3 $SCRIPTS_DIR/generate_prd_assets.py \
+                --name 'Real Estate Loan Dashboard' \
+                --plan $TEST_PLAN \
+                --tasks $TEST_TASKS \
+                --output-dir $TEST_DIR/prd-assets/
         "
     else
         log_warning "PRD asset generation script not found, skipping"
@@ -294,8 +319,10 @@ test_protocol_2() {
     
     # Test task validation (if script exists)
     if [ -f "$SCRIPTS_DIR/validate_tasks.py" ]; then
+        # Convert the markdown tasks fixture into a minimal JSON tasks list for validator
+        echo '[{"id": "1.0", "area": "frontend"}, {"id": "1.1", "blocked_by": ["1.0"], "area": "frontend"}]' > $TEST_DIR/tasks.json
         run_test "Task Validation" "
-            python3 $SCRIPTS_DIR/validate_tasks.py --task-file $TEST_TASKS --output $TEST_DIR/task-validation.json
+            python3 $SCRIPTS_DIR/validate_tasks.py --input $TEST_DIR/tasks.json
         "
     else
         log_warning "Task validation script not found, skipping"
@@ -304,7 +331,7 @@ test_protocol_2() {
     # Test task enrichment (if script exists)
     if [ -f "$SCRIPTS_DIR/enrich_tasks.py" ]; then
         run_test "Task Enrichment" "
-            python3 $SCRIPTS_DIR/enrich_tasks.py --task-file $TEST_TASKS --output $TEST_DIR/task-enrichment.json
+            python3 $SCRIPTS_DIR/enrich_tasks.py --input $TEST_DIR/tasks.json --output $TEST_DIR/tasks.enriched.json
         "
     else
         log_warning "Task enrichment script not found, skipping"
@@ -318,16 +345,17 @@ test_protocol_3() {
     # Test task state sync (if script exists)
     if [ -f "$SCRIPTS_DIR/update_task_state.py" ]; then
         run_test "Task State Sync" "
-            python3 $SCRIPTS_DIR/update_task_state.py --task-file $TEST_TASKS --task-id 1.0 --status complete --output $TEST_DIR/task-state.json
+            python3 $SCRIPTS_DIR/update_task_state.py --id 1.0 --state completed --input $TEST_DIR/tasks.json --output $TEST_DIR/tasks.updated.json
         "
     else
         log_warning "Task state sync script not found, skipping"
     fi
     
-    # Test evidence capture (if script exists)
+    # Test evidence capture via manifest (if script exists)
     if [ -f "$SCRIPTS_DIR/evidence_report.py" ]; then
+        echo '[{"category":"task","description":"task completion","path":"tasks.updated.json"}]' > "$TEST_DIR/.artifacts/task-1.0-manifest.json"
         run_test "Evidence Capture" "
-            python3 $SCRIPTS_DIR/evidence_report.py --scope task-1.0 --output $TEST_DIR/task-1.0-evidence.json
+            python3 $SCRIPTS_DIR/evidence_report.py $TEST_DIR/.artifacts/task-1.0-manifest.json --output $TEST_DIR/task-1.0-evidence.md
         "
     else
         log_warning "Evidence capture script not found, skipping"
@@ -396,10 +424,12 @@ test_evidence_pipeline() {
     # Mock CI results
     echo '{"status": "success", "workflow": "ci-test.yml", "run_id": "12345"}' > "$TEST_DIR/.artifacts/ci-results.json"
     
-    # Test evidence aggregation
+    # Test evidence aggregation via manifest
     if [ -f "$SCRIPTS_DIR/evidence_report.py" ]; then
+        # Create a minimal evidence manifest JSON array
+        echo '[{"category":"tests","description":"unit results","path":".artifacts/test-results.json"},{"category":"coverage","description":"coverage report","path":".artifacts/coverage-report.json"},{"category":"ci","description":"workflow run","path":".artifacts/ci-results.json"}]' > "$TEST_DIR/.artifacts/evidence-manifest.json"
         run_test "Evidence Pipeline Aggregation" "
-            python3 $SCRIPTS_DIR/evidence_report.py --scope integration-test --aggregate --output $TEST_DIR/evidence-pipeline-test.json
+            python3 $SCRIPTS_DIR/evidence_report.py $TEST_DIR/.artifacts/evidence-manifest.json --output $TEST_DIR/evidence-pipeline-test.md
         "
     else
         log_warning "Evidence report script not found, skipping evidence pipeline test"
