@@ -306,3 +306,41 @@ The workflow includes continuous validation through:
 - **Integration Tests**: End-to-end workflow testing
 - **Quality Gates**: Validation at each protocol checkpoint
 - **Evidence Pipeline**: Traceable execution history
+
+---
+
+## 8. Folder Overview and Key Files
+
+This directory contains the end-to-end dev-workflow protocols and the unified quality review system used throughout the repository.
+
+### Directory structure (high level)
+
+- `README.md` – Overview and usage of the 5‑protocol lifecycle with automation
+- `INTEGRATION-GUIDE.md` – Detailed automation integration guide
+- `VALIDATION-GUIDE.md` – Validation and quality gate details
+- `0-bootstrap-your-project.md` – Protocol 0 bootstrap procedure
+- `1-create-prd.md` – Protocol 1 PRD creation
+- `2-generate-tasks.md` – Protocol 2 task generation
+- `3-process-tasks.md` – Protocol 3 controlled execution
+- `4-quality-audit.md` – Unified review orchestrator and entry point
+- `5-implementation-retrospective.md` – Protocol 5 retrospective
+- `review-protocols/` – Library of specialized review protocols and utilities
+
+### Key interactions
+
+- Orchestrated reviews are invoked via `4-quality-audit.md` and leverage utilities under `review-protocols/utils/`.
+- Protocol 3 mandates running Protocol 4 (comprehensive audit) and then Protocol 5 (retrospective) per parent task.
+
+### Quick links (protocol entry points)
+
+- Bootstrap → `0-bootstrap-your-project.md`
+- PRD → `1-create-prd.md`
+- Tasks → `2-generate-tasks.md`
+- Execute → `3-process-tasks.md`
+- Review → `4-quality-audit.md`
+- Retro → `5-implementation-retrospective.md`
+
+### Notes on advanced features
+
+- Interactive, tool‑agnostic review selection is centralized in `4-quality-audit.md` and routes through `_review-router.md` for automatic custom↔generic fallback.
+- Automation checkpoints and evidence capture are integrated across protocols (see tables above) to maintain auditable execution.

@@ -44,3 +44,59 @@ Ang direktoryong ito ang canonical source ng scaffolding assets na binabasa ng `
 - Suriin ang [Migration Guide](../docs/operations/migration-guide.md) bago alisin o palitan ang legacy packs upang matiyak ang backward compatibility.
 - I-refer ang [Example Projects Catalog](../docs/operations/example-projects.md) kapag nagpapakita kung paano ginagamit ng generator ang mga pack na ito sa training sessions.
 - Kapag may deployment-specific asset, i-align sa [Deployment Runbook](../docs/operations/deployment-runbook.md) para maiwasan ang drift sa production procedures.
+
+---
+
+## Integration with Unified Template Registry (Evidence-Based)
+
+Ang `TemplateRegistry` na ginagamit ng project generator ay facade lamang papunta sa unified registry:
+
+```15:21:/home/haymayndz/ai-driven-template/project_generator/templates/registry.py
+from unified_workflow.core.template_registry import (
+    TemplateMetadata,
+    UnifiedTemplateRegistry,
+)
+```
+
+Ang facade ay nag-i-initialize at nagpo-proxy ng mga call sa unified registry:
+
+```39:50:/home/haymayndz/ai-driven-template/project_generator/templates/registry.py
+self._registry = UnifiedTemplateRegistry(root_path=root)
+self._registry.initialize()
+...
+return [self._to_legacy_dict(template) for template in templates]
+```
+
+Ang unified registry ang tunay na nagdi-discover ng packs sa `template-packs/` at ibang legacy paths:
+
+```80:85:/home/haymayndz/ai-driven-template/unified_workflow/core/template_registry.py
+self.search_paths = [
+    self.root / "template-packs",
+    self.root / "project_generator" / "template-packs",
+    self.root / "unified_workflow" / "templates",
+]
+```
+
+At nire-register nito ang bawat template, variants, at manifest:
+
+```228:240:/home/haymayndz/ai-driven-template/unified_workflow/core/template_registry.py
+metadata = TemplateMetadata(
+    name=manifest_data.get("name", template_path.name),
+    type=template_type,
+    path=template_path,
+    variants=manifest_data.get("variants", variants),
+    engines=manifest_data.get("engines"),
+    ...
+)
+```
+
+### Practical Usage
+
+- Ilista ang lahat ng templates para sa audit o tooling:
+```bash
+python -c "from project_generator.templates.registry import TemplateRegistry; print(TemplateRegistry().list_all())"
+```
+- Kunin ang path ng isang variant:
+```bash
+python -c "from project_generator.templates.registry import TemplateRegistry; print(TemplateRegistry().get_template_path('backend','fastapi','base'))"
+```

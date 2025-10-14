@@ -160,3 +160,34 @@ Apply instructions from .cursor/dev-workflow/review-protocols/custom/customize-r
 ---
 
 **🎉 REVOLUTIONARY RESULT**: A **superior-to-Anthropic** AI code review platform with a **unified `/review` interface**, **intelligent protocol selection**, **automatic customization**, and **tool-agnostic design**. Achieves **faster development velocity** while maintaining **highest quality standards** with **zero configuration** for any project. **The future of AI-powered code review is here**.
+
+---
+
+## Folder Overview and Evidence References
+
+### Directory structure (subset)
+- `README.md` – This overview and integration details
+- `code-review.md` – Generic DDD/code-quality protocol
+- `security-check.md` – Security-focused validation
+- `architecture-review.md` – Architecture/performance validation
+- `design-system.md` – Design system checks
+- `ui-accessibility.md` – UX/a11y checks
+- `pre-production.md` – Deep security validation
+- `utils/` – Orchestration utilities and router logic
+
+### How this folder is used by the orchestrator
+- Entry point `../4-quality-audit.md` routes to protocols here based on selected mode and availability of custom variants.
+- Router logic lives in `utils/_review-router.md` and performs custom↔generic fallback.
+
+### Evidence (code references)
+
+```19:26:/home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/README.md
+### **🔧 Enhanced Static Review Utilities**
+- **`utils/_review-router.md`** - **CENTRALIZED ROUTER** - Automatic custom ↔ generic fallback logic
+- **`utils/context-analyzer.md`** - **CONTEXT INTELLIGENCE** - Git change analysis + smart recommendations
+```
+
+```20:25:/home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/README.md
+### Step 3: Execute Tasks with Integrated Quality Gates
+... **Apply instructions from dev-workflow/4-quality-audit.md**
+```

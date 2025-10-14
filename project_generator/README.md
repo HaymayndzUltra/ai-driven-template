@@ -78,7 +78,7 @@ Patakbuhin ang unit tests gamit ang Pytest:
 pytest secretflow/project_generator/tests
 ```
 
-Ginagamit ng tests ang `unittest.mock` para i-simulate ang external CLI checks (Node, Python, atbp.) upang manatiling deterministic.
+Ginama gamit ng tests ang `unittest.mock` para i-simulate ang external CLI checks (Node, Python, atbp.) upang manatiling deterministic.
 
 ## Pagdaragdag ng Template o Integrasyon
 
@@ -89,3 +89,41 @@ Ginagamit ng tests ang `unittest.mock` para i-simulate ang external CLI checks (
 ## Dependencies
 - Python 3.10+
 - Standard library lamang sa core modules; external CLIs (Node.js, Git, Docker) ay hina-handle bilang runtime prerequisites at naka-check sa `ProjectValidator`.
+
+---
+
+## Evidence: Registry, Generator, and Validator Hooks
+
+### TemplateRegistry facade → Unified registry
+```21:31:/home/haymayndz/ai-driven-template/project_generator/templates/registry.py
+class TemplateRegistry:
+    """Legacy template registry facade.
+    ...
+    def __init__(self, root: Optional[Path] = None):
+        ...
+        self._registry = UnifiedTemplateRegistry(root_path=root)
+        self._registry.initialize()
+```
+
+### Generator uses TemplateEngine + TemplateRegistry
+```16:23:/home/haymayndz/ai-driven-template/project_generator/core/generator.py
+from ..templates.template_engine import TemplateEngine
+from ..templates.registry import TemplateRegistry
+...
+class ProjectGenerator:
+```
+
+```67:75:/home/haymayndz/ai-driven-template/project_generator/core/generator.py
+self.template_engine = TemplateEngine()
+...
+self.template_registry = TemplateRegistry()
+```
+
+### Validator comprehensive checks
+```199:233:/home/haymayndz/ai-driven-template/project_generator/core/validator.py
+def validate_comprehensive(self, args) -> Dict[str, Any]:
+    # 1. Tech-stack compatibility checks
+    config_result = self.validate_configuration(args)
+    ...
+    # 4. System dependency checks
+```

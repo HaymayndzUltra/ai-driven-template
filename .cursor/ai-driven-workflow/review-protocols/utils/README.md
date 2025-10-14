@@ -31,3 +31,26 @@ These utilities are automatically used by the main execution engine:
 ---
 
 **🎉 Result**: Enhanced Static Review utilities that transform static protocols into intelligent, context-aware validation engines while preserving proven reliability.
+
+---
+
+## File Map and Evidence
+
+### Files
+- `_review-router.md` – Centralized mode routing and custom↔generic fallback
+- `context-analyzer.md` – Git change analysis + recommendations
+- `rule-injection-system.md` – Rule filtering system
+- `enhanced-static-validation.md` – Validation and performance metrics
+
+### Evidence (code references)
+
+```21:27:/home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/README.md
+### **🔧 Enhanced Static Review Utilities**
+- **`utils/_review-router.md`** - **CENTRALIZED ROUTER** - Automatic custom ↔ generic fallback logic
+- **`utils/context-analyzer.md`** - **CONTEXT INTELLIGENCE** - Git change analysis + smart recommendations
+```
+
+```121:129:/home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/README.md
+### Quality Gates per Protocol
+| Protocol | Gate Criteria | Validation Threshold |
+```
