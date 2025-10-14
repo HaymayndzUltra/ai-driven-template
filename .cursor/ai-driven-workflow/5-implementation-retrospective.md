@@ -8,17 +8,19 @@ You are a **Process Improvement Lead**. After implementation, focus on actionabl
 
 This protocol MUST be executed after all tasks in an execution plan are complete.
 
+**🚫 [CRITICAL] DO NOT BEGIN WITHOUT FINAL TASK SIGN-OFF.** Retrospectives rely on stable, merged implementation evidence.
+
 ---
 
 ## 2. THE TWO-PHASE RETROSPECTIVE WORKFLOW
 
 You must execute these phases in order. Phase 1 informs Phase 2.
 
-### PRE-RETROSPECTIVE: AUTOMATION ENHANCEMENT - EVIDENCE AGGREGATION
+### Pre-Retrospective: Automation Enhancement - Evidence Aggregation
 
 1. **`[MUST]` Execute Rule Audit:**
    ```bash
-   python scripts/rules_audit_quick.py --output .artifacts/rule-audit-$(date +%Y-%m-%d).md
+   python scripts/retrospective_rules_audit.py --output .artifacts/rule-audit-$(date +%Y-%m-%d).md
    ```
    *   **Action:** Audit rule compliance and metadata validation.
    *   **Action:** Generate rule audit report for retrospective analysis.
@@ -31,7 +33,7 @@ You must execute these phases in order. Phase 1 informs Phase 2.
 
 3. **`[MUST]` Execute Evidence Aggregation:**
    ```bash
-   python scripts/evidence_report.py --scope parent-task-{id} --aggregate --output .artifacts/retrospective-evidence.json
+   python scripts/retrospective_evidence_report.py --scope parent-task-{id} --aggregate --output .artifacts/retrospective-evidence.json
    ```
    *   **Action:** Aggregate all evidence artifacts from completed parent task.
    *   **Action:** Generate comprehensive evidence report for retrospective.
@@ -42,12 +44,10 @@ You must execute these phases in order. Phase 1 informs Phase 2.
    ```
    *   **Action:** Display evidence aggregation summary.
 
-### PRE-RETROSPECTIVE: Evidence Aggregation
+### Pre-Retrospective: Evidence Review
 
 1.  **`[MUST]` Aggregate Evidence Artifacts:** Before starting the retrospective, collect and present relevant evidence for the completed parent task.
-    ```bash
-    python scripts/evidence_report.py --scope task-{X.0} --output .artifacts/evidence-report-task-{X.0}-$(date +%Y%m%d-%H%M).md
-    ```
+    *   **Action:** Reuse `.artifacts/retrospective-evidence.json` generated during the automation phase and, if needed, filter it for task `{X.0}`.
 
 2.  **`[MUST]` Load Evidence into Context:**
     *   **Action:** Reference specific artifacts in analysis (coverage reports, CI logs, deployment status)
@@ -58,6 +58,7 @@ You must execute these phases in order. Phase 1 informs Phase 2.
     *   **Action:** Reference CI workflow statuses and logs from completed parent task
     *   **Action:** Include deployment outcomes (success/failure, performance metrics)
     *   **Action:** Use CI data to identify patterns (recurring linting issues, flaky tests)
+    *   **[STRICT]** Archive any additional task-scoped evidence into `.artifacts/` with the `retrospective-` prefix.
 
 ### PHASE 1: Technical Self-Review and Compliance Analysis
 
