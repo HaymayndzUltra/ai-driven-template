@@ -63,6 +63,36 @@ Source of truth template for AI-driven development workflow.
   ```
 - **Integration tests**: `pytest tests/test_orchestration_flow.py`
 
+### In-place scaffolding and post-rule generation
+
+- Generate directly into a target directory (no redirect) and omit `.cursor` assets by default:
+
+```bash
+python scripts/generate_client_project.py \
+  --name acme-web \
+  --industry saas \
+  --project-type web \
+  --frontend nextjs --backend none --database none \
+  --auth auth0 --deploy vercel \
+  --output-dir /abs/path/to/target \
+  --in-place --yes --force --no-cursor-assets
+```
+
+- From a brief, pass through in-place and asset flags; auto-run rules after scaffold (default on):
+
+```bash
+python scripts/generate_from_brief.py \
+  --brief PROJECT-BRIEF.md \
+  --output-root /abs/path/to/target \
+  --in-place --no-cursor-assets --force --yes
+```
+
+- To disable the post-scaffold rules step:
+
+```bash
+python scripts/generate_from_brief.py --no-post-run-generate-rules ...
+```
+
 ## Customization
 
 1. Add project-specific rules to `.cursor/rules/project-rules/`

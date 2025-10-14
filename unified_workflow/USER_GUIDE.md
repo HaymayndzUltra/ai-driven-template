@@ -73,6 +73,9 @@ The Unified Developer Workflow is an AI-orchestrated development lifecycle that 
 - Governance rules loaded
 - Initial documentation
 - Context established
+ 
+**Automation Hook**:
+- Auto-run `/Generate Cursor Rules` to scaffold baseline `project-rules` if `PROJECT-BRIEF.md` exists or minimal signals are present (README + manifests). Use `--dry-run` if brief is missing.
 
 ### Phase 1: PRD Creation
 
@@ -111,6 +114,9 @@ The Unified Developer Workflow is an AI-orchestrated development lifecycle that 
 - Dependency graph
 - Effort estimates
 - Resource plan
+ 
+**Automation Hook**:
+- After task graph/artifacts are produced (e.g., `.cursor/commands/generated/**`), re-run `/Generate Cursor Rules` (idempotent). Only run if tasks/architecture changed since the last run; otherwise skip.
 
 ### Phase 3: Implementation
 
@@ -168,6 +174,9 @@ The Unified Developer Workflow is an AI-orchestrated development lifecycle that 
 - Process improvements
 - Lessons learned
 - Action items
+ 
+**Automation Hook**:
+- Re-run `/Generate Cursor Rules` to fold lessons learned and quality findings into rules. Append deltas; avoid overwrite unless explicitly requested.
 
 ### Phase 6: Operations
 

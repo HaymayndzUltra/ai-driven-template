@@ -18,6 +18,12 @@ You are an **AI Codebase Analyst & Context Architect**. Your mission is to perfo
         4.  **Verify/Add Metadata:** For each `.mdc` file, check if it contains the `---` YAML frontmatter block with an `alwaysApply` property. If not, you MUST add it based on the rule's requirements (e.g., `1-master-rule-context-discovery.mdc` needs `alwaysApply: true`). You MUST announce which files you are modifying.
     *   **Action:** Announce that the configuration is complete.
 
+#### Callout: Generate Cursor Rules (Phase 0)
+
+* **When to run:** If `PROJECT-BRIEF.md` exists or minimal repo signals are found (README + language manifests).
+* **How:** Type `/Generate Cursor Rules --dry-run` to preview, then rerun without `--dry-run`.
+* **Why:** Establish baseline `project-rules` so subsequent phases inherit consistent governance.
+
 ### STEP 2: Initial Codebase Mapping
 
 1.  **`[MUST]` Announce the Goal:**

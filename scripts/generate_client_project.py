@@ -157,6 +157,14 @@ Examples:
     parser.add_argument('--skip-system-checks', action='store_true',
                         help='Allow generation even if system deps (e.g., Docker) are not available')
     
+    # In-place generation: bypass default redirect to ../_generated when a root .cursor exists
+    parser.add_argument('--in-place', action='store_true',
+                        help='Bypass output redirection and generate into --output-dir as-is (even if a root .cursor/ exists)')
+
+    # No subdirectory: write directly into --output-dir instead of creating a project-name folder
+    parser.add_argument('--no-subdir', action='store_true',
+                        help='Place scaffold files directly under --output-dir (do not create <name>/ subfolder)')
+    
     # Discovery / tooling
     parser.add_argument('--list-templates', action='store_true',
                         help='List available templates and exit')
@@ -374,7 +382,7 @@ def main():
         repo_root = os.getcwd()
         has_root_cursor = os.path.isdir(os.path.join(repo_root, '.cursor'))
         include_assets = bool(getattr(args, 'include_cursor_assets', False))
-        if has_root_cursor:
+        if has_root_cursor and not getattr(args, 'in_place', False):
             if getattr(args, 'output_dir', '.') == '.':
                 # Use sibling _generated directory one level outside the repo root
                 default_out = os.path.abspath(os.path.join(repo_root, '..', '_generated'))
@@ -396,6 +404,10 @@ def main():
                 args.no_cursor_assets = False
                 if not include_assets and getattr(args, 'verbose', False):
                     print("ℹ️  --include-project-rules requested. Implicitly enabling emission of .cursor assets.")
+        else:
+            # In-place defaults: if neither include nor no-cursor flag provided, avoid emitting cursor assets
+            if not getattr(args, 'include_cursor_assets', False) and not getattr(args, 'no_cursor_assets', False):
+                args.no_cursor_assets = True
         
         # Automatic project rules selection when requested by mode (auto/minimal)
         mode = getattr(args, 'rules_mode', 'auto')
@@ -474,6 +486,40 @@ def main():
         if result['success']:
             print("\n✅ Project generated successfully!")
             print(f"\n📁 Project location: {result['project_path']}")
+
+            # If --no-subdir is requested and generator created a subdir, move contents up
+            try:
+                if getattr(args, 'no_subdir', False):
+                    target_root = os.path.abspath(args.output_dir)
+                    project_path = os.path.abspath(result.get('project_path') or target_root)
+                    if project_path != target_root and os.path.isdir(project_path):
+                        # Move all items (including hidden) from project_path to target_root
+                        for entry in os.listdir(project_path):
+                            src = os.path.join(project_path, entry)
+                            dst = os.path.join(target_root, entry)
+                            if os.path.exists(dst):
+                                # Overwrite only if --force provided
+                                if not getattr(args, 'force', False):
+                                    continue
+                                if os.path.isdir(dst) and not os.path.islink(dst):
+                                    shutil.rmtree(dst)
+                                else:
+                                    try:
+                                        os.remove(dst)
+                                    except Exception:
+                                        pass
+                            shutil.move(src, dst)
+                        # Remove now-empty project_path
+                        try:
+                            shutil.rmtree(project_path)
+                        except Exception:
+                            pass
+                        # Update reported project_path
+                        result['project_path'] = target_root
+                        print(f"ℹ️  --no-subdir active. Moved scaffold into: {target_root}")
+            except Exception as _e:
+                if getattr(args, 'verbose', False):
+                    print(f"⚠️  no-subdir move step encountered an issue: {_e}")
             
             # Display next steps
             print("\n📋 Next Steps:")

@@ -1,5 +1,10 @@
 
 **[Strict]** Announce reload `elaboration-specialist.mdc` rules before proceed
 
+Ano pa kaya ang puwedeng maienhanced pa dito 
+`.cursor/commands/generate-cursor-rules.md` ? maari kaba mag deep search sa web tapos mag suggest ng mga puwedeng ienhanced pa dito? tapos based sa buong workflow dito, saan kong step logical na irurun ito?
 
-itong repo na to ang kailangan kong ayusin para maging template. gagamitin ko ito paag gagawa ng ibat ibang project from client. una kailangan muna maintegrate ng /home/haymayndz/ai-driven-template/unified_workflow para maging isa nalang sila. tapos kailangan kong gumawa ng isang system instruction. na mag aanalyze ng project brief tapos gagawa ng ai driven workflow. same format but differenct content depende sa project brief. every project iba iba ang paraan ng end to end workflow. kaya gusto ko its either gagawa ng bagong protocol na nasa /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow ieedit or gagawa ng bago kung kinakailangan tapos naka integrate na dapat kung saan nararapat na steps ang pag run ng ibang scripts na aligned sa project brief. dapat kapareho mismo ng lifecycle ng developer ang pag kakaiba lang ay AI driven. walang conflicts, kumpleto sa validations, no misteps etc. dahil ang gagawin system instruction ito ang icocommand ko sa AI bago mag umpisa ng project
+
+
+
+
