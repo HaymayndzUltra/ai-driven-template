@@ -1,5 +1,0 @@
-Staging smoke execution
-Project: demo
-Timestamp: 2025-09-30T09:03:09Z
-Result: pass
-Notes: Placeholder smoke report. Replace with real test output.
