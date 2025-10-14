@@ -15,7 +15,7 @@ def _ensure_project_generator_package() -> None:
     if module is not None and hasattr(module, "__path__"):
         return
 
-    repo_root = Path(__file__).resolve().parents[2] / package_name
+    repo_root = Path(__file__).resolve().parent.parent / package_name
     spec = spec_from_file_location(
         package_name,
         repo_root / "__init__.py",
@@ -34,9 +34,9 @@ _ensure_project_generator_package()
 from scripts.workflow_automation.config import WorkflowConfig
 from scripts.workflow_automation.exceptions import GateFailedError
 from scripts.workflow_automation.orchestrator import WorkflowOrchestrator
-from unified_workflow.automation.evidence_manager import EvidenceManager
-from unified_workflow.automation.quality_gates import QualityGates
-from unified_workflow.automation.validation_gates import ValidationGates
+from scripts.evidence_manager import EvidenceManager
+from scripts.quality_gates import QualityGates
+from scripts.validation_gates import ValidationGates
 
 
 PHASE_SEQUENCE = [

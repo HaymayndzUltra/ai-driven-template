@@ -24,7 +24,8 @@ class AIDirectiveValidator:
     def __init__(self, workspace_root: str = "."):
         self.workspace_root = Path(workspace_root)
         self.ai_driven_workflow_dir = self.workspace_root / ".cursor" / "ai-driven-workflow"
-        
+        self.orchestrator_instruction = self.ai_driven_workflow_dir / "ORCHESTRATOR-SYSTEM-INSTRUCTION.md"
+
         # Protocol files
         self.protocols = {
             "00": "00-client-discovery.md",
@@ -91,7 +92,7 @@ class AIDirectiveValidator:
         all_gates = []
         
         for protocol_id, protocol_file in self.protocols.items():
-            protocol_path = self.dev_workflow_dir / protocol_file
+            protocol_path = self.ai_driven_workflow_dir / protocol_file
             
             if not protocol_path.exists():
                 results["issues"].append({
@@ -136,7 +137,13 @@ class AIDirectiveValidator:
         results["persona_analysis"] = self._analyze_persona_consistency(all_personas)
         results["communication_patterns"] = self._analyze_communication_consistency(all_communications)
         results["gate_criteria"] = self._analyze_gate_consistency(all_gates)
-        
+
+        orchestrator_issues = self._validate_orchestrator_instruction()
+        if orchestrator_issues:
+            results["issues"].extend(orchestrator_issues)
+            results["summary"]["issues_found"] += len(orchestrator_issues)
+            results["summary"]["critical_issues"] += sum(1 for issue in orchestrator_issues if issue["severity"] == "critical")
+
         # Calculate overall status
         if results["summary"]["critical_issues"] > 0:
             results["status"] = "fail"
@@ -156,7 +163,7 @@ class AIDirectiveValidator:
             "issues": [],
             "recommendations": []
         }
-        
+
         # Extract directive usage
         for tag, pattern in self.directive_tags.items():
             matches = list(re.finditer(pattern, content, re.IGNORECASE))
@@ -187,6 +194,45 @@ class AIDirectiveValidator:
         self._validate_communication_consistency(results, content)
         
         return results
+
+    def _validate_orchestrator_instruction(self) -> List[Dict[str, str]]:
+        issues: List[Dict[str, str]] = []
+        required_sections = [
+            "## Brief Analysis Protocol",
+            "## Protocol Selection Matrix",
+            "## Script Binding Logic",
+            "## Validation Gates",
+            "## Command Generation",
+        ]
+
+        if not self.orchestrator_instruction.exists():
+            issues.append({
+                "severity": "critical",
+                "protocol": "orchestrator_system_instruction",
+                "message": "ORCHESTRATOR-SYSTEM-INSTRUCTION.md is missing",
+                "fix": "Create the orchestrator system instruction with required sections.",
+            })
+            return issues
+
+        content = self.orchestrator_instruction.read_text(encoding="utf-8")
+        for section in required_sections:
+            if section not in content:
+                issues.append({
+                    "severity": "critical",
+                    "protocol": "orchestrator_system_instruction",
+                    "message": f"Missing section '{section}' in ORCHESTRATOR-SYSTEM-INSTRUCTION.md",
+                    "fix": "Add the required section to the orchestrator system instruction.",
+                })
+
+        if "script-registry.json" not in content:
+            issues.append({
+                "severity": "warning",
+                "protocol": "orchestrator_system_instruction",
+                "message": "Orchestrator instruction does not mention script registry integration",
+                "fix": "Reference scripts/script-registry.json in the orchestrator instructions.",
+            })
+
+        return issues
     
     def _extract_context(self, content: str, start: int, end: int, context_lines: int = 2) -> str:
         """Extract context around a match."""

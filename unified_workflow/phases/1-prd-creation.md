@@ -1,194 +1,54 @@
-# Phase 1: PRD Creation
+# PROTOCOL 1: IMPLEMENTATION-READY PRD CREATION
 
-## AI Role
-**Product Manager** - Conduct focused interview to create implementation-ready PRD
+## 1. AI ROLE AND MISSION
+You are a **Product Manager**. Facilitate a structured interview that produces an implementation-ready PRD, complete with architectural placement, API contracts, data schemas, and user experience workflows. Capture assumptions, constraints, and open questions so downstream phases can execute without ambiguity.
 
-## Mission
-Create a comprehensive Product Requirements Document that provides complete technical specifications including data schemas, API contracts, UI workflows, and business logic to enable immediate development.
+## 2. PREREQUISITES
+- Phase 0 context kit validated (stack, rules, governance summary)
+- Feature request or enhancement goal confirmed with stakeholders
+- Agreement on whether PRD depth should be MVP, production, or enterprise tier
+- Access to design standards, security policies, and data retention requirements
+{SCRIPT: scripts/validate_prd_gate.py --check bootstrap}
 
-## Prerequisites
-- Phase 0 completed (Context Kit available)
-- User has feature idea or requirement
-- Access to project architecture and constraints
+## 3. EXECUTION STEPS
 
-## Process
+### STEP 1: QUALIFY SCOPE & INTENT
+1. Determine whether the work introduces a new capability or modifies an existing experience.
+2. Identify the primary architecture layer impacted (UI, backend, API gateway, data pipeline, static assets).
+3. Confirm business drivers, success metrics, and time horizon (MVP vs production hardening).
 
-### Phase 1: Analysis and Scoping
-1. **Initial Qualification**
-   - Ask: "Are we CREATING a new feature from scratch, or MODIFYING an existing one?"
-   - Based on answer, proceed to relevant section
+### STEP 2: LAYER-SPECIFIC DISCOVERY
+1. For UI work: capture target personas, critical user stories, accessibility themes, integration touchpoints, and analytics hooks.
+2. For services/APIs: document route structure, request/response schemas, error taxonomy, authentication model, and dependency calls.
+3. For data/ML flows: collect data sources, transformation steps, model lifecycle needs, and compliance restrictions.
+{SCRIPT: scripts/generate_prd_assets.py --section discovery}
 
-2. **Path A: Creating New Feature**
-   - "In one sentence, what is the core business need? What problem are you solving?"
-   - "Is this feature primarily about: User Interface, Business Process, Data Management, or Static Assets?"
-   - Proceed to layer detection
+### STEP 3: ARCHITECTURAL VALIDATION
+1. Cross-check proposed flows against communication rules defined in the context kit.
+2. Surface conflicts (e.g., UI attempting direct database access) and propose compliant alternatives.
+3. Update the Architectural Decision Matrix with the selected layer, guiding principle, and constraints.
 
-3. **Path B: Modifying Existing Feature**
-   - "Please describe the current behavior of the feature you want to modify."
-   - "Now, describe the desired behavior after the modification."
-   - "Which are the main files, components, or services involved?"
-   - "What potential regression risks should we be mindful of?"
+### STEP 4: TECHNICAL SPECIFICATION AUTHORING
+1. Produce structured sections covering business goal, scope, success metrics, in/out of scope, dependencies, and risks.
+2. Embed detailed artifacts per layer (API tables, wireframe summaries, data models, sequence diagrams).
+3. Annotate open questions and assumptions with owners and due dates.
+{SCRIPT: scripts/generate_prd_assets.py --section specification --output docs/prd}
 
-4. **Layer Detection**
-   - Announce detected implementation layer (Frontend App, Backend Service, Central API, Object Storage)
-   - List applicable constraints (communication, technology, architecture)
-   - Validate placement with user
+### STEP 5: ALIGNMENT & SIGN-OFF
+1. Present the draft PRD, highlighting architectural choices and quality considerations.
+2. Request feedback from product, engineering, design, and security stakeholders.
+3. Iterate until approval criteria are met or captured as follow-up actions.
 
-### Phase 2: Specifications by Layer
+### STEP 6: QUALITY GATE
+Execute validation scripts to ensure completeness, linkage to context artifacts, and readiness for task generation.
+{SCRIPT: scripts/validate_prd_gate.py --path docs/prd --evidence evidence/prd-validation.md}
 
-#### Frontend Application (UI)
-- "Who is the target user (e.g., admin, customer, guest)?"
-- "Can you describe 2-3 user stories? 'As a [role], I want to [action] so that [benefit]'."
-- "Do you have a wireframe or clear description of desired look and feel?"
-- "How should this component handle responsiveness and different themes?"
-- "Does this component need to fetch data from an API or trigger backend actions?"
+## 4. OUTPUTS
+- `docs/prd/<feature-name>.md` containing full specification (overview, user stories, API contracts, data models, rollout plan)
+- Updated Architectural Decision Matrix and risk register in the context kit
+- Evidence manifest entries linking validation reports and stakeholder approvals
 
-#### Backend Service (Business Logic)
-- "What will the exact API route be (e.g., `/users/{userId}/profile`)?"
-- "Which HTTP method and what is the schema of the request body?"
-- "What is the schema of a successful response and expected error scenarios?"
-- "What are the logical steps the service should perform, in order?"
-- "Does this service need to call other APIs or communicate with other services?"
-- "What is the security model and what roles are authorized?"
-
-### Phase 3: Architectural Constraints
-- Verify proposed interactions respect project's communication rules
-- Validate allowed flows (UI → Central API: GET only, etc.)
-- Identify prohibited flows (UI → Database: Direct access forbidden)
-
-### Phase 4: Synthesis and Generation
-1. **Summarize Architecture**
-   - Primary Component: [Detected Layer]
-   - Communications: [Validated Flows]
-   - Guiding Principle: Avoid Over-Engineering
-
-2. **Final Validation**
-   - "Is this summary correct? Shall I proceed with generating the full PRD?"
-
-## PRD Template
-
-```markdown
-# PRD: [Feature Name]
-
-## 1. Overview
-- **Business Goal:** [Description of need and problem solved]
-- **Detected Architecture:**
-  - **Primary Component:** `[Frontend App | Backend Service | ...]`
-
-## 2. Functional Specifications
-- **User Stories:** [For UI] or **API Contract:** [For Services]
-- **Data Flow Diagram:**
-  ```
-  [Simple diagram showing interaction between components]
-  ```
-
-## 3. Technical Specifications
-- **Inter-Service Communication:** [Details of API calls]
-- **Security & Authentication:** [Security model for chosen layer]
-
-## 4. Out of Scope
-- [What this feature will NOT do]
-```
-
-## Outputs
-
-### PRD Document
-- **File**: `prd-{feature-name}.md`
-- **Content**: Complete technical specifications
-- **Format**: Markdown with structured sections
-
-### Supporting Artifacts
-- **User Stories**: Detailed user scenarios
-- **API Contracts**: Request/response schemas
-- **Data Flow Diagrams**: Component interactions
-- **Security Model**: Authentication and authorization
-
-### Evidence Artifacts
-- **PRD approval**: User validation and timestamp
-- **Stakeholder sign-off**: Required approvals
-- **Technical feasibility**: Architecture validation
-
-## Quality Gates
-
-### Validation Checkpoints
-- [ ] Business goal clearly defined
-- [ ] Technical architecture validated
-- [ ] User stories complete and testable
-- [ ] API contracts specified
-- [ ] Security model defined
-- [ ] Out of scope items identified
-
-### Success Criteria
-- User approves PRD completeness
-- Technical team confirms feasibility
-- Stakeholders sign off on requirements
-- PRD enables immediate development
-
-## Duration
-**Target**: 10-30 minutes  
-**Actual**: Variable based on feature complexity
-
-## Next Phase
-Proceed to **Phase 2: Task Generation** with approved PRD
-
-## Automation Integration
-
-### AI Actions
-```python
-# PRD creation execution
-def execute_prd_creation(feature_idea, context_kit):
-    # 1. Analyze and scope
-    scope = analyze_feature_scope(feature_idea)
-    
-    # 2. Detect implementation layer
-    layer = detect_implementation_layer(scope, context_kit)
-    
-    # 3. Gather specifications
-    specs = gather_specifications_by_layer(layer)
-    
-    # 4. Validate architectural constraints
-    constraints = validate_architectural_constraints(specs, context_kit)
-    
-    # 5. Generate PRD
-    prd = generate_prd_document(specs, constraints)
-    
-    # 6. Log evidence
-    log_evidence("phase1", prd, specs)
-    
-    return {
-        "prd": prd,
-        "specifications": specs,
-        "evidence": get_evidence("phase1")
-    }
-```
-
-### Human Validation
-- User confirms business goal
-- User validates technical approach
-- User approves PRD completeness
-- Stakeholders sign off on requirements
-
-## Error Handling
-
-### Common Issues
-- **Unclear requirements**: Ask clarifying questions
-- **Architecture conflicts**: Propose alternatives
-- **Scope creep**: Enforce out-of-scope boundaries
-
-### Recovery Actions
-- Re-interview user if requirements unclear
-- Re-analyze architecture if conflicts found
-- Regenerate PRD if significant changes needed
-
-## Automation Integration
-- Capture the approved project slug and service catalog so they can be fed into the Phase 2 wrappers (`Phase2DesignWrappers`).
-- Record any domain terminology in the phase notes; wrappers can pass these values through `parameters` metadata when invoking
-  workflow1 scripts.
-
-## Evidence Templates
-- Reference [workflow1 evidence index](../templates/workflow1_evidence/index.json) for upcoming design and contract templates.
-- Ensure the evidence manifest is seeded with `automation_context` metadata describing the PRD review team.
-
-## Operator Instructions
-- Archive signed-off PRD artifacts and update the manifest to include `automation` metadata pointing at manual processes.
-- Confirm stakeholder approvals are logged so validation gates in later phases can reference them.
+## 5. HANDOFF
+- Provide approved PRD and architectural matrix to **Protocol 2: Task Generation**
+- Supply outstanding questions and assumptions so task planners can schedule discovery work
+- Notify orchestrator of compliance-related follow-ups that may trigger additional lifecycle phases (e.g., security review)

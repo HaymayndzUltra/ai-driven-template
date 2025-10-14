@@ -2,23 +2,10 @@
 
 from __future__ import annotations
 
-import importlib.util
-import sys
 import unittest
 from pathlib import Path
 
-project_root = Path(__file__).resolve().parents[2]
-module_path = project_root / "unified_workflow" / "automation" / "review_protocol_loader.py"
-spec = importlib.util.spec_from_file_location(
-    "unified_workflow.automation.review_protocol_loader", module_path
-)
-module = importlib.util.module_from_spec(spec)
-assert spec and spec.loader  # for mypy type checking
-module.__package__ = "unified_workflow.automation"
-sys.modules[spec.name] = module
-spec.loader.exec_module(module)
-
-ReviewProtocolLoader = module.ReviewProtocolLoader
+from scripts.review_protocol_loader import ReviewProtocolLoader
 
 
 class ReviewProtocolLoaderTests(unittest.TestCase):
@@ -26,7 +13,7 @@ class ReviewProtocolLoaderTests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        cls.repo_root = Path(__file__).resolve().parents[2]
+        cls.repo_root = Path(__file__).resolve().parents[3]
         cls.loader = ReviewProtocolLoader(cls.repo_root)
 
     def test_available_protocols_lists_expected_entries(self) -> None:

@@ -237,7 +237,7 @@ class UnifiedProjectGenerator:
         if module is not None and hasattr(module, "__path__"):
             return
 
-        repo_root = Path(__file__).resolve().parents[2] / package_name
+        repo_root = Path(__file__).resolve().parent.parent / package_name
         spec = spec_from_file_location(
             package_name,
             repo_root / "__init__.py",

@@ -6,7 +6,6 @@ and Policy DSL, ensuring they're available at the appropriate workflow phases.
 
 from __future__ import annotations
 
-import json
 import logging
 import shutil
 import subprocess
@@ -15,7 +14,8 @@ from typing import Any, Dict, List, Optional, Union
 
 # Setup proper imports
 import sys
-project_root = Path(__file__).resolve().parents[2]
+
+project_root = Path(__file__).resolve().parent.parent
 if str(project_root) not in sys.path:
     sys.path.append(str(project_root))
 

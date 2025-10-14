@@ -16,6 +16,11 @@ You **MUST** follow these steps in this exact order before proceeding with any u
 - **Action**: For each rule file, read **only** its YAML front-matter (the header enclosed by `---`) without loading the full file content.
 - **Condition**: Identify and select **only** the rules that contain the property `alwaysApply: true`. These rules form your non-negotiable "kernel" of operational context.
 
+### Step 2.5: Orchestration Detection
+- **[STRICT]** Check for `PROJECT-BRIEF.md` in the project root.
+- **[STRICT]** If present, run `python scripts/init_client_project.py --brief PROJECT-BRIEF.md --summary` to generate a customized workflow.
+- **[STRICT]** Load the resulting command files in `.cursor/commands/generated/` before proceeding to Step 3.
+
 ### Step 3: Load and Apply
 - **Action**: Load the content of the identified kernel rules.
 - **Directive**: These rules are now your foundational context. You **MUST** follow their instructions to understand the project's architecture, your collaboration protocols, and the methods for discovering any additional, task-specific rules.

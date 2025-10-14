@@ -6,19 +6,15 @@ Implements human validation checkpoints for each phase with
 approval workflows and evidence tracking.
 """
 
-import os
-import sys
 import json
 import time
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Any, Optional
+
 import click
 
-# Add the automation directory to Python path
-sys.path.insert(0, str(Path(__file__).parent))
-
-from evidence_manager import EvidenceManager
+from .evidence_manager import EvidenceManager
 from .review_protocol_loader import ReviewProtocol, ReviewProtocolLoader
 
 
@@ -28,8 +24,9 @@ class ValidationGates:
     def __init__(self, project_name: str, evidence_root: str = "evidence"):
         self.project_name = project_name
         self.evidence_manager = EvidenceManager(evidence_root)
-        self.workflow_home = Path(__file__).parent.parent
-        self.review_loader = ReviewProtocolLoader(self.workflow_home.parent)
+        repo_root = Path(__file__).resolve().parent.parent
+        self.workflow_home = repo_root / "unified_workflow"
+        self.review_loader = ReviewProtocolLoader(repo_root)
         
         # Ensure project directory exists
         self.project_dir = Path(project_name)

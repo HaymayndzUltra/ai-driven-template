@@ -18,7 +18,7 @@ import sys
 # Add parent directory to path for evidence_schema_converter import
 sys.path.append(str(Path(__file__).resolve().parents[2]))
 
-from unified_workflow.automation.evidence_schema_converter import EvidenceSchemaConverter
+from scripts.evidence_schema_converter import EvidenceSchemaConverter
 
 
 class EvidenceManager:

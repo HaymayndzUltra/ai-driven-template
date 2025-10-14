@@ -4,13 +4,13 @@ This package provides a comprehensive workflow automation system for software de
 integrating project generation, planning, compliance validation, and deployment orchestration.
 
 Main Components:
-- automation: Core automation modules (orchestrator, evidence manager, quality gates)
+- automation: Compatibility wrappers that re-export orchestration utilities from ``scripts``
 - core: Core utilities (template registry, evidence schema converter)
 - phases: Phase-specific protocols and documentation
 - evidence: Evidence collection and management
 
 Usage:
-    from unified_workflow.automation.ai_orchestrator import AIOrchestrator
+    from scripts.ai_orchestrator import AIOrchestrator
     from unified_workflow.core.template_registry import TemplateRegistry
 """
 

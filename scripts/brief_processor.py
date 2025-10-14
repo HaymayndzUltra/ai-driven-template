@@ -15,7 +15,7 @@ def _load_project_generator_symbol(module_path: str, attribute: str):
     package_name = "project_generator"
     module = sys.modules.get(package_name)
     if module is None or not hasattr(module, "__path__"):
-        repo_root = Path(__file__).resolve().parents[2] / package_name
+        repo_root = Path(__file__).resolve().parent.parent / package_name
         spec = spec_from_file_location(
             package_name,
             repo_root / "__init__.py",

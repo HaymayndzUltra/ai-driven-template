@@ -3,12 +3,12 @@
 __version__ = "1.0.0"
 __author__ = "AI Governor Framework Team"
 
-from .ai_executor import AIExecutor
-from .ai_orchestrator import AIOrchestrator
-from .evidence_manager import EvidenceManager
-from .quality_gates import QualityGates
-from .review_protocol_loader import ReviewProtocolLoader
-from .validation_gates import ValidationGates
+from scripts.ai_executor import AIExecutor
+from scripts.ai_orchestrator import AIOrchestrator
+from scripts.evidence_manager import EvidenceManager
+from scripts.quality_gates import QualityGates
+from scripts.review_protocol_loader import ReviewProtocolLoader
+from scripts.validation_gates import ValidationGates
 from .workflow1 import (
     Phase2DesignWrappers,
     Phase3QualityWrappers,
