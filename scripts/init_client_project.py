@@ -19,7 +19,7 @@ from scripts.generate_protocol_sequence import (
 
 def run_generate_from_brief(brief: Path, output_root: Path) -> None:
     command = [
-        "python",
+        "python3",
         str(Path("scripts/generate_from_brief.py")),
         "--brief",
         str(brief),

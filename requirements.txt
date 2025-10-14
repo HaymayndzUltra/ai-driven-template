@@ -21,8 +21,6 @@ jsonschema>=4.17.0
 
 # File handling & utilities
 pathlib>=1.0.1
-shutil>=1.0.0
-glob>=1.0.0
 
 # Testing
 pytest>=7.0.0
