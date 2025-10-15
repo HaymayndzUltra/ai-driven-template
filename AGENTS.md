@@ -85,8 +85,8 @@ Treat each file as a system-generated cognitive artifact. Reconstruct the step-b
 - [x] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/00-client-discovery.md
 - [x] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/00-generate-rules.md
 - [x] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/1-create-prd.md
-- [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/2-generate-tasks.md
-- [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/3-process-tasks.md
+- [x] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/2-generate-tasks.md
+- [x] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/3-process-tasks.md
 - [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/4-quality-audit.md
 - [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/5-implementation-retrospective.md
 - [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/architecture-review.md
