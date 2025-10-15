@@ -111,9 +111,9 @@ Treat each file as a system-generated cognitive artifact. Reconstruct the step-b
 - [x] /home/haymayndz/ai-driven-template/.cursor/rules/master-rules/9-master-rule-protocol-orchestrator.mdc
 - [x] /home/haymayndz/ai-driven-template/.cursor/rules/master-rules/advanced-meta-instruction-intelligence-system.mdc
 - [x] /home/haymayndz/ai-driven-template/.cursor/rules/common-rules/common-rule-ui-foundation-design-system.mdc
-- [ ] /home/haymayndz/ai-driven-template/.cursor/rules/common-rules/common-rule-ui-interaction-a11y-perf.mdc
-- [ ] /home/haymayndz/ai-driven-template/.cursor/rules/common-rules/common-rule-ui-premium-brand-dataviz-enterprise-gated.mdc
-- [ ] /home/haymayndz/ai-driven-template/.cursor/rules/elaboration-specialist.mdc
+- [x] /home/haymayndz/ai-driven-template/.cursor/rules/common-rules/common-rule-ui-interaction-a11y-perf.mdc
+- [x] /home/haymayndz/ai-driven-template/.cursor/rules/common-rules/common-rule-ui-premium-brand-dataviz-enterprise-gated.mdc
+- [x] /home/haymayndz/ai-driven-template/.cursor/rules/elaboration-specialist.mdc
 
 ---
 
