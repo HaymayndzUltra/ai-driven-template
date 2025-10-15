@@ -91,10 +91,10 @@ Treat each file as a system-generated cognitive artifact. Reconstruct the step-b
 - [x] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/5-implementation-retrospective.md
 - [x] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/architecture-review.md
 - [x] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/code-review.md
-- [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/design-system.md
-- [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/pre-production.md
-- [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/security-check.md
-- [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/ui-accessibility.md
+- [x] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/design-system.md
+- [x] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/pre-production.md
+- [x] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/security-check.md
+- [x] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/ui-accessibility.md
 - [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/utils/_review-router.md
 - [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/utils/context-analyzer.md
 - [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/utils/enhanced-static-template.md
