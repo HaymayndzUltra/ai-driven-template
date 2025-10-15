@@ -79,6 +79,42 @@ Treat each file as a system-generated cognitive artifact. Reconstruct the step-b
 - /home/haymayndz/ai-driven-template/.cursor/rules/common-rules/common-rule-ui-premium-brand-dataviz-enterprise-gated.mdc
 - /home/haymayndz/ai-driven-template/.cursor/rules/elaboration-specialist.mdc
 
+## 📈 Progress Tracker
+
+- [x] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/0-bootstrap-your-project.md
+- [x] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/00-client-discovery.md
+- [x] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/00-generate-rules.md
+- [x] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/1-create-prd.md
+- [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/2-generate-tasks.md
+- [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/3-process-tasks.md
+- [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/4-quality-audit.md
+- [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/5-implementation-retrospective.md
+- [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/architecture-review.md
+- [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/code-review.md
+- [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/design-system.md
+- [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/pre-production.md
+- [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/security-check.md
+- [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/ui-accessibility.md
+- [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/utils/_review-router.md
+- [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/utils/context-analyzer.md
+- [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/utils/enhanced-static-template.md
+- [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/utils/enhanced-static-validation.md
+- [ ] /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/utils/rule-injection-system.md
+- [ ] /home/haymayndz/ai-driven-template/.cursor/rules/master-rules/1-master-rule-context-discovery.mdc
+- [ ] /home/haymayndz/ai-driven-template/.cursor/rules/master-rules/2-master-rule-ai-collaboration-guidelines.mdc
+- [ ] /home/haymayndz/ai-driven-template/.cursor/rules/master-rules/3-master-rule-code-quality-checklist.mdc
+- [ ] /home/haymayndz/ai-driven-template/.cursor/rules/master-rules/4-master-rule-code-modification-safety-protocol.mdc
+- [ ] /home/haymayndz/ai-driven-template/.cursor/rules/master-rules/5-master-rule-documentation-and-context-guidelines.mdc
+- [ ] /home/haymayndz/ai-driven-template/.cursor/rules/master-rules/6-master-rule-how-to-create-effective-rules.mdc
+- [ ] /home/haymayndz/ai-driven-template/.cursor/rules/master-rules/7-master-rule-dev-workflow-integration-guide.mdc
+- [ ] /home/haymayndz/ai-driven-template/.cursor/rules/master-rules/8-master-rule-protocol-integration-methodology.mdc
+- [ ] /home/haymayndz/ai-driven-template/.cursor/rules/master-rules/9-master-rule-protocol-orchestrator.mdc
+- [ ] /home/haymayndz/ai-driven-template/.cursor/rules/master-rules/advanced-meta-instruction-intelligence-system.mdc
+- [ ] /home/haymayndz/ai-driven-template/.cursor/rules/common-rules/common-rule-ui-foundation-design-system.mdc
+- [ ] /home/haymayndz/ai-driven-template/.cursor/rules/common-rules/common-rule-ui-interaction-a11y-perf.mdc
+- [ ] /home/haymayndz/ai-driven-template/.cursor/rules/common-rules/common-rule-ui-premium-brand-dataviz-enterprise-gated.mdc
+- [ ] /home/haymayndz/ai-driven-template/.cursor/rules/elaboration-specialist.mdc
+
 ---
 
 ## 🤖 AUTONOMOUS OPERATION PROTOCOL
