@@ -34,9 +34,50 @@ Treat each file as a system-generated cognitive artifact. Reconstruct the step-b
 
 ---
 
-## 📂 TARGET DISCOVERY (Self-Directed)
+## 📂 FILES TO ANALYZE (Total: 33)
 
-Do not rely on hardcoded file lists. At runtime, discover relevant protocol/rule files yourself by scanning the repository (e.g., `.cursor/ai-driven-workflow/**`, `.cursor/rules/**`) and selecting a manageable batch per session based on complexity.
+### Workflow Protocols (8 files)
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/0-bootstrap-your-project.md
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/00-client-discovery.md
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/00-generate-rules.md
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/1-create-prd.md
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/2-generate-tasks.md
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/3-process-tasks.md
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/4-quality-audit.md
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/5-implementation-retrospective.md
+
+### Review Protocols (6 files)
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/architecture-review.md
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/code-review.md
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/design-system.md
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/pre-production.md
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/security-check.md
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/ui-accessibility.md
+
+### Review Utils (5 files)
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/utils/_review-router.md
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/utils/context-analyzer.md
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/utils/enhanced-static-template.md
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/utils/enhanced-static-validation.md
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/review-protocols/utils/rule-injection-system.md
+
+### Master Rules (10 files)
+- /home/haymayndz/ai-driven-template/.cursor/rules/master-rules/1-master-rule-context-discovery.mdc
+- /home/haymayndz/ai-driven-template/.cursor/rules/master-rules/2-master-rule-ai-collaboration-guidelines.mdc
+- /home/haymayndz/ai-driven-template/.cursor/rules/master-rules/3-master-rule-code-quality-checklist.mdc
+- /home/haymayndz/ai-driven-template/.cursor/rules/master-rules/4-master-rule-code-modification-safety-protocol.mdc
+- /home/haymayndz/ai-driven-template/.cursor/rules/master-rules/5-master-rule-documentation-and-context-guidelines.mdc
+- /home/haymayndz/ai-driven-template/.cursor/rules/master-rules/6-master-rule-how-to-create-effective-rules.mdc
+- /home/haymayndz/ai-driven-template/.cursor/rules/master-rules/7-master-rule-dev-workflow-integration-guide.mdc
+- /home/haymayndz/ai-driven-template/.cursor/rules/master-rules/8-master-rule-protocol-integration-methodology.mdc
+- /home/haymayndz/ai-driven-template/.cursor/rules/master-rules/9-master-rule-protocol-orchestrator.mdc
+- /home/haymayndz/ai-driven-template/.cursor/rules/master-rules/advanced-meta-instruction-intelligence-system.mdc
+
+### Common Rules (4 files)
+- /home/haymayndz/ai-driven-template/.cursor/rules/common-rules/common-rule-ui-foundation-design-system.mdc
+- /home/haymayndz/ai-driven-template/.cursor/rules/common-rules/common-rule-ui-interaction-a11y-perf.mdc
+- /home/haymayndz/ai-driven-template/.cursor/rules/common-rules/common-rule-ui-premium-brand-dataviz-enterprise-gated.mdc
+- /home/haymayndz/ai-driven-template/.cursor/rules/elaboration-specialist.mdc
 
 ---
 
@@ -60,9 +101,10 @@ ls -la /home/haymayndz/ai-driven-template/meta-analysis/
 ```
 
 ### 3. File Selection
+- Read the "FILES TO ANALYZE" list above
 - Check `/meta-analysis/` for existing sessions
-- Discover candidate files by scanning `.cursor/ai-driven-workflow/**` and `.cursor/rules/**`
-- Select the next batch to process (you decide the count and order)
+- **OPTIMAL BATCH SIZE**: 5-8 files per session (GPT-5-CODEX can work 7+ hours autonomously)
+- **EFFICIENCY TARGET**: Complete analysis in 6 sessions maximum
 
 ### 4. Analysis Execution
 For EACH selected file:
@@ -92,16 +134,17 @@ Update the "SESSION PROGRESS TRACKER" section below.
 ### ✅ Completed Sessions
 <!-- Auto-updated by GPT-5-CODEX after each session -->
 
-**SESSION 1** (Date: 2025-10-15)
-- Files analyzed: 1 file from AI-driven workflow protocols
+**SESSION 1** (Date: YYYY-MM-DD)
+- Files analyzed: [count] files from [category]
 - Output: `/meta-analysis/session-01/`
-- Key insight: Governance-first bootstrapping anchors every subsequent protocol to Cursor rule compliance
+- Key insight: [one-liner]
 
 ### 🎯 NEXT SESSION START HERE
 
-**Status:** Progress tracked by completed session folders
-**Next Batch:** Self-select at runtime based on complexity and remaining scope
-**Context:** Establish and preserve a baseline meta-framework understanding
+**Status:** 0 out of 33 files analyzed
+**Next Batch:** Start with Workflow Protocols (5-8 files per session for efficiency)
+**Context:** Fresh start - establish baseline meta-framework understanding
+**EFFICIENCY TARGET:** Complete all 33 files in 6 sessions maximum
 
 ---
 
@@ -114,11 +157,19 @@ When you complete a session, create `next-session.md`:
 
 ## Resume Point
 - Previous session: SESSION [X] (completed [Y] files)
-- Total progress: [Y] files analyzed
+- Total progress: [Y] out of 33 files analyzed
 - Remaining: [Z] files
 
 ## Files to Analyze This Session
-Self-select at runtime based on discovered repository files, complexity, and context continuity.
+[List the next batch - OPTIMAL: 5-8 files per session for efficiency]
+
+Example (5-8 files per session):
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/1-create-prd.md
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/2-generate-tasks.md
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/3-process-tasks.md
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/4-quality-audit.md
+- /home/haymayndz/ai-driven-template/.cursor/ai-driven-workflow/5-implementation-retrospective.md
+- [... more files to reach 5-8 files per session]
 
 ## Context from Previous Sessions
 **Meta-frameworks discovered:**
