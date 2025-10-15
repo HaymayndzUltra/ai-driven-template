@@ -247,6 +247,8 @@ Script → Invocation Context → Expected Output
 ## Results & Deviations
 - Pass/Fail Summary
 - Issues & Mitigations
+```
+
 Acceptance Criteria Checklist
  Syntactic correctness: YAML frontmatter validated and normalized.
 
