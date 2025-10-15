@@ -39,7 +39,8 @@ This system provides comprehensive AI-assisted project orchestration with human 
 - **`evidence_manager.py`** - Comprehensive evidence tracking with SHA-256 checksums and audit trails (evidence)
 - **`evidence_schema_converter.py`** - Converts legacy evidence formats to unified schema (evidence)
 - **`evidence_report.py`** - Generates comprehensive evidence reports (evidence)
-- **`collect_coverage.py`** - Collects test coverage metrics (evidence)
+- **`aggregate_coverage.py`** - Aggregates frontend (Jest) and backend (pytest) coverage results (evidence)
+- **`collect_coverage.py`** - Collects Python coverage using pytest-cov for CI gating (evidence)
 - **`migrate_evidence_data.py`** - Migrates historical evidence data from legacy to unified format (evidence)
 
 ### **Workflow & Lifecycle** (Medium Importance)
@@ -61,46 +62,146 @@ This system provides comprehensive AI-assisted project orchestration with human 
 
 ### **Quality Assurance** (Medium Importance)
 - **`quality_gates.py`** - Multi-layer quality validation with specialized protocols (validation)
-- **`validate_protocol_steps.py`** - Validates protocol step completeness and dependencies (validation)
-- **`validate_script_bindings.py`** - Validates script-to-protocol binding integrity (validation)
+- **`enforce_gates.py`** - Enforces numeric quality gates (coverage, deps, perf) for CI/CD pipelines (validation)
+
+### **Project Initialization & Bootstrapping** (High Importance)
+- **`doctor.py`** - Environment health check for Docker, Node, Python, Go with strict mode validation (core)
+- **`bootstrap_project.py`** - One-command bootstrap for project initialization from config (core)
+- **`init_client_project.py`** - High-level orchestrator for initializing client projects from briefs (core)
+
+### **Domain Analysis & Classification** (Medium Importance)
+- **`classify_domain.py`** - Classifies project domain (web-mobile, data-bi, ml-ai, infrastructure) from brief content (supporting)
+- **`select_stacks.py`** - Preflight stack selection with engine version validation and substitution support (supporting)
+- **`score_risks.py`** - Scores risks by impact and likelihood, generates risk matrix and recommendations (supporting)
+
+### **Planning & Lifecycle Management** (Medium Importance)
+- **`pre_lifecycle_plan.py`** - Pre-lifecycle roadmap generator with dynamic gating and validation (supporting)
+- **`lane_executor.py`** - Executes tasks by lane respecting dependencies and concurrency limits (supporting)
+
+### **Rules & Documentation Management** (Medium Importance)
+- **`analyze_project_rules.py`** - Analyzes and validates project rule documents structure and completeness (supporting)
+- **`normalize_project_rules.py`** - Normalizes project rule formatting for consistency (supporting)
+- **`optimize_project_rules.py`** - Optimizes project rules for performance and readability (supporting)
+- **`standardize_frontmatter.py`** - Standardizes YAML frontmatter across workflow and rule documents (supporting)
+- **`rules_audit_quick.py`** - Lightweight quality audit for rule documents (supporting)
+
+### **Retrospective & Audit** (Medium Importance)
+- **`retrospective_evidence_report.py`** - Generates retrospective evidence reports for phase review (supporting)
+- **`retrospective_rules_audit.py`** - Audits rules from retrospective phase for compliance (supporting)
+
+### **Scaffolding & Template Management** (Low Importance)
+- **`scaffold_briefs.py`** - Scaffolds brief templates for new projects (utility)
+- **`scaffold_phase_artifacts.py`** - Scaffolds phase-specific artifacts and evidence structures (utility)
+- **`sync_from_scaffold.py`** - Syncs project structure from scaffold templates (utility)
+
+### **Dependency & Performance Analysis** (Medium Importance)
+- **`scan_deps.py`** - Scans dependencies for vulnerabilities using pip-audit and npm audit (validation)
+- **`collect_perf.py`** - Collects performance metrics for quality gate enforcement (validation)
+
+### **Workflow Management & Utilities** (Medium Importance)
+- **`backup_workflows.py`** - Backs up workflow configurations and state (utility)
+- **`restore_workflows.py`** - Restores workflow configurations from backup (utility)
+- **`validate_workflows.py`** - Validates workflow configuration completeness (validation)
+- **`validate_tasks.py`** - Validates task specifications and dependencies (validation)
+- **`validate_brief.py`** - Validates project brief completeness and structure (validation)
+- **`validate_compliance_assets.py`** - Validates compliance asset completeness (validation)
+- **`write_context_report.py`** - Writes context analysis reports for governance (supporting)
+- **`check_compliance_docs.py`** - Checks compliance documentation completeness (validation)
+
+### **Benchmarking & Testing** (Low Importance)
+- **`benchmark_generation.py`** - Benchmarks project generation performance (utility)
+
+### **Shell Automation Scripts** (Medium Importance)
+- **`e2e_from_brief.sh`** - End-to-end workflow execution from brief to delivery (orchestration)
+- **`init-project.sh`** - Project initialization and setup automation (orchestration)
+- **`setup.sh`** - Environment setup automation script (utility)
+- **`install_and_test.sh`** - Installation and testing automation for CI/CD (validation)
+- **`test_workflow_integration.sh`** - Tests workflow integration end-to-end (validation)
+- **`setup_template_tests.sh`** - Sets up template testing environment (utility)
+- **`build_submission_pack.sh`** - Builds submission package for deployment (deployment)
+- **`deploy_backend.sh`** - Deploys backend services to AWS ECS (deployment)
+- **`rollback_backend.sh`** - Rolls back backend deployment to previous version (deployment)
+- **`rollback_frontend.sh`** - Rolls back frontend deployment to previous version (deployment)
 
 ## Execution Flow
 
 ### Step-by-Step Project Pipeline
 
-1. **Project Initialization**
+1. **Project Initialization & Environment Setup**
+   - `doctor.py` → validates environment (Docker, Node, Python, Go)
+   - `bootstrap_project.py` → one-command project bootstrap from configuration
+   - `init_client_project.py` → initializes client project from brief
    - `run_workflow.py` → loads configuration and initializes workflow
    - `ai_executor.py` → creates project directory and loads project config
    - `external_services.py` → initializes Git repository and external integrations
 
-2. **Brief Analysis & Protocol Generation**
+2. **Brief Analysis & Domain Classification**
    - `analyze_brief.py` → extracts structured metadata from project brief
+   - `classify_domain.py` → classifies project domain (web-mobile, data-bi, ml-ai, etc.)
+   - `score_risks.py` → scores risks by impact and likelihood
    - `brief_processor.py` → processes brief and generates planning artifacts
+   - `validate_brief.py` → validates brief completeness and structure
+
+3. **Stack Selection & Pre-Lifecycle Planning**
+   - `select_stacks.py` → performs preflight stack selection with engine validation
+   - `pre_lifecycle_plan.py` → generates pre-lifecycle roadmap with gating
+   - `lifecycle_tasks.py` → builds comprehensive task plans from brief
+   - `scan_deps.py` → scans dependencies for vulnerabilities
+
+4. **Protocol Generation & Validation**
    - `generate_protocol_sequence.py` → builds command sequences from brief analysis
    - `trigger_plan.py` → creates guided trigger plan for project generation
+   - `validate_protocol_steps.py` → validates protocol step completeness
+   - `validate_protocol_handoffs.py` → validates protocol transitions between phases
+   - `detect_instruction_conflicts.py` → detects conflicting instructions
+   - `simulate_protocol_execution.py` → simulates AI execution to detect runtime issues
 
-3. **AI Validation & Human Approval**
+5. **AI Validation & Human Approval**
    - `ai_orchestrator.py` → executes AI-driven phases with external service integration
    - `validation_gates.py` → enforces human validation checkpoints at each phase
    - `validate_prd_gate.py` → validates PRD sign-off metadata and architecture
    - `validate_ai_directives.py` → validates AI directive structure and compliance
 
-4. **Project Generation**
+6. **Project Generation**
    - `generate_from_brief.py` → generates separate frontend/backend projects
    - `generate_client_project.py` → creates industry-specific, compliance-ready projects
    - `generate_prd_assets.py` → generates PRD and architecture summaries
    - `run_generate_rules.py` → generates project-specific Cursor rules
+   - `scaffold_phase_artifacts.py` → scaffolds phase-specific artifacts
 
-5. **Compliance & Evidence Reporting**
+7. **Task Execution & Progress Tracking**
+   - `lane_executor.py` → executes tasks by lane respecting dependencies
+   - `update_task_state.py` → manages task state transitions
+   - `enrich_tasks.py` → enhances task specifications with context
+
+8. **Compliance & Evidence Reporting**
    - `compliance_validator.py` → performs HIPAA/GDPR/SOX/PCI compliance checks
+   - `check_hipaa.py` → lightweight HIPAA compliance checks
    - `evidence_manager.py` → tracks all artifacts with SHA-256 checksums and timestamps
    - `evidence_report.py` → generates comprehensive evidence reports
-   - `collect_coverage.py` → collects test coverage metrics
+   - `collect_coverage.py` → collects Python test coverage
+   - `aggregate_coverage.py` → aggregates frontend and backend coverage
 
-6. **Quality Gates & Final Validation**
+9. **Quality Gates & Final Validation**
    - `quality_gates.py` → executes multi-layer quality validation
+   - `enforce_gates.py` → enforces numeric quality gates for CI/CD
+   - `collect_perf.py` → collects performance metrics
    - `validate_workflow_integration.py` → validates end-to-end workflow integration
+   - `validate_compliance_assets.py` → validates compliance asset completeness
    - `evidence_schema_converter.py` → ensures evidence format consistency
+
+10. **Retrospective & Continuous Improvement**
+    - `retrospective_evidence_report.py` → generates retrospective evidence reports
+    - `retrospective_rules_audit.py` → audits rules from retrospective phase
+    - `generate_consistency_report.py` → generates consistency reports across protocols
+    - `write_context_report.py` → writes context analysis reports
+
+11. **Deployment & Operations**
+    - `e2e_from_brief.sh` → end-to-end workflow from brief to delivery
+    - `build_submission_pack.sh` → builds submission package
+    - `deploy_backend.sh` → deploys backend to AWS ECS
+    - `rollback_backend.sh` → rolls back backend deployment
+    - `rollback_frontend.sh` → rolls back frontend deployment
 
 ## Key Subsystems
 
@@ -121,7 +222,9 @@ This system provides comprehensive AI-assisted project orchestration with human 
 - **`compliance_validator.py`** - Performs HIPAA/GDPR/SOX/PCI compliance validation
 - **`evidence_schema_converter.py`** - Converts legacy evidence formats to unified schema
 - **`evidence_report.py`** - Generates comprehensive evidence reports for audit trails
-- **`collect_coverage.py`** - Collects test coverage metrics and performance data
+- **`aggregate_coverage.py`** - Aggregates frontend and backend test coverage
+- **`collect_coverage.py`** - Collects Python test coverage using pytest-cov
+- **`check_compliance_docs.py`** - Checks compliance documentation completeness
 
 ### **Workflow & Lifecycle**
 - **`run_workflow.py`** - CLI entry point and main execution hub
@@ -168,12 +271,59 @@ The evidence system provides comprehensive audit visibility:
 - **`evidence_manager.py`** - Tracks all artifacts with SHA-256 checksums and ISO8601 timestamps
 - **`evidence_report.py`** - Generates comprehensive evidence reports for compliance audits
 - **`evidence_schema_converter.py`** - Ensures evidence format consistency across workflow versions
-- **`collect_coverage.py`** - Collects test coverage metrics and performance data
+- **`aggregate_coverage.py`** - Aggregates frontend (Jest) and backend (pytest) coverage results
+- **`collect_coverage.py`** - Collects Python test coverage using pytest-cov for CI gating
 
 ## Usage
 
-### **Starting the System**
+### **Environment Setup & Validation**
 ```bash
+# Check environment health (Docker, Node, Python, Go)
+python scripts/doctor.py --strict
+
+# One-command project bootstrap
+python scripts/bootstrap_project.py --name my-project --industry healthcare --frontend react --backend nestjs --database postgresql
+
+# Initialize client project from brief
+python scripts/init_client_project.py --brief PROJECT-BRIEF.md --generate-scaffold
+```
+
+### **Brief Analysis & Domain Classification**
+```bash
+# Classify project domain from brief
+python scripts/classify_domain.py PROJECT-BRIEF.md --output domain-classification.json --verbose
+
+# Score risks by impact and likelihood
+python scripts/score_risks.py PROJECT-BRIEF.md --output risk-scores.json --verbose
+
+# Validate brief completeness
+python scripts/validate_brief.py --brief PROJECT-BRIEF.md
+```
+
+### **Stack Selection & Planning**
+```bash
+# Select technology stack with engine validation
+python scripts/select_stacks.py \
+  --industry healthcare \
+  --project-type microservices \
+  --frontend react \
+  --backend nestjs \
+  --database postgresql \
+  --compliance hipaa,gdpr \
+  --output selection.json
+
+# Generate pre-lifecycle roadmap
+python scripts/pre_lifecycle_plan.py --brief PROJECT-BRIEF.md --output roadmap.json
+
+# Scan dependencies for vulnerabilities
+python scripts/scan_deps.py
+```
+
+### **Complete Workflow Execution**
+```bash
+# End-to-end workflow from brief to delivery
+bash scripts/e2e_from_brief.sh
+
 # Complete workflow execution from brief
 python scripts/run_workflow.py --brief ./path/to/brief.json
 
@@ -183,6 +333,9 @@ python scripts/ai_executor.py full-workflow --project my-project
 
 # Execute single phase with validation
 python scripts/ai_executor.py phase --project my-project --phase 1
+
+# Execute tasks by lane with dependency management
+python scripts/lane_executor.py --lane backend --cap 3 --input tasks.json
 ```
 
 ### **What Happens Next**
@@ -193,8 +346,11 @@ python scripts/ai_executor.py phase --project my-project --phase 1
 5. **Evidence Collection**: All artifacts are tracked with checksums and timestamps
 6. **Quality Gates**: Multi-layer validation ensures production readiness
 
-### **Manual Validation Commands**
+### **Quality Gates & Validation**
 ```bash
+# Enforce numeric quality gates for CI/CD
+python scripts/enforce_gates.py
+
 # Validate PRD gate
 python scripts/validate_prd_gate.py --prd PRD.md --architecture ARCHITECTURE.md
 
@@ -202,8 +358,90 @@ python scripts/validate_prd_gate.py --prd PRD.md --architecture ARCHITECTURE.md
 python scripts/validation_gates.py request-validation --phase 1
 python scripts/validation_gates.py approve-validation --phase 1 --approver "John Doe"
 
+# Validate workflow integration
+python scripts/validate_workflow_integration.py
+
+# Validate protocol steps and handoffs
+python scripts/validate_protocol_steps.py
+python scripts/validate_protocol_handoffs.py
+
+# Detect instruction conflicts
+python scripts/detect_instruction_conflicts.py
+
+# Simulate protocol execution
+python scripts/simulate_protocol_execution.py
+```
+
+### **Evidence & Compliance Reporting**
+```bash
+# Collect test coverage
+python scripts/collect_coverage.py
+
+# Aggregate frontend and backend coverage
+python scripts/aggregate_coverage.py
+
+# Collect performance metrics
+python scripts/collect_perf.py
+
 # Generate evidence report
 python scripts/evidence_report.py --project my-project --output evidence-report.json
+
+# Generate retrospective evidence report
+python scripts/retrospective_evidence_report.py
+
+# Check HIPAA compliance
+python scripts/check_hipaa.py
+
+# Validate compliance assets
+python scripts/validate_compliance_assets.py
+```
+
+### **Deployment & Rollback**
+```bash
+# Build submission package
+bash scripts/build_submission_pack.sh
+
+# Deploy backend to AWS ECS
+bash scripts/deploy_backend.sh production
+
+# Rollback backend deployment
+bash scripts/rollback_backend.sh production
+
+# Rollback frontend deployment
+bash scripts/rollback_frontend.sh production
+```
+
+### **Rules & Documentation Management**
+```bash
+# Analyze project rules
+python scripts/analyze_project_rules.py
+
+# Normalize project rules formatting
+python scripts/normalize_project_rules.py
+
+# Optimize project rules
+python scripts/optimize_project_rules.py
+
+# Standardize YAML frontmatter
+python scripts/standardize_frontmatter.py
+
+# Quick audit of rule documents
+python scripts/rules_audit_quick.py
+```
+
+### **Workflow Management**
+```bash
+# Backup workflows
+python scripts/backup_workflows.py
+
+# Restore workflows from backup
+python scripts/restore_workflows.py
+
+# Validate workflow configurations
+python scripts/validate_workflows.py
+
+# Validate task specifications
+python scripts/validate_tasks.py
 ```
 
 ## Extensibility
