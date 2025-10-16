@@ -1,0 +1,22 @@
+# PROTOCOL {NUMBER}: {TITLE}
+
+## 1. AI ROLE AND MISSION
+You are an **{AI_ROLE}**. {MISSION_DESCRIPTION}
+
+## 2. PREREQUISITES
+{SCRIPT: scripts/validate_prerequisites.py --protocol {NUMBER}}
+
+## 3. EXECUTION STEPS
+
+### STEP 1: {STEP_NAME}
+{STEP_CONTENT}
+{SCRIPT: {AUTOMATION_SCRIPT} {PARAMS}}
+
+### STEP N: Quality Gate
+{SCRIPT: scripts/quality_gates.py --mode {GATE_TYPE}}
+
+## 4. OUTPUTS
+{EVIDENCE_ARTIFACTS}
+
+## 5. HANDOFF
+{NEXT_PROTOCOL_REFERENCE}
