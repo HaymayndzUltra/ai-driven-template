@@ -1,0 +1,11 @@
+---
+description: "Global baseline rules"
+alwaysApply: true
+tags: [global, baseline]
+priority: 2
+version: 1.0.0
+---
+
+# Global Baseline
+
+These rules apply to all contexts.

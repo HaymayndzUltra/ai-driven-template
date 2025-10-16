@@ -1,0 +1,25 @@
+{
+  "name": "windsurf-mdc-plugin",
+  "version": "0.1.0",
+  "description": "Windsurf plugin for .mdc rule file support",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
+  },
+  "dependencies": {
+    "yaml": "^2.0.0",
+    "globby": "^14.0.0"
+  },
+  "windsurf": {
+    "plugin": true,
+    "capabilities": [
+      "file-system",
+      "context-injection"
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+---
+description: "Apply to frontend TSX files"
+globs:
+  - "apps/frontend/**/*.{ts,tsx}"
+tags: [frontend]
+priority: 3
+version: 1.0.0
+---
+
+# Frontend Rules
+
+These rules apply to TS/TSX files under apps/frontend.

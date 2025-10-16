@@ -1,0 +1,14 @@
+[project]
+name = "mdc_rules"
+version = "0.1.0"
+description = "Portable MDC rule detection and parsing"
+requires-python = ">=3.9"
+readme = "README.md"
+license = { text = "MIT" }
+
+[project.optional-dependencies]
+dev = ["pytest", "pyyaml", "jsonschema"]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"

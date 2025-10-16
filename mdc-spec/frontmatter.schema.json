@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/mdc/frontmatter.schema.json",
+  "title": "MDC Frontmatter",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "description": { "type": "string", "minLength": 1 },
+    "globs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "alwaysApply": { "type": "boolean" },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "priority": { "type": "integer", "minimum": 1, "maximum": 9, "default": 3 },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+(?:[-+][A-Za-z0-9.-]+)?$" }
+  },
+  "required": ["description"]
+}
+

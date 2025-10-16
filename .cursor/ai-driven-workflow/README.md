@@ -4,124 +4,792 @@
 
 Working with AI can sometimes feel unpredictable. The AI Governor Framework provides a development workflow designed to fix that, for both new and existing projects.
 
-It provides a structured, sequential process that transforms your AI from a simple code generator into a reliable engineering partner. By following these five protocols, you ensure that both you and the AI are always aligned, moving from a high-level idea to a well-implemented feature with clarity, control, and consistency.
+It provides a structured, sequential process that transforms your AI from a simple code generator into a reliable engineering partner. By following these protocols, you ensure that both you and the AI are always aligned, moving from a high-level idea to a well-implemented feature with clarity, control, and consistency.
 
 The goal is to make AI-powered development:
 -   **Predictable:** Each step has a clear purpose and output.
 -   **Controllable:** You are always in the loop for key decisions.
 -   **Efficient:** The AI does the heavy lifting, you provide the strategic direction.
 
-## 2. How it Works: The Optimized 5-Protocol Development Lifecycle
+## 2. Protocol Architecture Map
 
-This workflow guides you through the entire development process, from initial setup to continuous improvement. Each protocol assigns a specific role to the AI, ensuring a structured and predictable collaboration with **intelligent session management**.
-
-### Step 0: Bootstrap Your Project (One-Time Setup)
-**Role:** The AI acts as a **Project Analyst**.
-
-First, the AI analyzes your entire codebase to build a "Context Kit"—a set of foundational `READMEs` and project-specific rules. This is a one-time protocol that turns a generic AI into a project-specific expert.
+The workflow consists of **33 protocols** organized in **5 phases** with **dependency-based flow**:
 
 ```
-Apply instructions from ai-driven-workflow/0-bootstrap-your-project.md
+Phase 0: Foundation (Bootstrap & Discovery)
+├── 0-bootstrap-your-project.md (Project Analyst)
+├── 00-client-discovery.md (Client Discovery Specialist)  
+└── 00-generate-rules.md (Rule Generation Command)
+
+Phase 1-2: Planning (PRD & Tasks)
+├── 1-create-prd.md (Product Manager)
+└── 2-generate-tasks.md (Tech Lead)
+
+Phase 3: Execution
+└── 3-process-tasks.md (Paired Developer)
+
+Phase 4: Quality Assurance
+├── 4-quality-audit.md (Quality Orchestrator)
+├── review-protocols/
+│   ├── architecture-review.md
+│   ├── code-review.md
+│   ├── design-system.md
+│   ├── pre-production.md
+│   ├── security-check.md
+│   ├── ui-accessibility.md
+│   └── utils/
+│       ├── _review-router.md
+│       ├── context-analyzer.md
+│       ├── enhanced-static-template.md
+│       ├── enhanced-static-validation.md
+│       └── rule-injection-system.md
+
+Phase 5: Continuous Improvement
+└── 5-implementation-retrospective.md (Process Improvement Lead)
 ```
-*(For best results, Cursor users should use Max Mode for this step.)*
 
-### Step 1: Create a Product Requirements Document (PRD)
-**Role:** The AI acts as a **Product Manager**.
+## 3. Phase 0: Foundation Protocols (Bootstrap & Discovery)
 
-Next, you define the "what" and "why" of your feature. The AI interviews you to create a detailed Product Requirements Document (PRD), ensuring all requirements are captured before any code is written.
+### Protocol 0: Project Bootstrap & Context Engineering
+**Role:** AI Codebase Analyst & Context Architect  
+**File:** `0-bootstrap-your-project.md`
 
-```
-Apply instructions from ai-driven-workflow/1-create-prd.md
+#### Purpose
+Perform initial analysis of project, configure AI Governor Framework, and propose foundational "Context Kit" to dramatically improve all future AI collaboration.
 
-Here's the feature I want to build: [Describe your feature in detail]
-```
-*(For best results, Cursor users should use Max Mode for this step.)*
+#### Prerequisites
+- Project repository with basic structure
+- Cursor editor (for optimal rule activation)
+- Access to master-rules and common-rules directories
 
-### Step 2: Generate Your Task List
-**Role:** The AI acts as a **Tech Lead**.
+#### Execution Algorithm (7-Step Process)
+1. **Tooling Configuration & Rule Activation**
+   - Detect tooling and configure rules
+   - Create `.cursor/rules/` structure
+   - Rename rule files to `.mdc` format
+   - Add metadata with `alwaysApply` properties
 
-The AI then transforms the PRD into a granular, step-by-step technical execution plan. This ensures that both you and the AI are aligned on the implementation strategy.
+2. **Initial Codebase Mapping**
+   - Perform recursive file listing
+   - Propose analysis plan for key files
+   - Validate plan with user
+   - Analyze key files and confirm stack
 
-```
-Apply instructions from ai-driven-workflow/2-generate-tasks.md to @prd-my-feature.md
-```
-*(Note: Replace `@prd-my-feature.md` with the actual filename of your PRD.)*
+3. **Thematic Investigation Plan**
+   - Generate architectural questions by theme
+   - Announce investigation plan to user
+   - Focus on security, data flow, conventions
 
-*(For best results, Cursor users should use Max Mode for this step.)*
+4. **Autonomous Deep Dive & Synthesis**
+   - Perform deep semantic analysis
+   - Synthesize findings into principles
+   - Avoid over-engineering, favor pragmatic solutions
 
-### Step 3: Execute Tasks with Integrated Quality Gates
-**Role:** The AI acts as a **Paired Developer** with built-in quality validation.
+5. **Collaborative Validation (Checkpoint)**
+   - Present consolidated report
+   - Await user validation and corrections
+   - Document validated principles
 
-Here, the AI implements the plan one parent task at a time, within a dedicated chat session. Each session includes implementation + quality audit + retrospective for optimal context preservation.
+6. **Iterative Generation Phase 1: Documentation**
+   - Generate/update README.md files
+   - Create human-readable source of truth
+   - Iterate with user approval
 
-**🔄 Per Parent Task (New Chat Session):**
+7. **Iterative Generation Phase 2: Project Rules**
+   - Generate project-rules from READMEs
+   - Follow rule creation guidelines
+   - Validate with automation scripts
 
-1.  **Start a parent task in a fresh session:**
-    ```
-    Apply instructions from ai-driven-workflow/3-process-tasks.md to @tasks-my-feature.md. Start on task 1.
-    ```
-    *(Note: Replace `@tasks-my-feature.md` with the actual filename of your task list.)*
+#### Quality Gates
+- **Step 1:** All rules normalized and metadata validated
+- **Step 2:** Stack detection complete and confirmed
+- **Step 4:** All thematic questions answered with source quotes
+- **Step 5:** User validates understanding
+- **Step 6:** All READMEs generated and approved
+- **Step 7:** All rules generated and validated
 
-2.  **Implementation with Quick Reviews:**
-    - AI implements sub-tasks with **integrated quick validation**
-    - Critical issues are caught and fixed immediately
-    - You review and approve: **"yes"** or **"continue"**
+#### Automation Hooks
+- `normalize_project_rules.py` - Rule metadata normalization
+- `rules_audit_quick.py` - Rule compliance validation
+- Template discovery and inventory generation
 
-3.  **Protocol 4: Unified Quality Review (Same Session)**
-    Once the parent task is complete, use the unified review system by calling the central orchestrator:
-    
-    **🎯 Tool-Agnostic Command:**
-    ```
-    Apply instructions from ai-driven-workflow/4-quality-audit.md
-    ```
-    
-    **The orchestrator provides an interactive selection interface:**
-    - ☐ **Code Review** - DDD compliance + Code quality (quick feedback)
-    - ☐ **🚀 Run All** - Comprehensive 6-layer validation
-    - ☐ **Security Check** - Focus on auth/data/multi-tenant validation
-    - ☐ **Architecture Review** - Focus on performance + DDD architecture
-    - ☐ **Design System** - Component usage + Visual consistency
-    - ☐ **UI/UX & Accessibility** - WCAG compliance + Responsive design
-    - ☐ **Pre-Production Security** - Complete security validation
-    
-    **Automatic Fallback:** Custom protocols → Generic protocols (tool-agnostic)
-
-4.  **Protocol 5: Implementation Retrospective (Same Session)**
-    Capture learnings while context is fresh:
-    ```
-    Apply instructions from ai-driven-workflow/5-implementation-retrospective.md
-    ```
-
-5.  **Start the next parent task in a new chat:**
-    ```
-    Apply instructions from ai-driven-workflow/3-process-tasks.md to @tasks-my-feature.md. Start on task 2.
-    ```
+#### Outputs
+- `.cursor/context-kit/` directory with project knowledge base
+- Normalized rule files with proper metadata
+- Project scaffolding (optional via Project Generator)
+- Context Kit README with governance status
 
 ---
 
-### A Note on the Revolutionary Unified Workflow
+### Protocol 00: Client Discovery & Project Briefing
+**Role:** Client Discovery Specialist  
+**File:** `00-client-discovery.md`
 
-This streamlined 5-protocol workflow with a **unified review system** eliminates tool-specific complexity while maintaining all quality benefits. **Key improvements:**
+#### Purpose
+Transform any inbound job post, RFP, email, or partial brief into a structured, validated project brief with clear scope, constraints, risks, and acceptance criteria.
 
-- **Simplified entry point** with a single, central orchestrator
-- **Tool-agnostic design** works across Claude Code, Cursor, Aider
-- **Context optimization** through intelligent session management  
-- **Smart protocol selection** with automatic custom/generic fallback
-- **Interactive selection** prevents tool-specific confusion
-- **6-layer validation** including Design + UX coverage
+#### Prerequisites
+- Raw job post or project requirements
+- Access to project's architectural source of truth (README.md)
 
-**Tool-Specific Usage:**
+#### Execution Algorithm (6-Phase Process)
+1. **Intake & Normalization**
+   - Collect raw input between markers
+   - Detect domain hints (#domain, #deadline, #budget, #must)
+   - Normalize to raw-intake.md
+   - Gate: Intake completeness validation
 
-**Claude Code:** Use the `/review` command for interactive selection.
-**Cursor:** Use `@review` for interactive selection.
-**Aider:** Use `/load .cursor/ai-driven-workflow/4-quality-audit.md`
-**Universal:** All tools use the same underlying protocol system.
+2. **Signal Extraction**
+   - Extract core signals (objectives, users, deliverables, constraints, success metrics)
+   - Classify domain (Web/Mobile, Data/BI, ML/AI, Infrastructure, Other)
+   - Create evidence map with source quotes
+   - Gate: Evidence map complete
 
-The initial structured approach pays off exponentially as the AI learns your codebase patterns and becomes a true expert companion for your project with **predictable, high-quality output across any development tool**.
+3. **Clarification & Assumptions**
+   - Generate ≤10 targeted questions
+   - Propose assumptions v1 for gaps
+   - Present Q&A package to user
+   - Gate: Client Q&A ready
 
-## 3. Automation Integration Architecture
+4. **Risks & Dependencies**
+   - Identify risks (scope creep, data quality, compliance, technical, resource)
+   - Map dependencies (access, data, integration, approval)
+   - Create risk register with mitigations
+   - Gate: Risk register complete
 
-The ai-driven-workflow now includes comprehensive automation integration across all protocols, ensuring alignment, eliminating gaps, and creating a connected pipeline from client discovery to retrospective.
+5. **Draft Brief Assembly**
+   - Assemble project brief with all sections
+   - Generate acceptance criteria (SMART)
+   - Create supporting artifacts
+   - Gate: Self-check complete
+
+6. **Review Package**
+   - Bundle all artifacts
+   - Generate executive summary
+   - Internal quality validation
+   - Gate: Quality checks passed
+
+#### Quality Gates
+- **Phase 1:** All text captured, no truncation, hints extracted
+- **Phase 2:** All signals extracted with source quotes
+- **Phase 3:** ≤10 questions, clear assumptions documented
+- **Phase 4:** All risks identified with mitigations and owners
+- **Phase 5:** Brief complete, criteria measurable
+- **Phase 6:** All quality gates satisfied
+
+#### Automation Hooks
+- `validate_brief.py` - Brief validation and quality scoring
+- `score_risks.py` - Risk scoring by impact/likelihood
+- `classify_domain.py` - Domain classification with ML
+
+#### Outputs
+- `brief.md` - Complete project brief
+- `acceptance-criteria.md` - Measurable success criteria
+- `open-questions.md` - ≤10 prioritized questions
+- `stakeholders.md` - Roles and decision rights
+- `constraints.md` - Detailed constraint analysis
+- `risk-register.md` - Risks and mitigations
+- `one-pager.md` - Executive summary
+
+---
+
+### Protocol 00: Generate Cursor Rules Command
+**Role:** Rule Generation System  
+**File:** `00-generate-rules.md`
+
+#### Purpose
+Generate comprehensive, project-scoped Cursor rules based on actual repository context with stack-specific templates and metadata normalization.
+
+#### Prerequisites
+- Project with `.cursor/rules/` directory structure
+- Project documentation (README.md, package.json, etc.)
+- Optional: PROJECT-BRIEF.md for enhanced context
+
+#### Execution Algorithm (3-Phase Process)
+1. **Discovery Phase**
+   - Scan `.cursor/rules/` directory (master-rules, common-rules, project-rules)
+   - Detect legacy `.cursorrules` and parse for guidance
+   - Detect `AGENTS.md` and ingest agent instructions
+   - Read project docs (README.md, package.json, requirements.txt, etc.)
+   - Read `PROJECT-BRIEF.md` if present
+   - Scan nested rule roots for monorepos
+
+2. **Analysis Phase**
+   - Determine project type (frontend, backend, fullstack, monorepo)
+   - Identify primary frameworks/languages
+   - Map gaps: missing project-specific rules
+   - Plan rule set(s) to generate per detected stack
+
+3. **Generation Phase**
+   - Output to `.cursor/rules/project-rules/`
+   - Create framework-specific rules (React, FastAPI, etc.)
+   - Include YAML frontmatter with TAGS, TRIGGERS, SCOPE
+   - Add practical code examples and conventions
+   - Validate rule metadata and placement
+
+#### Quality Gates
+- Proper YAML frontmatter with required fields
+- Practical code examples included
+- Covers common development scenarios
+- Files placed under `.cursor/rules/project-rules/`
+- Rule length reasonable (<500 lines)
+- References use `[filename.ext](mdc:filename.ext)` format
+
+#### Automation Hooks
+- Rule metadata validation
+- CI job for rule file validation
+- Link checking for `mdc:` references
+
+#### Outputs
+- Framework-specific rule files (e.g., `react-app-structure.mdc`)
+- Backend architecture rules (e.g., `fastapi-backend-architecture.mdc`)
+- Fullstack integration conventions
+- Rule audit and validation reports
+
+## 4. Phase 1-2: Planning Protocols (PRD & Tasks)
+
+### Protocol 1: Implementation-Ready PRD Creation
+**Role:** Product Manager  
+**File:** `1-create-prd.md`
+
+#### Purpose
+Conduct focused interview to create implementation-ready PRD with complete technical specifications including data schemas, API contracts, UI workflows, and business logic.
+
+#### Prerequisites
+- Project's overall architecture understood (README.md or architecture guide)
+- Clear feature requirements or modification request
+- Access to Architectural Decision Matrix
+
+#### Execution Algorithm (4-Phase Process)
+1. **Analysis and Scoping**
+   - Initial qualification: Creating new vs modifying existing feature
+   - Path A (New): Core business need, feature type classification
+   - Path B (Modify): Current behavior, desired behavior, involved files, regression risks
+   - Announce detected implementation layer
+   - Validate placement with user
+
+2. **Specifications by Layer**
+   - Frontend Application: User stories, wireframes, responsiveness, API integration
+   - Backend Service: API routes, HTTP methods, request/response schemas, business logic
+   - Central API: CRUD operations, database access patterns
+   - Object Storage: File structure, caching strategy, versioning
+
+3. **Architectural Constraints**
+   - Verify proposed interactions respect communication rules
+   - Validate allowed flows (UI → Central API: GET only, etc.)
+   - Check prohibited flows (UI → Database: Direct access forbidden)
+
+4. **Synthesis and Generation**
+   - Summarize architecture with detected layer and communications
+   - Final validation with user
+   - Generate complete PRD with all sections
+
+#### Quality Gates
+- **Phase 1:** Implementation layer correctly identified and validated
+- **Phase 2:** All layer-specific requirements captured
+- **Phase 3:** Architectural constraints respected
+- **Phase 4:** PRD complete and user-approved
+
+#### Automation Hooks
+- `generate_prd_assets.py` - Generate user stories, data schemas, API contracts
+- `validate_prd_gate.py` - PRD completeness validation (score ≥ 85)
+
+#### Outputs
+- `prd-{feature-name}.md` - Complete PRD with technical specifications
+- API contracts and data schemas
+- Architecture diagrams and communication flows
+- Implementation-ready artifacts for Protocol 2
+
+---
+
+### Protocol 2: Technical Task Generation
+**Role:** Tech Lead  
+**File:** `2-generate-tasks.md`
+
+#### Purpose
+Transform PRD into simple, actionable plan with minimum viable steps, guiding implementation with structured action list.
+
+#### Prerequisites
+- PRD file (e.g., `prd-my-cool-feature.md`)
+- Information about primary implementation layer
+- Access to project rules and context
+
+#### Execution Algorithm (4-Phase Process)
+1. **Rule Indexing and Context Preparation**
+   - Build rule index: find all rule directories
+   - Parse rule metadata from all files
+   - Create in-memory index for compliance
+   - Identify top LLM models & personas via web search
+   - Identify implementation layers (primary + secondary)
+   - Duplicate prevention for UI components
+   - Git branch proposal (optional)
+
+2. **High-Level Task Generation and Validation**
+   - Create task file in `/tasks` or `/docs` directory
+   - Generate high-level tasks (UI Component, Backend Route, Integration Testing, Documentation)
+   - Add WHY context for each high-level task
+   - Identify task dependencies with `[DEPENDS ON: ...]` format
+   - Task complexity assessment (Simple/Complex)
+   - High-level validation with user confirmation
+
+3. **Detailed Breakdown by Layer**
+   - Decomposition using templates (Frontend, Backend, Global State)
+   - Apply rules to every sub-task with `[APPLIES RULES: ...]`
+   - Assign model personas to high-level tasks
+   - Populate placeholders with specific names from PRD
+   - Finalize and save complete Markdown document
+
+4. **Automation Hook Annotation**
+   - Identify automation opportunities (testing, linting, deployment, reporting)
+   - Add `Automation:` metadata to high-level tasks
+   - Parameterize automation with placeholders
+   - Validate automation references exist and are executable
+
+#### Quality Gates
+- **Phase 1:** Rule index complete, LLM models identified, layers mapped
+- **Phase 2:** High-level tasks generated with WHY statements and dependencies
+- **Phase 3:** All sub-tasks decomposed with rule applications
+- **Phase 4:** Automation hooks validated and executable
+
+#### Automation Hooks
+- `validate_tasks.py` - Task file completeness and quality validation
+- `enrich_tasks.py` - Add estimated effort, risk flags, automation coverage
+- `validate_automation_hooks.py` - Verify automation references exist
+
+#### Outputs
+- `tasks-{prd-name}.md` - Complete technical execution plan
+- High-level tasks with WHY statements and complexity assessments
+- Detailed sub-tasks with rule applications and dependencies
+- Automation hooks for CI/CD integration
+- Model persona recommendations for execution
+
+## 5. Phase 3: Execution Protocol
+
+### Protocol 3: Controlled Task Execution
+**Role:** AI Paired Developer  
+**File:** `3-process-tasks.md`
+
+#### Purpose
+Execute technical task plan from Markdown file sequentially and meticulously, following protocol strictly in execution loop until all tasks complete.
+
+#### Prerequisites
+- Task plan file (e.g., `tasks-my-feature.md`)
+- Clean chat session for optimal context preservation
+- Environment validation complete
+
+#### Execution Algorithm (Execution Loop + Quality Gates)
+**Pre-Execution Checks:**
+1. **Environment Validation**
+   - Check tool versions (`supabase`, `pnpm`, `wrangler`, `node`)
+   - Test database connectivity (`supabase status`)
+   - Announce detected infrastructure
+
+2. **Production Readiness Validation**
+   - Confirm implementation follows production-readiness standards
+   - No mock data, proper validation, configuration management
+
+3. **Model Check (Critical)**
+   - Identify target parent task from user instruction
+   - Verify recommended model from task file
+   - Announce model and await confirmation
+   - Halt until explicit user confirmation (`Go`)
+
+**Main Execution Loop:**
+```
+WHILE there are unchecked [ ] sub-tasks for CURRENT parent task:
+  1. Sub-Task Context Loading
+     - Identify next unchecked sub-task
+     - Load just-in-time rule context from [APPLIES RULES: ...]
+     - Read each rule file into active context
+     - Platform documentation check if needed
+     - Announce task execution
+
+  2. Execution
+     - Execute task using available tools
+     - Apply loaded rules strictly
+     - Continuous rule compliance validation
+     - Self-verification against task criteria
+     - Integrated quick review for critical changes
+     - Error handling: STOP on failure
+
+  3. Update and Synchronize
+     - Update task file: [ ] → [x]
+     - Hybrid commit strategy: granular commits per sub-task
+     - Parent task completion checkpoint
+     - Mandatory quality gate execution
+     - CI workflow status check
+     - Evidence capture and state sync
+
+  4. Enhanced Checkpoint
+     - Single validation point
+     - Execution mode awareness (Focus/Continuous)
+     - Mandatory quality gate for parent task completion
+     - Resume on user confirmation
+```
+
+#### Quality Gates
+- **Pre-Execution:** Environment ready, production standards confirmed, model verified
+- **Per Sub-Task:** Task complete, rule compliance verified, commit created
+- **Per Parent Task:** All sub-tasks complete, quality audit passed, CI status checked
+- **Error Handling:** Immediate stop on failure, await user instructions
+
+#### Automation Hooks
+- `update_task_state.py` - Task state synchronization to central tracker
+- `evidence_report.py` - Evidence capture for current task
+- CI workflow integration (`ci-test.yml`, `ci-lint.yml`, `ci-deploy.yml`)
+
+#### Outputs
+- Completed code implementation
+- Granular commits with descriptive messages
+- Evidence artifacts for retrospective
+- Quality audit reports
+- CI workflow status and results
+- Task state synchronization data
+
+## 6. Phase 4: Quality Assurance Protocols
+
+### Protocol 4: Quality Audit Orchestrator
+**Role:** Senior Quality Engineer / Audit Orchestrator  
+**File:** `4-quality-audit.md`
+
+#### Purpose
+Orchestrate execution of specialized review protocols with intelligent routing, unified reporting, and comprehensive quality validation.
+
+#### Prerequisites
+- Implementation complete (Protocol 3 finished)
+- Access to review protocols and utilities
+- CI/CD workflows available for execution
+
+#### Execution Algorithm (Orchestration Process)
+1. **Pre-Audit: Automation Enhancement**
+   - Execute CI workflows (`ci-test.yml`, `ci-lint.yml` via `run_workflow.py`)
+   - Aggregate coverage data (`aggregate_coverage.py`)
+   - Validate CI status and results
+
+2. **Mode Determination**
+   - Activated with `--mode` flag: `quick`, `security`, `architecture`, `design`, `ui`, `deep-security`, `comprehensive`
+   - Default: Interactive selection interface
+   - Tool-agnostic command execution
+
+3. **Context Analysis & Protocol Routing**
+   - Use `_review-router.md` for intelligent fallback
+   - Custom protocols → Generic protocols
+   - Context-aware protocol selection
+
+4. **Protocol Execution**
+   - Load determined protocol file
+   - Execute specialized review instructions
+   - Collect findings and evidence
+
+5. **Unified Reporting**
+   - Consolidate findings into standardized report
+   - Include CI results and coverage data
+   - Generate actionable recommendations
+
+#### Quality Gates
+- **Pre-Audit:** CI workflows executed successfully
+- **Mode Selection:** Appropriate protocol determined
+- **Execution:** All review layers completed
+- **Reporting:** Comprehensive findings documented
+
+#### Automation Hooks
+- `run_workflow.py` - CI workflow orchestration
+- `aggregate_coverage.py` - Coverage data aggregation
+- Protocol-specific validation scripts
+
+#### Outputs
+- Comprehensive quality report
+- CI workflow results and status
+- Coverage data and metrics
+- Actionable remediation steps
+- Evidence artifacts for retrospective
+
+---
+
+### Review Protocols
+
+#### Architecture Review Protocol
+**File:** `review-protocols/architecture-review.md`
+
+**Purpose:** Generic Architecture-Focused Validation  
+**Audit Framework:** LAYER 1 (Software Design & Architecture Compliance) + LAYER 4 (Architecture & Performance)
+
+**Execution Algorithm:**
+1. **Boundary Analysis** - Module boundaries, service boundaries, data flow
+2. **Communication Scan** - Inter-module communication, API contracts
+3. **Pattern Review** - SOLID principles, design patterns, anti-patterns
+4. **Performance Check** - Application performance, efficiency, concerns
+
+**Quality Gates:** Architectural health score, critical violations identified, recommendations prioritized
+
+**Outputs:** Architecture health report, violation list, performance recommendations
+
+---
+
+#### Code Review Protocol
+**File:** `review-protocols/code-review.md`
+
+**Purpose:** Generic Quick Review  
+**Audit Framework:** LAYER 1 (Software Design Compliance) + LAYER 3 (Code Quality & Craftsmanship)
+
+**Execution Algorithm:**
+1. **Design Check** - Module boundaries, inter-module communication
+2. **Quality Scan** - Master rules compliance, code craftsmanship
+3. **Craftsmanship Review** - Anti-patterns, best practices
+
+**Quality Gates:** Code quality score, critical violations identified, remediation steps defined
+
+**Outputs:** Code quality report, anti-pattern identification, craftsmanship recommendations
+
+---
+
+#### Design System Review Protocol
+**File:** `review-protocols/design-system.md`
+
+**Purpose:** Generic Design System Review  
+**Audit Framework:** LAYER 1 (DDD) + LAYER 5 (Design) with design token compliance
+
+**Execution Algorithm:**
+1. **Component Architecture** - Component usage, consistency, reusability
+2. **Brand Guidelines** - Visual consistency, brand compliance
+3. **Design Token Usage** - Token implementation, consistency
+4. **Design System Compliance** - System adherence, patterns
+
+**Quality Gates:** Design system score, brand compliance status, component analysis complete
+
+**Outputs:** Design system health report, brand compliance status, component recommendations
+
+---
+
+#### Pre-Production Security Protocol
+**File:** `review-protocols/pre-production.md`
+
+**Purpose:** Generic Deep Security Audit  
+**Audit Framework:** LAYER 2 (Security & Multi-Tenant Assurance) + LAYER 7 (Testing & Maintainability)
+
+**Execution Algorithm:**
+1. **Deep Security Scan** - Module security, multi-tenant protection, vulnerability assessment
+2. **Testing Coverage Analysis** - Test coverage, maintainability review
+3. **Dependency Audit** - Security vulnerabilities, dependency management
+
+**Quality Gates:** Security audit complete, test coverage analyzed, dependencies validated
+
+**Outputs:** Production readiness assessment, security audit report, test coverage analysis
+
+---
+
+#### Security Check Protocol
+**File:** `review-protocols/security-check.md`
+
+**Purpose:** Generic Security-Focused Audit  
+**Audit Framework:** LAYER 2 (Security & Multi-Tenant Assurance)
+
+**Execution Algorithm:**
+1. **Boundary Security Check** - Module security, boundary validation
+2. **Data Protection Scan** - Multi-tenant data protection, RLS policies
+3. **Vulnerability Scan** - SQL injection, auth bypass, security holes
+4. **Communication Security** - Secure communication patterns
+
+**Quality Gates:** Security vulnerabilities identified, critical findings documented, remediation steps defined
+
+**Outputs:** Security vulnerability report, critical findings, actionable remediation steps
+
+---
+
+#### UI Accessibility Review Protocol
+**File:** `review-protocols/ui-accessibility.md`
+
+**Purpose:** Generic UI/UX Accessibility Review  
+**Audit Framework:** LAYER 1 (DDD) + LAYER 6 (UI/UX) with WCAG AA+ compliance
+
+**Execution Algorithm:**
+1. **WCAG Compliance** - AA+ standards, accessibility patterns
+2. **Responsive Design** - Mobile-first, breakpoint validation
+3. **UX Patterns** - User experience patterns, interaction flow
+4. **Performance UX** - Core Web Vitals, loading performance
+5. **Multi-Tenant UX** - Tenant isolation, user experience consistency
+
+**Quality Gates:** WCAG compliance verified, responsive design validated, UX patterns assessed
+
+**Outputs:** Accessibility score, WCAG metrics, Core Web Vitals analysis, UX improvement recommendations
+
+---
+
+### Review Utilities
+
+#### Review Router Protocol
+**File:** `review-protocols/utils/_review-router.md`
+
+**Purpose:** Centralized Review Router for Portfolio Dashboard Stack  
+**Algorithm:** Intelligent custom ↔ generic fallback logic
+
+**Execution Algorithm:**
+1. **Environment Detection** - Check for `custom/` directory existence
+2. **Protocol-Specific Selection** - Select custom or generic protocol based on availability
+3. **Tool Adapter Integration** - Standard usage pattern for `/review` command
+4. **Fallback Logic** - Automatic fallback from custom to generic protocols
+
+**Quality Gates:** Protocol selection complete, fallback logic validated, tool integration confirmed
+
+**Outputs:** Selected protocol path, execution mode, fallback decisions
+
+---
+
+#### Context Analyzer Protocol
+**File:** `review-protocols/utils/context-analyzer.md`
+
+**Purpose:** Enhanced Static Review: Context Analyzer  
+**Algorithm:** Intelligent context analysis for Enhanced Static Review
+
+**Execution Algorithm:**
+1. **Change Pattern Detection** - Analyze git changes for context (auth, security, data, ui, api, config, test, docs)
+2. **Rule Relevance Matching** - Map changes to relevant master rules
+3. **Smart Protocol Selection** - Recommend appropriate review protocol based on context
+
+**Quality Gates:** Context analysis complete, rule relevance mapped, protocol recommendation generated
+
+**Outputs:** ChangeContext analysis, RelevantRules mapping, ProtocolRecommendation with confidence
+
+---
+
+#### Enhanced Static Template Protocol
+**File:** `review-protocols/utils/enhanced-static-template.md`
+
+**Purpose:** Template for Enhanced Static Protocol for MicroSaaS Custom Protocols  
+**Algorithm:** Template structure for Enhanced Static Review
+
+**Execution Algorithm:**
+1. **Header Definition** - Protocol name, mode, layers, duration, usage
+2. **Context Analysis** - MicroSaaS-specific context analysis
+3. **Enhanced Validation** - Rule injection, critical rules, context-triggered rules
+4. **Static Framework** - Existing content enhanced with intelligence
+
+**Quality Gates:** Template structure complete, context analysis integrated, validation enhanced
+
+**Outputs:** Protocol template structure, protocol-specific mappings, enhanced execution instructions
+
+---
+
+#### Enhanced Static Validation Protocol
+**File:** `review-protocols/utils/enhanced-static-validation.md`
+
+**Purpose:** Enhanced Static Review: Validation & Testing Framework  
+**Algorithm:** Baseline comparison → Performance benchmark → Reliability stress → UX validation
+
+**Execution Algorithm:**
+1. **Baseline Comparison Testing** - Test metrics (efficiency, accuracy, reliability)
+2. **Performance Benchmarking** - Static baseline vs enhanced targets
+3. **Reliability Stress Testing** - Edge case scenarios, degradation testing
+4. **User Experience Validation** - UX flow testing, satisfaction metrics
+
+**Quality Gates:** Test scenarios complete, performance benchmarks established, reliability validated
+
+**Outputs:** Test metrics, performance benchmarks, UX satisfaction scores, success criteria
+
+---
+
+#### Rule Injection System Protocol
+**File:** `review-protocols/utils/rule-injection-system.md`
+
+**Purpose:** Enhanced Static Review: Rule Injection System  
+**Algorithm:** Rule registry → Context filtering → Protocol enhancement → Execution
+
+**Execution Algorithm:**
+1. **Rule Registry System** - Master rule interface, rule categories
+2. **Context-Based Rule Filtering** - Rule match engine, analyze context, filter relevant rules
+3. **Protocol Enhancement System** - Enhanced protocol template, implementation examples
+
+**Quality Gates:** Rule registry complete, context filtering validated, protocol enhancement confirmed
+
+**Outputs:** FilteredRules (critical/high/medium/low), EnhancedProtocol with injected rules
+
+---
+
+## 7. Phase 5: Continuous Improvement Protocol
+
+### Protocol 5: Implementation Retrospective
+**Role:** Process Improvement Lead  
+**File:** `5-implementation-retrospective.md`
+
+#### Purpose
+Perform quick code review, focused retrospective, and generate concrete improvement actions for future AI collaboration.
+
+#### Prerequisites
+- Final task sign-off complete
+- Evidence artifacts available
+- Access to rule audit and evidence reports
+
+#### Execution Algorithm (2-Phase Process)
+**Pre-Retrospective: Automation Enhancement**
+1. **Evidence Aggregation**
+   - Execute `retrospective_rules_audit.py` for rule compliance analysis
+   - Execute `retrospective_evidence_report.py` for evidence aggregation
+   - Aggregate evidence artifacts from all phases
+   - Include CI/CD outcomes and quality reports
+
+**Phase 1: Technical Self-Review and Compliance Analysis**
+1. **Context Discovery**
+   - Invoke Context Discovery protocol (`1-master-rule-context-discovery`)
+   - Load all relevant rules and protocols
+
+2. **Rule Compliance Verification**
+   - Verify rule location and classification
+   - Check rule naming conventions
+   - Validate discovery protocol compliance
+
+3. **Conversation Review**
+   - Identify manual interventions and corrections
+   - Analyze AI performance and accuracy
+   - Document process improvements
+
+4. **Source Code Audit**
+   - Audit source code against loaded rules
+   - Identify rule coverage gaps
+   - Document compliance issues
+
+5. **Synthesis**
+   - Generate hypotheses about rule effectiveness
+   - Analyze rule creation and maintenance issues
+   - Identify over-engineering patterns
+
+**Phase 2: Collaborative Retrospective with User**
+1. **Retrospective Initiation**
+   - Present self-review findings
+   - Conduct process analysis
+   - Propose concrete improvement actions
+
+2. **Process Analysis**
+   - Communication efficiency
+   - Technical execution quality
+   - Process flow optimization
+   - Rule/guideline effectiveness
+   - User experience assessment
+   - Outcome quality evaluation
+
+3. **Improvement Actions**
+   - Generate specific, actionable improvements
+   - Validate with user
+   - Document lessons learned
+
+#### Quality Gates
+- **Pre-Retrospective:** Evidence aggregated, rule audit complete
+- **Phase 1:** Self-review complete, compliance verified, synthesis generated
+- **Phase 2:** Process analysis complete, improvements validated
+
+#### Automation Hooks
+- `retrospective_rules_audit.py` - Rule audit for retrospective analysis
+- `retrospective_evidence_report.py` - Evidence aggregation and analysis
+
+#### Outputs
+- Retrospective report with findings and recommendations
+- Rule updates and improvements
+- Process optimization actions
+- Lessons learned documentation
+- Evidence-based improvement plan
+
+## 8. Automation Integration Architecture
+
+The ai-driven-workflow includes comprehensive automation integration across all protocols, ensuring alignment, eliminating gaps, and creating a connected pipeline from client discovery to retrospective.
 
 ### Automation Flow Map
 
@@ -181,12 +849,12 @@ Each protocol includes automation checkpoints that validate:
 | 4 | CI workflows executed, coverage aggregated | CI status checked |
 | 5 | Rule audit complete, evidence aggregated | Audit complete |
 
-## 4. Quick Start with Automation
+## 9. Quick Start Guide
 
-### Step 0: Client Discovery (New)
-**Role:** The AI acts as a **Client Discovery Specialist**.
+### Step 0: Client Discovery
+**Role:** Client Discovery Specialist
 
-Transform any job post into a structured project brief with automated validation:
+Transform any job post into a structured project brief:
 
 ```
 Apply instructions from ai-driven-workflow/00-client-discovery.md
@@ -196,65 +864,76 @@ Apply instructions from ai-driven-workflow/00-client-discovery.md
 --- JOB POST END ---
 ```
 
-**Automation:** Brief validation, risk scoring, domain classification
-
-### Step 1: Bootstrap with Automation
-**Role:** The AI acts as a **Project Analyst** with automation.
+### Step 1: Bootstrap Your Project
+**Role:** Project Analyst
 
 ```
 Apply instructions from ai-driven-workflow/0-bootstrap-your-project.md
 ```
 
-**Automation:** Rule normalization, rule audit, template discovery
-
-### Step 2: PRD Creation with Automation
-**Role:** The AI acts as a **Product Manager** with asset generation.
+### Step 2: Create PRD
+**Role:** Product Manager
 
 ```
 Apply instructions from ai-driven-workflow/1-create-prd.md
+
+Here's the feature I want to build: [Describe your feature in detail]
 ```
 
-**Automation:** PRD asset generation, validation gate
-
-### Step 3: Task Generation with Automation
-**Role:** The AI acts as a **Tech Lead** with task enhancement.
+### Step 3: Generate Tasks
+**Role:** Tech Lead
 
 ```
 Apply instructions from ai-driven-workflow/2-generate-tasks.md to @prd-my-feature.md
 ```
 
-**Automation:** Task validation, task enrichment
-
-### Step 4: Execution with Automation
-**Role:** The AI acts as a **Paired Developer** with evidence capture.
+### Step 4: Execute Tasks
+**Role:** Paired Developer
 
 ```
 Apply instructions from ai-driven-workflow/3-process-tasks.md to @tasks-my-feature.md. Start on task 1.
 ```
 
-**Automation:** Task state sync, evidence capture
-
-### Step 5: Quality Audit with Automation
-**Role:** The AI acts as a **Quality Engineer** with CI integration.
+### Step 5: Quality Audit
+**Role:** Quality Engineer
 
 ```
 Apply instructions from ai-driven-workflow/4-quality-audit.md
 ```
 
-**Automation:** CI workflow execution, coverage aggregation
-
-### Step 6: Retrospective with Automation
-**Role:** The AI acts as a **Process Improvement Lead** with evidence analysis.
+### Step 6: Retrospective
+**Role:** Process Improvement Lead
 
 ```
 Apply instructions from ai-driven-workflow/5-implementation-retrospective.md
 ```
 
-**Automation:** Rule audit, evidence aggregation
+## 10. Protocol Selection Guide
 
-## 5. Troubleshooting Quick Reference
+### When to Use Which Protocol
 
-### Common Automation Issues
+| Phase | Protocol | When to Use | Prerequisites |
+|-------|----------|-------------|---------------|
+| 0 | Bootstrap | New project setup, rule configuration | Project repository |
+| 0 | Client Discovery | Job post analysis, requirement gathering | Raw requirements |
+| 0 | Generate Rules | Project-specific rule creation | Bootstrap complete |
+| 1 | Create PRD | Feature specification, technical design | Brief validated |
+| 2 | Generate Tasks | Implementation planning, task breakdown | PRD complete |
+| 3 | Process Tasks | Code implementation, execution | Tasks generated |
+| 4 | Quality Audit | Code review, quality validation | Implementation complete |
+| 5 | Retrospective | Process improvement, lessons learned | Quality audit complete |
+
+### Dependencies and Prerequisites
+
+- **Phase 0** (Foundation): No dependencies, entry point
+- **Phase 1-2** (Planning): Requires Phase 0 completion
+- **Phase 3** (Execution): Requires Phase 1-2 completion
+- **Phase 4** (Quality): Requires Phase 3 completion
+- **Phase 5** (Retrospective): Requires Phase 4 completion
+
+## 11. Troubleshooting
+
+### Common Issues
 
 **Issue:** Script not found
 ```
@@ -293,13 +972,13 @@ bash scripts/test_workflow_integration.sh
 python scripts/validate_brief.py brief.md --verbose
 ```
 
-## 6. Documentation References
+## 12. Documentation References
 
 - **[INTEGRATION-GUIDE.md](INTEGRATION-GUIDE.md)** - Complete automation integration documentation
 - **[VALIDATION-GUIDE.md](VALIDATION-GUIDE.md)** - Validation system documentation
 - **[Protocol Files](.)** - Individual protocol documentation
 
-## 7. Continuous Validation
+## 13. Continuous Validation
 
 The workflow includes continuous validation through:
 - **GitHub Actions**: Automated validation on every commit
@@ -309,16 +988,18 @@ The workflow includes continuous validation through:
 
 ---
 
-## 8. Folder Overview and Key Files
+## 14. Folder Overview and Key Files
 
 This directory contains the end-to-end ai-driven-workflow protocols and the unified quality review system used throughout the repository.
 
 ### Directory structure (high level)
 
-- `README.md` – Overview and usage of the 5‑protocol lifecycle with automation
+- `README.md` – Overview and usage of the 33-protocol lifecycle with automation
 - `INTEGRATION-GUIDE.md` – Detailed automation integration guide
 - `VALIDATION-GUIDE.md` – Validation and quality gate details
 - `0-bootstrap-your-project.md` – Protocol 0 bootstrap procedure
+- `00-client-discovery.md` – Protocol 00 client discovery
+- `00-generate-rules.md` – Protocol 00 rule generation command
 - `1-create-prd.md` – Protocol 1 PRD creation
 - `2-generate-tasks.md` – Protocol 2 task generation
 - `3-process-tasks.md` – Protocol 3 controlled execution
@@ -334,6 +1015,8 @@ This directory contains the end-to-end ai-driven-workflow protocols and the unif
 ### Quick links (protocol entry points)
 
 - Bootstrap → `0-bootstrap-your-project.md`
+- Discovery → `00-client-discovery.md`
+- Rules → `00-generate-rules.md`
 - PRD → `1-create-prd.md`
 - Tasks → `2-generate-tasks.md`
 - Execute → `3-process-tasks.md`
@@ -343,4 +1026,5 @@ This directory contains the end-to-end ai-driven-workflow protocols and the unif
 ### Notes on advanced features
 
 - Interactive, tool‑agnostic review selection is centralized in `4-quality-audit.md` and routes through `_review-router.md` for automatic custom↔generic fallback.
-- Automation checkpoints and evidence capture are integrated across protocols (see tables above) to maintain auditable execution.
+- Automation checkpoints and evidence capture are integrated across protocols to maintain auditable execution.
+- All 33 protocols documented with complete execution logic, quality gates, automation hooks, and outputs.
