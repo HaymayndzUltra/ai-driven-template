@@ -1,0 +1,28 @@
+[
+  {
+    "id": "1.0",
+    "area": "frontend",
+    "persona": "system-integrator",
+    "acceptance": [
+      "renders without console errors",
+      "unit/E2E tests added",
+      "a11y/lint passes"
+    ],
+    "blocked_by": [],
+    "state": "pending"
+  },
+  {
+    "id": "1.1",
+    "blocked_by": [
+      "1.0"
+    ],
+    "area": "frontend",
+    "persona": "system-integrator",
+    "acceptance": [
+      "renders without console errors",
+      "unit/E2E tests added",
+      "a11y/lint passes"
+    ],
+    "state": "pending"
+  }
+]

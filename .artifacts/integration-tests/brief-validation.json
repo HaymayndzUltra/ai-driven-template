@@ -1,0 +1,30 @@
+{
+  "status": "pass",
+  "score": 85,
+  "issues": [
+    "Missing required section: risks-dependencies"
+  ],
+  "warnings": [
+    "objectives: Missing keywords: problem, solution, value",
+    "deliverables: Missing keywords: build, create, develop, deliver",
+    "constraints: Missing keywords: compliance",
+    "success-metrics: Missing keywords: measure, metric, kpi, success",
+    "acceptance-criteria: Missing keywords: must, should, criteria"
+  ],
+  "sections_found": [
+    "project-overview",
+    "objectives",
+    "target-users",
+    "deliverables",
+    "constraints",
+    "success-metrics",
+    "acceptance-criteria"
+  ],
+  "quality_scores": {
+    "objectives": 80.0,
+    "deliverables": 80.0,
+    "constraints": 95.0,
+    "success-metrics": 80.0,
+    "acceptance-criteria": 80.0
+  }
+}

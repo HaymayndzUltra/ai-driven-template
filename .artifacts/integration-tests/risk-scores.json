@@ -1,0 +1,80 @@
+{
+  "status": "success",
+  "total_risks": 4,
+  "risks": [
+    {
+      "description": "Data quality issues in Excel files",
+      "impact": "medium",
+      "likelihood": "medium",
+      "category": "quality",
+      "score": 4,
+      "level": "medium",
+      "mitigation": null
+    },
+    {
+      "description": "Tableau licensing requirements",
+      "impact": "medium",
+      "likelihood": "medium",
+      "category": "general",
+      "score": 4,
+      "level": "medium",
+      "mitigation": null
+    },
+    {
+      "description": "Client availability for feedback sessions",
+      "impact": "medium",
+      "likelihood": "medium",
+      "category": "general",
+      "score": 4,
+      "level": "medium",
+      "mitigation": null
+    },
+    {
+      "description": "Excel file format variations",
+      "impact": "medium",
+      "likelihood": "medium",
+      "category": "general",
+      "score": 4,
+      "level": "medium",
+      "mitigation": null
+    }
+  ],
+  "risk_matrix": {
+    "critical": [],
+    "high": [],
+    "medium": [
+      {
+        "description": "Data quality issues in Excel files",
+        "score": 4,
+        "category": "quality"
+      },
+      {
+        "description": "Tableau licensing requirements",
+        "score": 4,
+        "category": "general"
+      },
+      {
+        "description": "Client availability for feedback sessions",
+        "score": 4,
+        "category": "general"
+      },
+      {
+        "description": "Excel file format variations",
+        "score": 4,
+        "category": "general"
+      }
+    ],
+    "low": []
+  },
+  "recommendations": [
+    "\ud83c\udfaf General: Focus risk management efforts on general risks"
+  ],
+  "summary": {
+    "total": 4,
+    "average_score": 4.0,
+    "distribution": {
+      "medium": 4
+    },
+    "highest_risk": "Data quality issues in Excel files"
+  }
+}

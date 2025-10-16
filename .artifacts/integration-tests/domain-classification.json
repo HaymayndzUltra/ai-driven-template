@@ -1,0 +1,20 @@
+{
+  "status": "success",
+  "classification": {
+    "primary_domain": "data-bi",
+    "confidence": 1.0,
+    "secondary_domains": [],
+    "keywords_found": [
+      "data",
+      "dashboard",
+      "tableau",
+      "excel",
+      "metrics",
+      "insight",
+      "real estate",
+      "loan",
+      "financial"
+    ],
+    "reasoning": "Classified as Data/BI Analytics with 100.0% confidence. Key indicators: data, dashboard, tableau, excel, metrics High confidence classification."
+  }
+}

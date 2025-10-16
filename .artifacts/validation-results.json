@@ -1,0 +1,29 @@
+{
+  "status": "pass",
+  "summary": {
+    "total_checks": 31,
+    "passed": 31,
+    "failed": 0,
+    "warnings": 0
+  },
+  "alignment": {
+    "protocol_00": "\u2705 aligned",
+    "protocol_0": "\u2705 aligned",
+    "protocol_1": "\u2705 aligned",
+    "protocol_2": "\u2705 aligned",
+    "protocol_3": "\u2705 aligned",
+    "protocol_4": "\u2705 aligned",
+    "protocol_5": "\u2705 aligned"
+  },
+  "connectivity": {
+    "00\u21920": "\u2705 connected",
+    "0\u21921": "\u2705 connected",
+    "1\u21922": "\u2705 connected",
+    "2\u21923": "\u2705 connected",
+    "3\u21924": "\u2705 connected",
+    "4\u21925": "\u2705 connected"
+  },
+  "conflicts": [],
+  "issues": [],
+  "recommendations": []
+}
